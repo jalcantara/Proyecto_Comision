@@ -43,16 +43,16 @@ public class BLTraspaso {
         }
         return resultado;
     }
+
     public ArrayList<ListaTraspasos> get_cliente_all_byclientenuevoantiguo(String condicion) {
-        ArrayList<ListaTraspasos> list=new ArrayList<>();
+        ArrayList<ListaTraspasos> list = new ArrayList<>();
         try {
-            BDTraspaso t=new BDTraspaso();
-            list=t.get_traspaso_byclientenuevoantiguo(condicion);
-        } 
-        catch (Exception e) {
+            BDTraspaso t = new BDTraspaso();
+            list = t.get_traspaso_byclientenuevoantiguo(condicion);
+        } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Error de Listado traspasos -  Controlador"+e.getMessage());
+            System.out.println("Error de Listado traspasos -  Controlador" + e.getMessage());
         }
-        return  list;
+        return list;
     }
 }

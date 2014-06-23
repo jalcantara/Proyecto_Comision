@@ -4503,6 +4503,11 @@ public class Inicio extends javax.swing.JFrame {
         btn_Cancelar_Usuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/Cancel-icon.png"))); // NOI18N
         btn_Cancelar_Usuario.setText("CANCELAR");
         btn_Cancelar_Usuario.setIconTextGap(8);
+        btn_Cancelar_Usuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_Cancelar_UsuarioActionPerformed(evt);
+            }
+        });
 
         jLabel41.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel41.setText("PASSWORD:");
@@ -4520,7 +4525,7 @@ public class Inicio extends javax.swing.JFrame {
         jPanel46Layout.setHorizontalGroup(
             jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel46Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addGap(32, 32, 32)
                 .addGroup(jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel46Layout.createSequentialGroup()
                         .addGroup(jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -4558,27 +4563,25 @@ public class Inicio extends javax.swing.JFrame {
                             .addComponent(jLabel107)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(txtTeleCelular_Usuario))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel46Layout.createSequentialGroup()
-                            .addGroup(jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(jPanel46Layout.createSequentialGroup()
-                                    .addComponent(btn_Guardar_Usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(btn_Cancelar_Usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel46Layout.createSequentialGroup()
-                                    .addGroup(jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel108)
-                                        .addComponent(jLabel106))
-                                    .addGap(75, 75, 75)
-                                    .addGroup(jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(txtDireccion_Usuario, javax.swing.GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE)
-                                        .addComponent(txtEmail_Usuario))))
-                            .addGap(0, 0, Short.MAX_VALUE))))
-                .addContainerGap(57, Short.MAX_VALUE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel46Layout.createSequentialGroup()
+                                .addComponent(btn_Guardar_Usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btn_Cancelar_Usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel46Layout.createSequentialGroup()
+                                .addGroup(jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel108)
+                                    .addComponent(jLabel106))
+                                .addGap(75, 75, 75)
+                                .addGroup(jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtDireccion_Usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 442, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtEmail_Usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 442, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
         jPanel46Layout.setVerticalGroup(
             jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel46Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addGap(32, 32, 32)
                 .addGroup(jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel95)
                     .addComponent(txtID_Usuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -4620,7 +4623,7 @@ public class Inicio extends javax.swing.JFrame {
                 .addGroup(jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btn_Guardar_Usuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btn_Cancelar_Usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(58, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         jTabbedPane10.addTab("REGISTRAR  ", new javax.swing.ImageIcon(getClass().getResource("/recurso/agricultor.png")), jPanel46); // NOI18N
@@ -5663,11 +5666,20 @@ public class Inicio extends javax.swing.JFrame {
                     && txtdni_usuario.getText().compareTo("") != 0 && txtnombres_usuario.getText().compareTo("") != 0
                     && txtapellidos_usuario.getText().compareTo("") != 0 && txtTeleCelular_Usuario.getText().compareTo("") != 0
                     && txtFechaNacimiento_Usuario.getDate() != null) {
-                /*if (new BLUsuario().Registrar(txtComite_Registrar.getText())) {
+                if (new BLUsuario().Registrar(txtID_Usuario.getText(),
+                        txtpass_usuario.getPassword().toString(),
+                        txtdni_usuario.getText(),
+                        txtnombres_usuario.getText(),
+                        txtapellidos_usuario.getText(),
+                        new java.sql.Date(txtFechaNacimiento_Usuario.getDate().getTime()),
+                        txtTeleCelular_Usuario.getText(), 0,
+                        txtDireccion_Usuario.getText(),
+                        txtEmail_Usuario.getText())) {
+                    limpiarFomulario_Usuario();
                     JOptionPane.showMessageDialog(null, "Registro Exitoso", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(null, "Registro Fallido", "Mensaje", JOptionPane.ERROR_MESSAGE);
-                }*/
+                }
             } else {
                 JOptionPane.showMessageDialog(null, " No se admiten campos vacios ", "Mensaje", 1);
             }
@@ -5904,6 +5916,10 @@ public class Inicio extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnAgregarDet_AlquilerActionPerformed
 
+    private void btn_Cancelar_UsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Cancelar_UsuarioActionPerformed
+        limpiarFomulario_Usuario();
+    }//GEN-LAST:event_btn_Cancelar_UsuarioActionPerformed
+
     /*METODOS PARA MOSTRAR EL FORMULARIO*/
     public void iniciarFomrulario(JInternalFrame jif) {
         try {
@@ -5921,7 +5937,6 @@ public class Inicio extends javax.swing.JFrame {
         try {
             jif.setSize(1014, 650);
             jdeskpanInicio.add(jif);
-            //jif.setMaximum(true);
             jif.setVisible(true);
         } catch (Exception e) {
             System.out.println("" + e.toString());
@@ -5932,7 +5947,6 @@ public class Inicio extends javax.swing.JFrame {
         try {
             jif.setSize(1013, 516);
             jdeskpanInicio.add(jif);
-            //jif.setMaximum(true);
             jif.setVisible(true);
         } catch (Exception e) {
             System.out.println("" + e.toString());

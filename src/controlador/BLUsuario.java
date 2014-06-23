@@ -3,7 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controlador;
+
+package vista;
 
 import entidad.Usuario;
 import java.sql.Date;
@@ -13,9 +14,9 @@ import modelo.BDUsuario;
  *
  * @author Richard
  */
-public class BLUsuario {
+class BLUsuario {
 
-    public boolean Registrar(String usuario, String pass, String dni, String nombres, String apellidos,
+   public boolean Registrar(String usuario, String pass, String dni, String nombres, String apellidos,
             Date fechaNacimiento, String telefon, int idcargo, String direccion, String email) {
         boolean resultado = false;
         try {
@@ -36,5 +37,5 @@ public class BLUsuario {
         }
         return resultado;
     }
-
+   
 }
