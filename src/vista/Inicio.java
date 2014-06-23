@@ -77,6 +77,20 @@ public class Inicio extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         formatear_estructura_todas_tablas();
     }
+    /*METOO LIMPIAR TABLA*/
+
+    private void limpiarTabla(JTable tabla) {
+        try {
+            DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+            int filas = tabla.getRowCount();
+            for (int i = 0; filas > i; i++) {
+                modelo.removeRow(0);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
+        }
+    }
+    /*FIN LIMPIAR TABLAS*/
 
     /*FORMATEO DE STRUCTURA DE TABLAS DEL SISTEMA*/
     private void formatear_estructura_todas_tablas() {
@@ -91,6 +105,53 @@ public class Inicio extends javax.swing.JFrame {
     /*FIN FORMATEO DE STRUCTURA DE TABLAS DEL SISTEMA*/
 
     /*CONSTANCIA*/
+    private void buscar_constancia_byfiltro() {
+        int contador = 0;
+        ArrayList<String> lista = new ArrayList();
+        String condicionFinal = "";
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        boolean fecha = chkFecha_Constancia.isSelected();
+        boolean campania = chkCampania_Constancia.isSelected();
+        boolean cliente = chkCliente_Constancia.isSelected();
+
+        if (fecha == true) {
+            lista.add(" ( date(dat_fechRegistro) between '" + sdf.format(txtFiltroInicio_Constancia.getDate()) + "' and '" + sdf.format(txtFiltroFin_Constancia.getDate()) + "' ) ");
+            contador++;
+        }
+        if (campania == true) {
+            lista.add(" ( int_periodo =" + ((PeriodoCampania) cboPeriodoFiltro_Constancia.getSelectedItem()).getPeriodo_id() + " )");
+            contador++;
+        }
+        if (cliente == true) {
+            lista.add(" ( cliente_id =" + ((Agricultor) cboAgricultorFiltro_Constancia.getSelectedItem()).getInt_id() + " )");
+            contador++;
+        }
+        switch (contador) {
+            case 1:
+                condicionFinal = lista.get(0);
+                break;
+            case 2:
+                condicionFinal = lista.get(0) + " and " + lista.get(1);
+                break;
+            case 3:
+                condicionFinal = lista.get(0) + " and " + lista.get(1) + " and " + lista.get(2);
+                break;
+            case 4:
+                condicionFinal = lista.get(0) + " and " + lista.get(1) + " and " + lista.get(2) + " and " + lista.get(3);
+                break;
+        }
+        DefaultTableModel tempConstancia = (DefaultTableModel) jtBusqueda_Constancia.getModel();
+        tempConstancia.setRowCount(0);
+        for (ListaConstancia l : new BLConstancia().get_constancia_byfiltro(condicionFinal)) {
+            Object datos[] = {l.getConstancia_id(), l.getVar_serie() + " - " + l.getVar_numero(),
+                l.getVar_nombre() + " " + l.getVar_apepaterno() + " " + l.getVar_apematerno(),
+                l.getVar_periodo(), l.getNroCamapania(), l.getVar_lateral(), l.getNroHectarea(), l.getDat_fechRegistro(), l.getTipoSiembra(), l.getFechaSiembra()
+            };
+            tempConstancia.addRow(datos);
+        }
+
+    }
+
     private void limpiarFomulario_Constancia() {
         idPeriodo_Constancia = 0;
         idCliente_Constancia = 0;
@@ -108,7 +169,62 @@ public class Inicio extends javax.swing.JFrame {
         //cboPeriodoFiltro_Constancia.setSelectedIndex(0);
         cboAgricultorFiltro_Constancia.setSelectedIndex(0);
     }
+
+    private void getcombo_tipocultivo_all() {
+        cboTipoCultivo_Constancia.removeAllItems();
+        for (Constante c : new BLConstante().get_tipocultivo_all(6)) {
+            cboTipoCultivo_Constancia.addItem(c);
+
+        }
+        AutoCompleteDecorator.decorate(cboTipoCultivo_Constancia);
+    }
     /*FIN CONSTANCIA*/
+
+    /*LATERALES*/
+    private void get_latreles_all() {
+        cboLateral_Agricultor.removeAllItems();
+        ArrayList<String> lista_lat = new BLAgricultor().get_latreles_all();
+        cboLateral_Agricultor.addItem("");
+        for (int i = 0; i < lista_lat.size(); i++) {
+            cboLateral_Agricultor.addItem(lista_lat.get(i));
+        }
+        AutoCompleteDecorator.decorate(cboLateral_Agricultor);
+    }
+
+    private void get_sublatreles_all() {
+        cboSubLateral_Agricultor.removeAllItems();
+        ArrayList<String> lista_lat = new BLAgricultor().get_sublatreles_all();
+        cboSubLateral_Agricultor.addItem("");
+        for (int i = 0; i < lista_lat.size(); i++) {
+            cboSubLateral_Agricultor.addItem(lista_lat.get(i));
+        }
+        AutoCompleteDecorator.decorate(cboSubLateral_Agricultor);
+    }
+
+    private void gettabla_lateral_byclientesactivos(String palabra, int id) {
+        DefaultTableModel temp = (DefaultTableModel) jtModalLateral_Constancia.getModel();
+        DefaultTableModel temp1 = (DefaultTableModel) jtModalLateral_Traspaso.getModel();
+        temp.setRowCount(0);
+        temp1.setRowCount(0);
+        for (Lateral l : new BLLateral().get_lateral_byactivocliente(palabra, id)) {
+            Object[] datos = {l.getInt_id(), l.getVar_lateral(), l.getVar_sublateral(), l.getDec_conmedida(), l.getDec_sinmedida()};
+            temp.addRow(datos);
+            temp1.addRow(datos);
+        }
+    }
+    /*LATERALES*/
+
+    /*PAGOS*/
+    private void gettabla_verpagos_bycliente(String dni, int id, int estado) {
+        DefaultTableModel temp = (DefaultTableModel) jtVerPagos.getModel();
+        temp.setRowCount(0);
+        for (Pago p : new BLPagos().get_pagos_bycliente(dni, id, estado)) {
+            Object[] datos = {p.getInt_id(), p.getVar_cuenta(), p.getVar_descripcion(), p.getDat_fechregistro(),
+                p.getDec_monto(), p.getVar_observacion(), p.getVar_boucherpago(), p.getInt_estado()};
+            temp.addRow(datos);
+        }
+    }
+    /*FIN PAGOS*/
 
     /*TRASPASO*/
     private void limpiarFomulario_Traspaso() {
@@ -130,16 +246,7 @@ public class Inicio extends javax.swing.JFrame {
     }
     /*FIN TRASPASO*/
 
-    private void gettabla_asignacioncosto_cuenta_all() {
-        DefaultTableModel temp = (DefaultTableModel) jtAsignarCosto_Cuentas.getModel();
-        temp.setRowCount(0);
-        for (Asignar_Costo c : new BLCuenta().get_asignarcosto_cuenta_all()) {
-            Object[] datos = {c.getCuenta_id(), c.getVar_nombre(), c.getDec_monto(), c.getVar_concepto()};
-            temp.addRow(datos);
-        }
-    }
     /*ALQUILER*/
-
     private void limpiarFomulario_Alquiler() {
         idEmpleado_Alquiler = 0;
         idAgricultor_Alquiler = 0;
@@ -151,14 +258,26 @@ public class Inicio extends javax.swing.JFrame {
         //cboTipoMaterial_Alquiler.setSelectedIndex(0);
     }
     /*FIN ALQUILER*/
+    /*COMITE*/
 
-    private void getcombo_tipocultivo_all() {
-        cboTipoCultivo_Constancia.removeAllItems();
-        for (Constante c : new BLConstante().get_tipocultivo_all(6)) {
-            cboTipoCultivo_Constancia.addItem(c);
-
+    private void gettabla_comite_byActivos(String palabra) {
+        DefaultTableModel temp = (DefaultTableModel) jtModalComite_Constancia.getModel();
+        temp.setRowCount(0);
+        for (Comite c : new BLComite().get_comite_byActivos(palabra)) {
+            Object[] datos = {c.getInt_id(), c.getVar_nombre()};
+            temp.addRow(datos);
         }
-        AutoCompleteDecorator.decorate(cboTipoCultivo_Constancia);
+    }
+    /*FIN COMITE*/
+    /*CUENTA*/
+
+    private void gettabla_asignacioncosto_cuenta_all() {
+        DefaultTableModel temp = (DefaultTableModel) jtAsignarCosto_Cuentas.getModel();
+        temp.setRowCount(0);
+        for (Asignar_Costo c : new BLCuenta().get_asignarcosto_cuenta_all()) {
+            Object[] datos = {c.getCuenta_id(), c.getVar_nombre(), c.getDec_monto(), c.getVar_concepto()};
+            temp.addRow(datos);
+        }
     }
 
     private void limpiarFomulario_Cuenta() {
@@ -184,8 +303,19 @@ public class Inicio extends javax.swing.JFrame {
         }
         AutoCompleteDecorator.decorate(cboCuentas_AsignarCostos);
     }
+    /*FIN CUENTA*/
+
 
     /*AGRICULTOR*/
+    private void gettabla_cliente_byActivos(String palabra) {
+        DefaultTableModel temp = (DefaultTableModel) jtModalAgricultor_Constancia.getModel();
+        temp.setRowCount(0);
+        for (Agricultor c : new BLAgricultor().get_agricultores_byActivos(palabra)) {
+            Object[] datos = {c.getInt_id(), c.getVar_nombre() + ' ' + c.getVar_apepaterno() + ' ' + c.getVar_apematerno()};
+            temp.addRow(datos);
+        }
+    }
+
     private void getcombo_cliente_all() {
         cboAgricultorFiltro_Constancia.removeAllItems();
         cboFiltroAgricultor_VerPagos.removeAllItems();
@@ -197,10 +327,10 @@ public class Inicio extends javax.swing.JFrame {
         AutoCompleteDecorator.decorate(cboFiltroAgricultor_VerPagos);
     }
 
-    private void gettabla_agricultor_all(String condicion,int indicecombo) {
+    private void gettabla_agricultor_all(String condicion, int indicecombo) {
         DefaultTableModel temp = (DefaultTableModel) jtAgricultor.getModel();
         temp.setRowCount(0);
-        for (Agricultor a : new BLAgricultor().get_agricultor_all(condicion,indicecombo)) {
+        for (Agricultor a : new BLAgricultor().get_agricultor_all(condicion, indicecombo)) {
             Object[] datos = {a.getInt_id(), a.getVar_dni(), a.getVar_nombre() + ' ' + a.getVar_apepaterno(),
                 a.getVar_telefono() + '/' + a.getVar_celular(), a.getVar_direccion(), a.getNumLaterales()};
             temp.addRow(datos);
@@ -240,7 +370,7 @@ public class Inicio extends javax.swing.JFrame {
         AutoCompleteDecorator.decorate(cboNuevoAgricultor_Traspaso);
 
     }
-    /*FIN CLIENTE*/
+    /*FIN AGRICULTOR*/
 
     /*PERIODO*/
     private void getcombo_periodo_all() {
@@ -251,8 +381,8 @@ public class Inicio extends javax.swing.JFrame {
         AutoCompleteDecorator.decorate(cboPeriodoFiltro_Constancia);
     }
     /*FIN PERIODO*/
-    /*TRASPASO*/
 
+    /*TRASPASO*/
     private void gettabla_traspaso_byclientenuevoantiguo(String condicion) {
         DefaultTableModel temp = (DefaultTableModel) jtTraspaso.getModel();
         temp.setRowCount(0);
@@ -266,8 +396,8 @@ public class Inicio extends javax.swing.JFrame {
         }
     }
     /*FIN TRASPASO*/
-    /*MOVIMIENTO*/
 
+    /*MOVIMIENTO*/
     private void limpiarFomulario_Movimiento() {
         txtFecha_Movimiento.setDate(new Date());
         txtNroComprobante_Movimiento.setText("");
@@ -4921,7 +5051,7 @@ public class Inicio extends javax.swing.JFrame {
     private void jmiAgricultorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAgricultorActionPerformed
         get_latreles_all();
         get_sublatreles_all();
-        gettabla_agricultor_all("",1);
+        gettabla_agricultor_all("", 1);
         iniciarFomrulario_Algricultor(jifAgricultores);
     }//GEN-LAST:event_jmiAgricultorActionPerformed
 
@@ -5662,7 +5792,7 @@ public class Inicio extends javax.swing.JFrame {
                 }
 
                 //REGISTRAR AGRICULTOR                
-                if (new BLAgricultor().RegistrarAgricultor(0, txtNombres_Agricultor.getText(),
+                if (new BLAgricultor().RegistrarAgricultor(idAgricultor_Edit, txtNombres_Agricultor.getText(),
                         txtApeMaterno_Agricultor.getText(), txtApePaterno_Agricultor.getText(),
                         txtDireccion_Agricultor.getText(), txtEmail_Agricultor.getText(), txtDNI_Agricultor.getText(),
                         sexo, txtTelefono_Agricultor.getText(),
@@ -5670,6 +5800,7 @@ public class Inicio extends javax.swing.JFrame {
 
                     JOptionPane.showMessageDialog(null, "Registro Exitoso", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
                     //agregar el limpar
+                    idAgricultor_Edit = 0;
                 } else {
                     JOptionPane.showMessageDialog(null, "Registro Fallido", "Mensaje", JOptionPane.ERROR_MESSAGE);
                 }
@@ -5701,187 +5832,35 @@ public class Inicio extends javax.swing.JFrame {
 
     private void jmiEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiEditarActionPerformed
         try {
-           
-            int id = Integer.parseInt(jtAgricultor.getValueAt(jtAgricultor.getSelectedRow(), 0).toString());
-            BDAgricultor a = new BDAgricultor();
-            ArrayList<ListaAgricultorLateral> c = new ArrayList<ListaAgricultorLateral>();
-            c = a.get_agricultorlateral_byid(id);
-            
+
+            int idAgricultor_Edit = Integer.parseInt(jtAgricultor.getValueAt(jtAgricultor.getSelectedRow(), 0).toString());
+
             DefaultTableModel temp = (DefaultTableModel) jtDetalleLaterales_Agricultor.getModel();
             temp.setRowCount(0);
-            for (ListaAgricultorLateral lista : new BDAgricultor().get_agricultorlateral_byid(id)) {
-                Object[] datos = {lista.getInt_idlateral(),lista.getVar_lateral(),lista.getVar_sublateral(),
-                lista.getDec_sinmedida(),lista.getDec_conmedida()};
+            for (ListaAgricultorLateral lista : new BDAgricultor().get_agricultorlateral_byid(idAgricultor_Edit)) {
+                Object[] datos = {lista.getInt_idlateral(), lista.getVar_lateral(), lista.getVar_sublateral(),
+                    lista.getDec_sinmedida(), lista.getDec_conmedida()};
                 temp.addRow(datos);
-              txtDNI_Agricultor.setText(lista.getVar_dni());
-             txtNombres_Agricultor.setText(lista.getVar_nombre());
-             txtApePaterno_Agricultor.setText(lista.getVar_apepaterno());
-             txtApeMaterno_Agricultor.setText(lista.getVar_apematerno());
-             txtDireccion_Agricultor.setText(lista.getVar_direccion());
-             txtTelefono_Agricultor.setText(lista.getVar_telefono());
-             txtCelular_Agricultor.setText(lista.getVar_celular());
-             txtEmail_Agricultor.setText(lista.getVar_email());
+                txtDNI_Agricultor.setText(lista.getVar_dni());
+                txtNombres_Agricultor.setText(lista.getVar_nombre());
+                txtApePaterno_Agricultor.setText(lista.getVar_apepaterno());
+                txtApeMaterno_Agricultor.setText(lista.getVar_apematerno());
+                txtDireccion_Agricultor.setText(lista.getVar_direccion());
+                txtTelefono_Agricultor.setText(lista.getVar_telefono());
+                txtCelular_Agricultor.setText(lista.getVar_celular());
+                txtEmail_Agricultor.setText(lista.getVar_email());
             }
-           
-       
-    }
-    catch(Exception e){
+
+        } catch (Exception e) {
             System.out.println("Error de Listado Editar -vISTA" + e.getMessage());
-    }
+        }
 
     }//GEN-LAST:event_jmiEditarActionPerformed
 
     private void txtFiltroAgricultorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroAgricultorKeyReleased
-        
-        gettabla_agricultor_all(txtFiltroAgricultor.getText(),cboFiltroAgricultor.getSelectedIndex());
+
+        gettabla_agricultor_all(txtFiltroAgricultor.getText(), cboFiltroAgricultor.getSelectedIndex());
     }//GEN-LAST:event_txtFiltroAgricultorKeyReleased
-
-private void gettabla_comite_byActivos(String palabra) {
-        DefaultTableModel temp = (DefaultTableModel) jtModalComite_Constancia.getModel();
-        temp.setRowCount(0);
-        for (Comite c : new BLComite().get_comite_byActivos(palabra)) {
-            Object[] datos = {c.getInt_id(), c.getVar_nombre()};
-            temp.addRow(datos);
-        }
-    }
-
-    private void gettabla_cliente_byActivos(String palabra) {
-        DefaultTableModel temp = (DefaultTableModel) jtModalAgricultor_Constancia.getModel();
-        temp.setRowCount(0);
-        for (Agricultor c : new BLAgricultor().get_agricultores_byActivos(palabra)) {
-            Object[] datos = {c.getInt_id(), c.getVar_nombre() + ' ' + c.getVar_apepaterno() + ' ' + c.getVar_apematerno()};
-            temp.addRow(datos);
-        }
-    }
-    
-    private void get_latreles_all() {
-        cboLateral_Agricultor.removeAllItems();
-        ArrayList<String> lista_lat = new BLAgricultor().get_latreles_all();
-        cboLateral_Agricultor.addItem("");
-        for (int i = 0; i < lista_lat.size(); i++) {
-            cboLateral_Agricultor.addItem(lista_lat.get(i));
-        }
-        AutoCompleteDecorator.decorate(cboLateral_Agricultor);
-    }
-    
-    private void get_sublatreles_all() {
-        cboSubLateral_Agricultor.removeAllItems();
-        ArrayList<String> lista_lat = new BLAgricultor().get_sublatreles_all();
-        cboSubLateral_Agricultor.addItem("");
-        for (int i = 0; i < lista_lat.size(); i++) {
-            cboSubLateral_Agricultor.addItem(lista_lat.get(i));
-        }
-        AutoCompleteDecorator.decorate(cboSubLateral_Agricultor);
-    }
-    
-    private void gettabla_verpagos_bycliente(String dni, int id, int estado) {
-        DefaultTableModel temp = (DefaultTableModel) jtVerPagos.getModel();
-        temp.setRowCount(0);
-        for (Pago p : new BLPagos().get_pagos_bycliente(dni, id, estado)) {
-            Object[] datos = {p.getInt_id(), p.getVar_cuenta(), p.getVar_descripcion(), p.getDat_fechregistro(),
-                p.getDec_monto(), p.getVar_observacion(), p.getVar_boucherpago(), p.getInt_estado()};
-            temp.addRow(datos);
-        }
-    }
-
-    private void gettabla_lateral_byclientesactivos(String palabra, int id) {
-        DefaultTableModel temp = (DefaultTableModel) jtModalLateral_Constancia.getModel();
-        DefaultTableModel temp1 = (DefaultTableModel) jtModalLateral_Traspaso.getModel();
-        temp.setRowCount(0);
-        temp1.setRowCount(0);
-        for (Lateral l : new BLLateral().get_lateral_byactivocliente(palabra, id)) {
-            Object[] datos = {l.getInt_id(), l.getVar_lateral(), l.getVar_sublateral(), l.getDec_conmedida(), l.getDec_sinmedida()};
-            temp.addRow(datos);
-            temp1.addRow(datos);
-        }
-    }
-
-    /*private void getcombo_campania_all() {
-     //cboCampania_Constancia.removeAllItems();
-     cboCampaniaFiltro_Constancia.removeAllItems();
-     for (Campania c : new BLPeriodo().get_campania_all()) {
-     //cboCampania_Constancia.addItem(c);
-     cboCampaniaFiltro_Constancia.addItem(c);
-     //Campania ca = (Campania) cboCampania_Constancia.getSelectedItem();
-     /*BLCampania cam = new BLCampania();
-     ArrayList<Campania> listCampania = new ArrayList<>();
-     listCampania = cam.get_campania_byid(ca.getInt_id());
-     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
-     /*String desde = String.valueOf(sdf.format(listCampania.get(0).getDat_fecInicio()));
-     String hasta = String.valueOf(sdf.format(listCampania.get(0).getDat_fecFin()));
-     String concat = "DESDE: " + desde + " - HASTA: " + hasta;
-     txtCampaniaFecha_Constancia.setText(concat);
-
-     }
-     }*/
-    /*private void gettabla_cuenta_all(String palabra) {
-        DefaultTableModel temp = (DefaultTableModel) jtCuentas.getModel();
-        temp.setRowCount(0);
-        for (Cuenta c : new BLCuenta().get_cuenta_all(palabra)) {
-            Object[] datos = {c.getVar_codigo(), c.getVar_nombre(), c.getVar_numcuenta()};
-            temp.addRow(datos);
-        }
-    }*/
-
-    private void limpiarTabla(JTable tabla) {
-        try {
-            DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
-            int filas = tabla.getRowCount();
-            for (int i = 0; filas > i; i++) {
-                modelo.removeRow(0);
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
-        }
-    }
-
-    private void buscar_constancia_byfiltro() {
-        int contador = 0;
-        ArrayList<String> lista = new ArrayList();
-        String condicionFinal = "";
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        boolean fecha = chkFecha_Constancia.isSelected();
-        boolean campania = chkCampania_Constancia.isSelected();
-        boolean cliente = chkCliente_Constancia.isSelected();
-
-        if (fecha == true) {
-            lista.add(" ( date(dat_fechRegistro) between '" + sdf.format(txtFiltroInicio_Constancia.getDate()) + "' and '" + sdf.format(txtFiltroFin_Constancia.getDate()) + "' ) ");
-            contador++;
-        }
-        if (campania == true) {
-            lista.add(" ( int_periodo =" + ((PeriodoCampania) cboPeriodoFiltro_Constancia.getSelectedItem()).getPeriodo_id() + " )");
-            contador++;
-        }
-        if (cliente == true) {
-            lista.add(" ( cliente_id =" + ((Agricultor) cboAgricultorFiltro_Constancia.getSelectedItem()).getInt_id() + " )");
-            contador++;
-        }
-        switch (contador) {
-            case 1:
-                condicionFinal = lista.get(0);
-                break;
-            case 2:
-                condicionFinal = lista.get(0) + " and " + lista.get(1);
-                break;
-            case 3:
-                condicionFinal = lista.get(0) + " and " + lista.get(1) + " and " + lista.get(2);
-                break;
-            case 4:
-                condicionFinal = lista.get(0) + " and " + lista.get(1) + " and " + lista.get(2) + " and " + lista.get(3);
-                break;
-        }
-        DefaultTableModel tempConstancia = (DefaultTableModel) jtBusqueda_Constancia.getModel();
-        tempConstancia.setRowCount(0);
-        for (ListaConstancia l : new BLConstancia().get_constancia_byfiltro(condicionFinal)) {
-            Object datos[] = {l.getConstancia_id(), l.getVar_serie() + " - " + l.getVar_numero(),
-                l.getVar_nombre() + " " + l.getVar_apepaterno() + " " + l.getVar_apematerno(),
-                l.getVar_periodo(), l.getNroCamapania(), l.getVar_lateral(), l.getNroHectarea(), l.getDat_fechRegistro(), l.getTipoSiembra(), l.getFechaSiembra()
-            };
-            tempConstancia.addRow(datos);
-        }
-
-    }
 
     /*METODOS PARA MOSTRAR EL FORMULARIO*/
     public void iniciarFomrulario(JInternalFrame jif) {
@@ -5895,7 +5874,8 @@ private void gettabla_comite_byActivos(String palabra) {
             System.out.println("" + e.getMessage());
         }
     }
-     public void iniciarFomrulario_Algricultor(JInternalFrame jif) {
+
+    public void iniciarFomrulario_Algricultor(JInternalFrame jif) {
         try {
             jif.setSize(822, 535);
             jdeskpanInicio.add(jif);
@@ -5954,6 +5934,7 @@ private void gettabla_comite_byActivos(String palabra) {
             System.out.println("" + e.toString());
         }
     }
+
     public void iniciarFomrulario_Cuentas(JInternalFrame jif) {
         try {
             jif.setSize(700, 600);
@@ -5979,32 +5960,21 @@ private void gettabla_comite_byActivos(String palabra) {
                 if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-                
 
-}
+                }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Inicio.class  
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } 
-
-catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Inicio.class  
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } 
-
-catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Inicio.class  
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } 
-
-catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Inicio.class  
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Inicio.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Inicio.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Inicio.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Inicio.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
