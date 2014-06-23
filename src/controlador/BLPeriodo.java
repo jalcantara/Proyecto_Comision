@@ -5,10 +5,9 @@
  */
 package controlador;
 
-import entidad.Agricultor;
 import entidad.PeriodoCampania;
+import java.sql.Date;
 import java.util.ArrayList;
-import modelo.BDAgricultor;
 import modelo.BDPeriodo;
 
 /**
@@ -29,15 +28,14 @@ public class BLPeriodo {
 
     }
 
-    public PeriodoCampania get_peridocampania_bycliente(int idCliente) {
+    public PeriodoCampania get_peridocampania_byagricultor(int idCliente, Date fechaRegistro) {
         PeriodoCampania pc = null;
         try {
             BDPeriodo p = new BDPeriodo();
-            pc = p.get_peridocampania_bycliente(idCliente);
+            pc = p.get_peridocampania_byagricultor(idCliente, fechaRegistro);
         } catch (Exception e) {
             System.out.println("error periodocampania_bycliente :" + e.toString());
         }
         return pc;
-
     }
 }

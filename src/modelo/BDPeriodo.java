@@ -8,6 +8,7 @@ package modelo;
 import entidad.PeriodoCampania;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,17 +18,17 @@ import java.util.ArrayList;
  * @author joseph
  */
 public class BDPeriodo {
-    
-    public ArrayList<PeriodoCampania> get_periodo_all_byactivos(){
+
+    public ArrayList<PeriodoCampania> get_periodo_all_byactivos() {
         Connection cnn = null;
         CallableStatement cstmt = null;
         ArrayList<PeriodoCampania> lista_periodo = new ArrayList<PeriodoCampania>();
         try {
             cnn = BD.getConnection();
-            String sql="select * from get_periodo_all where int_estado=1;";
+            String sql = "select * from get_periodo_all where int_estado=1;";
             cstmt = cnn.prepareCall(sql);
             ResultSet rs = cstmt.executeQuery();
-            while(rs.next()) {
+            while (rs.next()) {
                 PeriodoCampania pc = new PeriodoCampania();
                 pc.setPeriodo_id(rs.getInt("int_id"));
                 pc.setVar_periodo(rs.getString("var_periodo"));
@@ -44,16 +45,17 @@ public class BDPeriodo {
         }
         return lista_periodo;
     }
-    
-    public PeriodoCampania get_peridocampania_bycliente(int idCliente) {
+
+    public PeriodoCampania get_peridocampania_byagricultor(int idCliente, Date fechaRegistro) {
         Connection cnn = null;
         CallableStatement cstmt = null;
         PeriodoCampania pc = new PeriodoCampania();
         try {
             cnn = BD.getConnection();
-            String sql = "call spC_PeriodoCampania_byCliente(?);";
+            String sql = "call spC_PeriodoCampania_byCliente(?,?);";
             cstmt = cnn.prepareCall(sql);
             cstmt.setInt(1, idCliente);
+            cstmt.setDate(2, fechaRegistro);
             ResultSet rs = cstmt.executeQuery();
             if (rs.next()) {
                 pc.setInt_campania(rs.getInt("campania"));
