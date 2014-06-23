@@ -7,6 +7,7 @@ package modelo;
 
 import entidad.Agricultor;
 import entidad.Lateral;
+import entidad.ListaAgricultorLateral;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -44,6 +45,39 @@ public class BDAgricultor {
                 c.setVar_telefono(rs.getString("var_telefono"));
                 c.setVar_celular(rs.getString("var_celular"));
                 c.setVar_estado("nom_estado");
+                lista_agricultor.add(c);
+            }
+            cstmt.close();
+            cnn.close();
+        } catch (SQLException a) {
+            System.out.println("" + a);
+        }
+        return lista_agricultor;
+    }
+    public ArrayList<Agricultor> get_agricultorlateral_all(String condicion) {
+        Connection cnn = null;
+        CallableStatement cstmt = null;
+        ArrayList<Agricultor> lista_agricultor = new ArrayList<Agricultor>();
+        try {
+            cnn = BD.getConnection();
+            String sql = "select * from get_clientelateral where "+condicion;
+            cstmt = cnn.prepareCall(sql);
+            ResultSet rs = cstmt.executeQuery();
+            while (rs.next()) {
+                Agricultor c = new Agricultor();
+                c.setInt_id(rs.getInt("int_id"));
+                c.setVar_nombre(rs.getString("var_nombre"));
+                c.setVar_apepaterno(rs.getString("var_apepaterno"));
+                c.setVar_apematerno(rs.getString("var_apematerno"));
+                c.setVar_direccion(rs.getString("var_direccion"));
+                c.setVar_email(rs.getString("var_email"));
+                c.setVar_dni(rs.getString("var_dni"));
+                c.setVar_sexo(rs.getString("var_sexo"));
+                c.setInt_estado(rs.getInt("int_estado"));
+                c.setVar_telefono(rs.getString("var_telefono"));
+                c.setVar_celular(rs.getString("var_celular"));
+                c.setVar_estado("nom_estado");
+                c.setNumLaterales(rs.getInt("numlaterales"));
                 lista_agricultor.add(c);
             }
             cstmt.close();
@@ -126,7 +160,44 @@ public class BDAgricultor {
         }
         return listCliente;
     }
-
+    
+    public ArrayList<ListaAgricultorLateral> get_agricultorlateral_byid(int id) {
+        Connection cnn = null;
+        CallableStatement cstmt = null;
+        ArrayList<ListaAgricultorLateral> lista_agricultor = new ArrayList<ListaAgricultorLateral>();
+        try {
+            cnn = BD.getConnection();
+            String sql = "call spC_clientelateral_byid(?);";
+            cstmt = cnn.prepareCall(sql);
+            cstmt.setInt(1, id);
+            ResultSet rs = cstmt.executeQuery();
+            while (rs.next()) {
+                ListaAgricultorLateral c = new ListaAgricultorLateral();
+                c.setInt_id(rs.getInt("int_id"));
+                c.setVar_nombre(rs.getString("var_nombre"));
+                c.setVar_apepaterno(rs.getString("var_apepaterno"));
+                c.setVar_apematerno(rs.getString("var_apematerno"));
+                c.setVar_direccion(rs.getString("var_direccion"));
+                c.setVar_email(rs.getString("var_email"));
+                c.setVar_dni(rs.getString("var_dni"));
+                c.setVar_sexo(rs.getString("var_sexo"));
+                c.setInt_estado(rs.getInt("int_estado"));
+                c.setVar_telefono(rs.getString("var_telefono"));
+                c.setVar_celular(rs.getString("var_celular"));
+                c.setInt_idlateral(rs.getInt("int_idlateral"));
+                c.setVar_lateral(rs.getString("var_lateral"));
+                c.setVar_sublateral(rs.getString("var_sublateral"));
+                c.setDec_conmedida(rs.getDouble("dec_sinmedida"));
+                c.setDec_sinmedida(rs.getDouble("dec_conmedida"));
+                lista_agricultor.add(c);
+            }
+            cstmt.close();
+            cnn.close();
+        } catch (SQLException a) {
+            System.out.println("" + a);
+        }
+        return lista_agricultor;
+    }
     public ArrayList<Agricultor> get_agricultores_antiguos() {
         Connection cnn = null;
         CallableStatement cstmt = null;

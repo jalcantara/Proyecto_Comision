@@ -10,32 +10,25 @@ package entidad;
  *
  * @author joseph
  */
-public class Agricultor {
+public class ListaAgricultorLateral {
     private int int_id;
     private String var_nombre;
-    private String var_apematerno;
     private String var_apepaterno;
+    private String var_apematerno;
     private String var_direccion;
     private String var_email;
     private String var_dni;
     private String var_sexo;
     private int int_estado;
+    private String nom_estado;
     private String var_telefono;
     private String var_celular;
-    private String var_estado;
-    private int numLaterales;
+    private int int_idlateral;
+    private String var_lateral;
+    private String var_sublateral;
+    private double dec_sinmedida;
+    private double dec_conmedida;
 
-    public int getNumLaterales() {
-        return numLaterales;
-    }
-
-    public void setNumLaterales(int numLaterales) {
-        this.numLaterales = numLaterales;
-    }
-    
-    
-    
-    
     public int getInt_id() {
         return int_id;
     }
@@ -43,6 +36,7 @@ public class Agricultor {
     public void setInt_id(int int_id) {
         this.int_id = int_id;
     }
+
     public String getVar_nombre() {
         return var_nombre;
     }
@@ -51,20 +45,20 @@ public class Agricultor {
         this.var_nombre = var_nombre;
     }
 
-    public String getVar_apematerno() {
-        return var_apematerno;
-    }
-
-    public void setVar_apematerno(String var_apematerno) {
-        this.var_apematerno = var_apematerno;
-    }
-
     public String getVar_apepaterno() {
         return var_apepaterno;
     }
 
     public void setVar_apepaterno(String var_apepaterno) {
         this.var_apepaterno = var_apepaterno;
+    }
+
+    public String getVar_apematerno() {
+        return var_apematerno;
+    }
+
+    public void setVar_apematerno(String var_apematerno) {
+        this.var_apematerno = var_apematerno;
     }
 
     public String getVar_direccion() {
@@ -99,7 +93,21 @@ public class Agricultor {
         this.var_sexo = var_sexo;
     }
 
-    
+    public int getInt_estado() {
+        return int_estado;
+    }
+
+    public void setInt_estado(int int_estado) {
+        this.int_estado = int_estado;
+    }
+
+    public String getNom_estado() {
+        return nom_estado;
+    }
+
+    public void setNom_estado(String nom_estado) {
+        this.nom_estado = nom_estado;
+    }
 
     public String getVar_telefono() {
         return var_telefono;
@@ -117,24 +125,45 @@ public class Agricultor {
         this.var_celular = var_celular;
     }
 
-    public String getVar_estado() {
-        return var_estado;
+    public int getInt_idlateral() {
+        return int_idlateral;
     }
 
-    public void setVar_estado(String var_estado) {
-        this.var_estado = var_estado;
+    public void setInt_idlateral(int int_idlateral) {
+        this.int_idlateral = int_idlateral;
     }
 
-    public int getInt_estado() {
-        return int_estado;
+    public String getVar_lateral() {
+        return var_lateral;
     }
 
-    public void setInt_estado(int int_estado) {
-        this.int_estado = int_estado;
+    public void setVar_lateral(String var_lateral) {
+        this.var_lateral = var_lateral;
     }
-    public String toString(){
-        return this.var_nombre+" "+var_apepaterno+" "+var_apematerno;
-    } 
+
+    public String getVar_sublateral() {
+        return var_sublateral;
+    }
+
+    public void setVar_sublateral(String var_sublateral) {
+        this.var_sublateral = var_sublateral;
+    }
+
+    public double getDec_sinmedida() {
+        return dec_sinmedida;
+    }
+
+    public void setDec_sinmedida(double dec_sinmedida) {
+        this.dec_sinmedida = dec_sinmedida;
+    }
+
+    public double getDec_conmedida() {
+        return dec_conmedida;
+    }
+
+    public void setDec_conmedida(double dec_conmedida) {
+        this.dec_conmedida = dec_conmedida;
+    }
     
     
 }

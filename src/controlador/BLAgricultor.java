@@ -7,6 +7,7 @@ package controlador;
 
 import entidad.Agricultor;
 import entidad.Lateral;
+import entidad.ListaAgricultorLateral;
 import java.util.ArrayList;
 import modelo.*;
 
@@ -65,8 +66,22 @@ public class BLAgricultor {
         }
         return listAgricultor;
     }
+    
 
-
+    public ArrayList<Agricultor> get_agricultor_all(String condicion,int indicecombo) {
+        ArrayList<Agricultor> listAgricultor = new ArrayList<Agricultor>();
+        try {
+            if(indicecombo == 0){
+                listAgricultor = new BDAgricultor().get_agricultorlateral_all(" var_nombre like '%" + condicion + "%'");
+            }
+            if(indicecombo == 1){
+                listAgricultor = new BDAgricultor().get_agricultorlateral_all(" var_dni like '%" + condicion + "%'");
+            }
+        } catch (Exception e) {
+            System.out.println("Error de Listado- Agricultores Antiguos - Controlador" + e.getMessage());
+        }
+        return listAgricultor;
+    }
     public boolean RegistrarAgricultor(int id_agricultor, String nom,
             String apemat, String apepat, String dir, String email, String dni,
             String sexo, String tel, String cel, ArrayList<Lateral> listaLaterales) {
@@ -93,5 +108,17 @@ public class BLAgricultor {
             System.out.println("Error de Registro Agricultores -  Controlador" + e.getMessage());
         }
         return resultado;
+    }
+    public ArrayList<ListaAgricultorLateral> get_agricultorlateral_byid(int id) {
+        ArrayList<ListaAgricultorLateral> list=new ArrayList<>();
+        try {
+            BDAgricultor a=new BDAgricultor();
+            list=a.get_agricultorlateral_byid(id);            
+        } 
+        catch (Exception e) {
+            System.out.println("Error de Listado"+e.getMessage());
+            e.printStackTrace();
+        }
+        return list;
     }
 }

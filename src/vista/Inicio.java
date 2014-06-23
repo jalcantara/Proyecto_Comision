@@ -18,6 +18,7 @@ import entidad.Constancia;
 import entidad.Constante;
 import entidad.Cuenta;
 import entidad.Lateral;
+import entidad.ListaAgricultorLateral;
 import entidad.ListaConstancia;
 import entidad.ListaTraspasos;
 import entidad.Pago;
@@ -37,6 +38,7 @@ import javax.swing.KeyStroke;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import modelo.BDAgricultor;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 import utilitario.CloseDialogEscape;
 import utilitario.Funciones;
@@ -63,6 +65,7 @@ public class Inicio extends javax.swing.JFrame {
     int idPago = 0;
     int idAgri_Traspaso = 0;
     int idLat_Traspaso = 0;
+    int idAgricultor_Edit = 0;
 
     public Inicio() {
         initComponents();
@@ -126,6 +129,7 @@ public class Inicio extends javax.swing.JFrame {
         //cboNuevoAgricultor_Traspaso.setSelectedIndex(0);
     }
     /*FIN TRASPASO*/
+
     private void gettabla_asignacioncosto_cuenta_all() {
         DefaultTableModel temp = (DefaultTableModel) jtAsignarCosto_Cuentas.getModel();
         temp.setRowCount(0);
@@ -135,6 +139,7 @@ public class Inicio extends javax.swing.JFrame {
         }
     }
     /*ALQUILER*/
+
     private void limpiarFomulario_Alquiler() {
         idEmpleado_Alquiler = 0;
         idAgricultor_Alquiler = 0;
@@ -146,7 +151,7 @@ public class Inicio extends javax.swing.JFrame {
         //cboTipoMaterial_Alquiler.setSelectedIndex(0);
     }
     /*FIN ALQUILER*/
-    
+
     private void getcombo_tipocultivo_all() {
         cboTipoCultivo_Constancia.removeAllItems();
         for (Constante c : new BLConstante().get_tipocultivo_all(6)) {
@@ -155,7 +160,7 @@ public class Inicio extends javax.swing.JFrame {
         }
         AutoCompleteDecorator.decorate(cboTipoCultivo_Constancia);
     }
-    
+
     private void limpiarFomulario_Cuenta() {
         txtCodigo_Cuenta.setText("");
         txtNumCuenta_Registrar.setText("");
@@ -167,6 +172,7 @@ public class Inicio extends javax.swing.JFrame {
         txtConcepto_AsignarCosto.setText("");
         cboCuentas_AsignarCostos.setSelectedIndex(0);
     }
+
     private void gettabla_cuenta_all(String palabra) {
         cboCuentas_AsignarCostos.removeAllItems();
         DefaultTableModel temp = (DefaultTableModel) jtCuentas.getModel();
@@ -178,7 +184,7 @@ public class Inicio extends javax.swing.JFrame {
         }
         AutoCompleteDecorator.decorate(cboCuentas_AsignarCostos);
     }
-    
+
     /*AGRICULTOR*/
     private void getcombo_cliente_all() {
         cboAgricultorFiltro_Constancia.removeAllItems();
@@ -190,6 +196,17 @@ public class Inicio extends javax.swing.JFrame {
         AutoCompleteDecorator.decorate(cboAgricultorFiltro_Constancia);
         AutoCompleteDecorator.decorate(cboFiltroAgricultor_VerPagos);
     }
+
+    private void gettabla_agricultor_all(String condicion,int indicecombo) {
+        DefaultTableModel temp = (DefaultTableModel) jtAgricultor.getModel();
+        temp.setRowCount(0);
+        for (Agricultor a : new BLAgricultor().get_agricultor_all(condicion,indicecombo)) {
+            Object[] datos = {a.getInt_id(), a.getVar_dni(), a.getVar_nombre() + ' ' + a.getVar_apepaterno(),
+                a.getVar_telefono() + '/' + a.getVar_celular(), a.getVar_direccion(), a.getNumLaterales()};
+            temp.addRow(datos);
+        }
+    }
+
     private void get_agricultores_byActivos(String palabra) {
         DefaultTableModel temp = (DefaultTableModel) jtModalAgricultor_Constancia.getModel();
         DefaultTableModel temp1 = (DefaultTableModel) jtModalAgricultor_Traspaso.getModel();
@@ -205,6 +222,7 @@ public class Inicio extends javax.swing.JFrame {
             temp2.addRow(datos);
         }
     }
+
     private void getcombo_agricultor_antiguos() {
         cboAntiguoAgricultor_Traspaso.removeAllItems();
         for (Agricultor c : new BLAgricultor().get_agricultores_antiguos()) {
@@ -213,6 +231,7 @@ public class Inicio extends javax.swing.JFrame {
         AutoCompleteDecorator.decorate(cboAntiguoAgricultor_Traspaso);
 
     }
+
     private void getcombo_agricultor_nuevos() {
         cboNuevoAgricultor_Traspaso.removeAllItems();
         for (Agricultor c : new BLAgricultor().get_agricultores_nuevos()) {
@@ -233,6 +252,7 @@ public class Inicio extends javax.swing.JFrame {
     }
     /*FIN PERIODO*/
     /*TRASPASO*/
+
     private void gettabla_traspaso_byclientenuevoantiguo(String condicion) {
         DefaultTableModel temp = (DefaultTableModel) jtTraspaso.getModel();
         temp.setRowCount(0);
@@ -247,6 +267,7 @@ public class Inicio extends javax.swing.JFrame {
     }
     /*FIN TRASPASO*/
     /*MOVIMIENTO*/
+
     private void limpiarFomulario_Movimiento() {
         txtFecha_Movimiento.setDate(new Date());
         txtNroComprobante_Movimiento.setText("");
@@ -416,10 +437,10 @@ public class Inicio extends javax.swing.JFrame {
         jTabbedPane4 = new javax.swing.JTabbedPane();
         jPanel17 = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
-        jTable7 = new javax.swing.JTable();
+        jtAgricultor = new javax.swing.JTable();
         jLabel70 = new javax.swing.JLabel();
-        jXSearchField1 = new org.jdesktop.swingx.JXSearchField();
-        jComboBox3 = new javax.swing.JComboBox();
+        txtFiltroAgricultor = new org.jdesktop.swingx.JXSearchField();
+        cboFiltroAgricultor = new javax.swing.JComboBox();
         jPanel18 = new javax.swing.JPanel();
         jTabbedPane7 = new javax.swing.JTabbedPane();
         jPanel31 = new javax.swing.JPanel();
@@ -594,6 +615,8 @@ public class Inicio extends javax.swing.JFrame {
         jScrollPane18 = new javax.swing.JScrollPane();
         jtModalAgricultor_Alquiler = new javax.swing.JTable();
         rb_group = new javax.swing.ButtonGroup();
+        jpmAgricultor = new javax.swing.JPopupMenu();
+        jmiEditar = new javax.swing.JMenuItem();
         jpmVerPagos = new javax.swing.JPopupMenu();
         jmip_Pagar = new javax.swing.JMenuItem();
         jmip_GenerarDocumento = new javax.swing.JMenuItem();
@@ -2215,19 +2238,9 @@ public class Inicio extends javax.swing.JFrame {
         jPanel17.setBackground(new java.awt.Color(195, 233, 164));
         jPanel17.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
 
-        jTable7.setModel(new javax.swing.table.DefaultTableModel(
+        jtAgricultor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "#", "DNI", "CLIENTE", "TELÉFONO / CELULAR", "DIRECCIÓN", "# LATERALES"
@@ -2241,14 +2254,22 @@ public class Inicio extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane7.setViewportView(jTable7);
-        if (jTable7.getColumnModel().getColumnCount() > 0) {
-            jTable7.getColumnModel().getColumn(0).setPreferredWidth(10);
-            jTable7.getColumnModel().getColumn(1).setPreferredWidth(20);
-            jTable7.getColumnModel().getColumn(2).setPreferredWidth(140);
-            jTable7.getColumnModel().getColumn(3).setPreferredWidth(70);
-            jTable7.getColumnModel().getColumn(4).setPreferredWidth(140);
-            jTable7.getColumnModel().getColumn(5).setPreferredWidth(30);
+        jtAgricultor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jtAgricultorMouseReleased(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jtAgricultorMousePressed(evt);
+            }
+        });
+        jScrollPane7.setViewportView(jtAgricultor);
+        if (jtAgricultor.getColumnModel().getColumnCount() > 0) {
+            jtAgricultor.getColumnModel().getColumn(0).setPreferredWidth(10);
+            jtAgricultor.getColumnModel().getColumn(1).setPreferredWidth(20);
+            jtAgricultor.getColumnModel().getColumn(2).setPreferredWidth(140);
+            jtAgricultor.getColumnModel().getColumn(3).setPreferredWidth(70);
+            jtAgricultor.getColumnModel().getColumn(4).setPreferredWidth(140);
+            jtAgricultor.getColumnModel().getColumn(5).setPreferredWidth(30);
         }
 
         jLabel70.setBackground(new java.awt.Color(0, 153, 153));
@@ -2258,11 +2279,16 @@ public class Inicio extends javax.swing.JFrame {
         jLabel70.setText("LISTA DE AGRICULTORES");
         jLabel70.setOpaque(true);
 
-        jXSearchField1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jXSearchField1.setPrompt("Buscar Agricultor");
+        txtFiltroAgricultor.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtFiltroAgricultor.setPrompt("Buscar Agricultor");
+        txtFiltroAgricultor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtFiltroAgricultorKeyReleased(evt);
+            }
+        });
 
-        jComboBox3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboFiltroAgricultor.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        cboFiltroAgricultor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Nombre", "DNI" }));
 
         javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
         jPanel17.setLayout(jPanel17Layout);
@@ -2274,9 +2300,9 @@ public class Inicio extends javax.swing.JFrame {
                     .addComponent(jLabel70, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane7, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel17Layout.createSequentialGroup()
-                        .addComponent(jXSearchField1, javax.swing.GroupLayout.DEFAULT_SIZE, 556, Short.MAX_VALUE)
+                        .addComponent(txtFiltroAgricultor, javax.swing.GroupLayout.DEFAULT_SIZE, 556, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cboFiltroAgricultor, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel17Layout.setVerticalGroup(
@@ -2284,13 +2310,13 @@ public class Inicio extends javax.swing.JFrame {
             .addGroup(jPanel17Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jXSearchField1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cboFiltroAgricultor, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtFiltroAgricultor, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel70, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(6, 6, 6))
         );
 
         jTabbedPane4.addTab(" CONSULTAR    ", new javax.swing.ImageIcon(getClass().getResource("/recurso/Consultar.png")), jPanel17); // NOI18N
@@ -4052,6 +4078,14 @@ public class Inicio extends javax.swing.JFrame {
             .addComponent(jpBuscarAgricultor_Traspaso1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        jmiEditar.setText("Editar");
+        jmiEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiEditarActionPerformed(evt);
+            }
+        });
+        jpmAgricultor.add(jmiEditar);
+
         jmip_Pagar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jmip_Pagar.setText("Realizar Pago");
         jmip_Pagar.addActionListener(new java.awt.event.ActionListener() {
@@ -4887,6 +4921,7 @@ public class Inicio extends javax.swing.JFrame {
     private void jmiAgricultorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAgricultorActionPerformed
         get_latreles_all();
         get_sublatreles_all();
+        gettabla_agricultor_all("",1);
         iniciarFomrulario_Algricultor(jifAgricultores);
     }//GEN-LAST:event_jmiAgricultorActionPerformed
 
@@ -5212,7 +5247,7 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_jtModalAgricultorNuevo_TraspasoKeyPressed
 
     private void chkAntiguoDuenio_AgricultorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkAntiguoDuenio_AgricultorActionPerformed
-         if (chkAntiguoDuenio_Agricultor.isSelected()) {
+        if (chkAntiguoDuenio_Agricultor.isSelected()) {
             cboAntiguoAgricultor_Traspaso.setEnabled(true);
         } else {
             cboAntiguoAgricultor_Traspaso.setEnabled(false);
@@ -5417,31 +5452,31 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jmip_AnularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmip_AnularActionPerformed
-        
-            BLPagos p = new BLPagos();
-            idPago = Integer.parseInt(jtVerPagos.getValueAt(jtVerPagos.getSelectedRow(), 0).toString());
-            boolean resultado = false;
-            resultado = p.AnularPago(idPago);
-            if (resultado == true) {
-                JOptionPane.showMessageDialog(null, "Se Anulo Correctamente");
-                limpiarTabla(jtVerPagos);
-                if (jrbDni_VerPagos.isSelected()) {
-                    //limpiarTabla(jtVerPagos);
-                    gettabla_verpagos_bycliente(txtFiltroDni_VerPagos.getText(), 0, 2);
-                }
-                if (jrbAgricultor_VerPagos.isSelected()) {
-                    //limpiarTabla(jtVerPagos);
-                    int id = ((Agricultor) cboFiltroAgricultor_VerPagos.getSelectedItem()).getInt_id();
-                    gettabla_verpagos_bycliente("", id, 2);
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "No se Pudo Anular");
+
+        BLPagos p = new BLPagos();
+        idPago = Integer.parseInt(jtVerPagos.getValueAt(jtVerPagos.getSelectedRow(), 0).toString());
+        boolean resultado = false;
+        resultado = p.AnularPago(idPago);
+        if (resultado == true) {
+            JOptionPane.showMessageDialog(null, "Se Anulo Correctamente");
+            limpiarTabla(jtVerPagos);
+            if (jrbDni_VerPagos.isSelected()) {
+                //limpiarTabla(jtVerPagos);
+                gettabla_verpagos_bycliente(txtFiltroDni_VerPagos.getText(), 0, 2);
             }
-        
+            if (jrbAgricultor_VerPagos.isSelected()) {
+                //limpiarTabla(jtVerPagos);
+                int id = ((Agricultor) cboFiltroAgricultor_VerPagos.getSelectedItem()).getInt_id();
+                gettabla_verpagos_bycliente("", id, 2);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No se Pudo Anular");
+        }
+
     }//GEN-LAST:event_jmip_AnularActionPerformed
 
     private void btn_Traspaso_ModalLateralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Traspaso_ModalLateralActionPerformed
-       try {
+        try {
             gettabla_lateral_byclientesactivos("", idAgri_Traspaso);
             jdTraspasoLateral.pack();
             jdTraspasoLateral.setLocationRelativeTo(null);
@@ -5455,7 +5490,7 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_Traspaso_ModalLateralActionPerformed
 
     private void jtModalLateral_TraspasoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtModalLateral_TraspasoMouseClicked
-       try {
+        try {
             idLat_Traspaso = Integer.parseInt(String.valueOf(jtModalLateral_Traspaso.getModel().getValueAt(jtModalLateral_Traspaso.getSelectedRow(), 0)));
             String lateral = String.valueOf(jtModalLateral_Traspaso.getModel().getValueAt(jtModalLateral_Traspaso.getSelectedRow(), 1));
             String sublateral = String.valueOf(jtModalLateral_Traspaso.getModel().getValueAt(jtModalLateral_Traspaso.getSelectedRow(), 2));
@@ -5534,7 +5569,7 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void btnGuardar5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardar5ActionPerformed
-         try {
+        try {
             if (txtCodigo_Cuenta.getText().compareTo("") != 0 && txtNombre_Cuentas.getText().compareTo("") != 0
                     && txtNumCuenta_Registrar.getText().compareTo("") != 0) {
                 if (new BLCuenta().Registrar(txtCodigo_Cuenta.getText(), txtNombre_Cuentas.getText(), txtNumCuenta_Registrar.getText())) {
@@ -5556,7 +5591,7 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_txtFiltroNombre_Cuenta2KeyReleased
 
     private void btnGuardar6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardar6ActionPerformed
-       try {
+        try {
             int id_cuenta = 0;
             if (txtMonto_AsignarCuenta.getText().compareTo("") != 0 && txtConcepto_AsignarCosto.getText().compareTo("") != 0) {
                 BLCuenta cu = new BLCuenta();
@@ -5573,7 +5608,7 @@ public class Inicio extends javax.swing.JFrame {
             }
         } catch (Exception e) {
             System.out.println("Error al registrar Cuenta" + e.toString());
-        } 
+        }
     }//GEN-LAST:event_btnGuardar6ActionPerformed
 
     private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
@@ -5650,7 +5685,58 @@ public class Inicio extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Solo es Prueba");
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void gettabla_comite_byActivos(String palabra) {
+    private void jtAgricultorMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtAgricultorMousePressed
+        if (evt.isPopupTrigger() && jtAgricultor.getModel().getRowCount() != 0
+                && jtAgricultor.getSelectedRow() != -1) {
+            jpmAgricultor.show(jtAgricultor, evt.getX(), evt.getY());
+        }
+    }//GEN-LAST:event_jtAgricultorMousePressed
+
+    private void jtAgricultorMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtAgricultorMouseReleased
+        if (evt.isPopupTrigger() && jtAgricultor.getModel().getRowCount() != 0
+                && jtAgricultor.getSelectedRow() != -1) {
+            jpmAgricultor.show(jtAgricultor, evt.getX(), evt.getY());
+        }
+    }//GEN-LAST:event_jtAgricultorMouseReleased
+
+    private void jmiEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiEditarActionPerformed
+        try {
+           
+            int id = Integer.parseInt(jtAgricultor.getValueAt(jtAgricultor.getSelectedRow(), 0).toString());
+            BDAgricultor a = new BDAgricultor();
+            ArrayList<ListaAgricultorLateral> c = new ArrayList<ListaAgricultorLateral>();
+            c = a.get_agricultorlateral_byid(id);
+            
+            DefaultTableModel temp = (DefaultTableModel) jtDetalleLaterales_Agricultor.getModel();
+            temp.setRowCount(0);
+            for (ListaAgricultorLateral lista : new BDAgricultor().get_agricultorlateral_byid(id)) {
+                Object[] datos = {lista.getInt_idlateral(),lista.getVar_lateral(),lista.getVar_sublateral(),
+                lista.getDec_sinmedida(),lista.getDec_conmedida()};
+                temp.addRow(datos);
+              txtDNI_Agricultor.setText(lista.getVar_dni());
+             txtNombres_Agricultor.setText(lista.getVar_nombre());
+             txtApePaterno_Agricultor.setText(lista.getVar_apepaterno());
+             txtApeMaterno_Agricultor.setText(lista.getVar_apematerno());
+             txtDireccion_Agricultor.setText(lista.getVar_direccion());
+             txtTelefono_Agricultor.setText(lista.getVar_telefono());
+             txtCelular_Agricultor.setText(lista.getVar_celular());
+             txtEmail_Agricultor.setText(lista.getVar_email());
+            }
+           
+       
+    }
+    catch(Exception e){
+            System.out.println("Error de Listado Editar -vISTA" + e.getMessage());
+    }
+
+    }//GEN-LAST:event_jmiEditarActionPerformed
+
+    private void txtFiltroAgricultorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroAgricultorKeyReleased
+        
+        gettabla_agricultor_all(txtFiltroAgricultor.getText(),cboFiltroAgricultor.getSelectedIndex());
+    }//GEN-LAST:event_txtFiltroAgricultorKeyReleased
+
+private void gettabla_comite_byActivos(String palabra) {
         DefaultTableModel temp = (DefaultTableModel) jtModalComite_Constancia.getModel();
         temp.setRowCount(0);
         for (Comite c : new BLComite().get_comite_byActivos(palabra)) {
@@ -5893,16 +5979,32 @@ public class Inicio extends javax.swing.JFrame {
                 if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-                }
+                
+
+}
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Inicio.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } 
+
+catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Inicio.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } 
+
+catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Inicio.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } 
+
+catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Inicio.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -5954,6 +6056,7 @@ public class Inicio extends javax.swing.JFrame {
     private org.jdesktop.swingx.JXComboBox cboAntiguoAgricultor_Traspaso;
     private org.jdesktop.swingx.JXComboBox cboCuentas_AsignarCostos;
     private javax.swing.JComboBox cboEstado_VerPagos;
+    private javax.swing.JComboBox cboFiltroAgricultor;
     private org.jdesktop.swingx.JXComboBox cboFiltroAgricultor_VerPagos;
     private org.jdesktop.swingx.JXComboBox cboLateral_Agricultor;
     private org.jdesktop.swingx.JXComboBox cboNuevoAgricultor_Traspaso;
@@ -5980,7 +6083,6 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JButton jButton7;
     private javax.swing.JCheckBox jCheckBox5;
     private javax.swing.JCheckBox jCheckBox6;
-    private javax.swing.JComboBox jComboBox3;
     private javax.swing.JComboBox jComboBox4;
     private javax.swing.JComboBox jComboBox6;
     private javax.swing.JComboBox jComboBox8;
@@ -6157,7 +6259,6 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane9;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable10;
-    private javax.swing.JTable jTable7;
     private javax.swing.JTable jTable8;
     private javax.swing.JTable jTable9;
     private javax.swing.JTextField jTextField2;
@@ -6172,7 +6273,6 @@ public class Inicio extends javax.swing.JFrame {
     private org.jdesktop.swingx.JXComboBox jXComboBox5;
     private org.jdesktop.swingx.JXComboBox jXComboBox6;
     private org.jdesktop.swingx.JXComboBox jXComboBox7;
-    private org.jdesktop.swingx.JXSearchField jXSearchField1;
     private org.jdesktop.swingx.JXSearchField jXSearchField2;
     private org.jdesktop.swingx.JXSearchField jXSearchField3;
     private org.jdesktop.swingx.JXSearchField jXSearchField5;
@@ -6211,6 +6311,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmiAgricultor;
     private javax.swing.JMenuItem jmiAlquiler;
     private javax.swing.JMenuItem jmiClientes;
+    private javax.swing.JMenuItem jmiEditar;
     private javax.swing.JMenuItem jmiInicioCierre;
     private javax.swing.JMenuItem jmiMovimiento;
     private javax.swing.JMenuItem jmiMovimientos;
@@ -6233,9 +6334,11 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JMenu jpReportes;
     private javax.swing.JPanel jpTraspaso;
     private javax.swing.JPanel jpVerPagos;
+    private javax.swing.JPopupMenu jpmAgricultor;
     private javax.swing.JPopupMenu jpmVerPagos;
     private javax.swing.JRadioButton jrbAgricultor_VerPagos;
     private javax.swing.JRadioButton jrbDni_VerPagos;
+    private javax.swing.JTable jtAgricultor;
     private javax.swing.JTable jtAsignarCosto_Cuentas;
     private javax.swing.JTable jtBusqueda_Constancia;
     private javax.swing.JTable jtCuentas;
@@ -6286,6 +6389,7 @@ public class Inicio extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser txtFecha_Constancia;
     private com.toedter.calendar.JDateChooser txtFecha_Movimiento;
     private com.toedter.calendar.JDateChooser txtFecha_RegistrarPagos;
+    private org.jdesktop.swingx.JXSearchField txtFiltroAgricultor;
     private javax.swing.JTextField txtFiltroDni_VerPagos;
     private com.toedter.calendar.JDateChooser txtFiltroFin_Constancia;
     private com.toedter.calendar.JDateChooser txtFiltroInicio_Constancia;

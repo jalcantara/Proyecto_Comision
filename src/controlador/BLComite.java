@@ -19,7 +19,7 @@ public class BLComite {
         ArrayList<Comite> listComite = new ArrayList<>();
         try {
             BDComite comite = new BDComite();
-            listComite = comite.get_comite_byActivos(" var_nombre like '%" + condicion + "%'");
+            listComite = comite.get_comite_byActivos(" c.var_nombre like '%" + condicion + "%'");
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Error de Listar Comites Activos- cOntrolador" + e.getMessage());
