@@ -2628,6 +2628,11 @@ public class Inicio extends javax.swing.JFrame {
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/Save.png"))); // NOI18N
         jButton2.setText("GUARDAR");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/cancelar.png"))); // NOI18N
@@ -5640,6 +5645,10 @@ public class Inicio extends javax.swing.JFrame {
             System.out.println("Error al registrar Orden Compra" + e.toString());
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        JOptionPane.showMessageDialog(null, "Solo es Prueba");
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void gettabla_comite_byActivos(String palabra) {
         DefaultTableModel temp = (DefaultTableModel) jtModalComite_Constancia.getModel();
