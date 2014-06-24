@@ -7,9 +7,13 @@
 package modelo;
 
 import entidad.Alquiler;
+import entidad.Detalle_Alquiler;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
+import java.util.ArrayList;
 
 /**
  *
@@ -17,22 +21,36 @@ import java.sql.SQLException;
  */
 public class BDAlquiler {
     
-    /*public boolean insertarAlquiler(Alquiler a){
-        int valor = 0;
+    public boolean insertarAlquiler(int idCliente,ArrayList<Detalle_Alquiler> lista_detalle){
+        boolean resultado = false;
         Connection cnn = null;
         CallableStatement cstmt = null;
+        CallableStatement cstm1=null;
+        int id_alquiler=0;
         try {
             cnn = BD.getConnection();
             cnn.setAutoCommit(false);
-            cstmt = cnn.prepareCall("{call ........ (?,?,?,?)}");
-            cstmt.setInt(1, a.getCuenta().getInt_id());
-            cstmt.setInt(2, a.getCliente().getInt_id());
-            cstmt.setDate(3, a.getDat_fechinicio());
-            cstmt.setDate(4, a.getDat_fechfin());         
-            /*cstmt.registerOutParameter("codigo", Types.INTEGER);
-            cstmt.executeUpdate();
+            String sql="call spI_Alquiler (?,?);";
+            cstmt = cnn.prepareCall(sql);
+            cstmt.setInt(1, 2);
+            cstmt.setInt(2, idCliente);
+            ResultSet rs=cstmt.executeQuery();
+            if(rs.next()){
+                id_alquiler = rs.getInt("int_id");
+            }
+            for (int i = 0; i < lista_detalle.size(); i++) {
+                String sql1 = "call spI_DetalleAlquiler(?,?,?,?,?,?);";
+                cstm1 = cnn.prepareCall(sql1);
+                cstm1.setInt(1, id_alquiler);
+                cstm1.setInt(2, lista_detalle.get(i).getMaterial_id());
+                cstm1.setInt(3, lista_detalle.get(i).getInt_cantidad());
+                cstm1.setDouble(4, lista_detalle.get(i).getDec_monto());
+                cstm1.setTimestamp(5, lista_detalle.get(i).getDat_fechfin());
+                cstm1.setTimestamp(6, lista_detalle.get(i).getDat_fechinicio());
+                cstm1.execute();
+            }   
             cnn.commit();
-            valor = cstmt.getInt("codigo");
+            resultado=true;
         } catch (SQLException s) {
             try {
                 cnn.rollback();
@@ -45,6 +63,6 @@ public class BDAlquiler {
                 cnn.close();
             } catch (SQLException ex) {}
         }
-        return valor;
-    }*/
+        return resultado;
+    }
 }

@@ -1,11 +1,13 @@
 package vista;
 
 import controlador.BLAgricultor;
+import controlador.BLAlquiler;
 import controlador.BLComite;
 import controlador.BLConstancia;
 import controlador.BLConstante;
 import controlador.BLCuenta;
 import controlador.BLLateral;
+import controlador.BLMaterial;
 import controlador.BLMovimiento;
 import controlador.BLPagos;
 import controlador.BLPeriodo;
@@ -16,15 +18,18 @@ import entidad.Comite;
 import entidad.Constancia;
 import entidad.Constante;
 import entidad.Cuenta;
+import entidad.Detalle_Alquiler;
 import entidad.Lateral;
 import entidad.ListaAgricultorLateral;
 import entidad.ListaConstancia;
 import entidad.ListaTraspasos;
+import entidad.Material;
 import entidad.Pago;
 import entidad.PeriodoCampania;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -333,6 +338,13 @@ public class Inicio extends javax.swing.JFrame {
         }
         AutoCompleteDecorator.decorate(cboAgricultorFiltro_Constancia);
         AutoCompleteDecorator.decorate(cboFiltroAgricultor_VerPagos);
+
+        DefaultTableModel temp = (DefaultTableModel) jtModalAgricultor_Alquiler.getModel();
+        temp.setRowCount(0);
+        for (Agricultor a : new BLAgricultor().get_agricultores_byActivos("")) {
+            Object[] datos = {a.getInt_id(), a.getVar_nombre() + ' ' + a.getVar_apepaterno() + ' ' + a.getVar_apematerno()};
+            temp.addRow(datos);
+        }
     }
 
     private void gettabla_agricultor_all(String condicion, int indicecombo) {
@@ -431,7 +443,18 @@ public class Inicio extends javax.swing.JFrame {
     }
     /*FIN MOVIMIENTO*/
 
+    /*MATERIAL*/
+    private void getcombo_material_all() {
+        cboTipoMaterial_Alquiler.removeAllItems();
+        for (Material m: new BLMaterial().get_material_all()) {
+            cboTipoMaterial_Alquiler.addItem(m);
+        }
+        AutoCompleteDecorator.decorate(cboTipoMaterial_Alquiler);
+
+    }
+    /*FIN MATERIAL*/
     /*USUARIO*/
+
     private void limpiarFomulario_Usuario() {
         txtID_Usuario.setText("");
         txtpass_usuario.setText("");
@@ -2124,6 +2147,11 @@ public class Inicio extends javax.swing.JFrame {
         btnEliminarDet_Alquiler.setText("Eliminar");
         btnEliminarDet_Alquiler.setEnabled(false);
         btnEliminarDet_Alquiler.setIconTextGap(8);
+        btnEliminarDet_Alquiler.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarDet_AlquilerActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -2200,11 +2228,11 @@ public class Inicio extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Tipo Material", "Cantidad", "Monto", "Desde", "Hasta"
+                "ID", "Tipo Material", "Cantidad", "Monto", "Desde", "Hasta"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -2213,11 +2241,11 @@ public class Inicio extends javax.swing.JFrame {
         });
         jScrollPane12.setViewportView(jtbDetalle_Alquiler);
         if (jtbDetalle_Alquiler.getColumnModel().getColumnCount() > 0) {
-            jtbDetalle_Alquiler.getColumnModel().getColumn(0).setPreferredWidth(100);
-            jtbDetalle_Alquiler.getColumnModel().getColumn(1).setPreferredWidth(40);
+            jtbDetalle_Alquiler.getColumnModel().getColumn(1).setPreferredWidth(100);
             jtbDetalle_Alquiler.getColumnModel().getColumn(2).setPreferredWidth(40);
             jtbDetalle_Alquiler.getColumnModel().getColumn(3).setPreferredWidth(40);
             jtbDetalle_Alquiler.getColumnModel().getColumn(4).setPreferredWidth(40);
+            jtbDetalle_Alquiler.getColumnModel().getColumn(5).setPreferredWidth(40);
         }
 
         btn_Cancelar1.setBackground(new java.awt.Color(255, 102, 0));
@@ -4989,6 +5017,7 @@ public class Inicio extends javax.swing.JFrame {
 
     private void jmiAlquilerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAlquilerActionPerformed
         limpiarFomulario_Alquiler();
+        getcombo_material_all();
         iniciarFomrulario_Alquiler(jifIngresarAlquiler);
     }//GEN-LAST:event_jmiAlquilerActionPerformed
 
@@ -5378,6 +5407,7 @@ public class Inicio extends javax.swing.JFrame {
 
     private void btnBuscarAgricultor_AlquilerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarAgricultor_AlquilerActionPerformed
         try {
+            getcombo_cliente_all();
             jdAlquilerAgricultor.pack();
             jdAlquilerAgricultor.setLocationRelativeTo(null);
             jdAlquilerAgricultor.getRootPane().registerKeyboardAction(new CloseDialogEscape(jdAlquilerAgricultor),
@@ -5398,7 +5428,36 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_Cancelar1ActionPerformed
 
     private void btn_Registrar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Registrar1ActionPerformed
-        limpiarFomulario_Alquiler();
+
+        boolean resultado=false;
+        try {
+            BLAlquiler a=new BLAlquiler();
+            ArrayList<Detalle_Alquiler> lista_detalle = new ArrayList<Detalle_Alquiler>();
+                int nroFilas = ((DefaultTableModel) jtbDetalle_Alquiler.getModel()).getRowCount();
+                for (int f = 0; f < nroFilas; f++) {
+                    Detalle_Alquiler l = new Detalle_Alquiler();
+                    l.setMaterial_id(Integer.parseInt(jtbDetalle_Alquiler.getModel().getValueAt(f, 0).toString()));
+                    l.setInt_cantidad(Integer.parseInt(jtbDetalle_Alquiler.getModel().getValueAt(f, 2).toString()));
+                    l.setDec_monto(Double.parseDouble(jtbDetalle_Alquiler.getModel().getValueAt(f, 3).toString()));
+                    l.setDat_fechinicio(Timestamp.valueOf(jtbDetalle_Alquiler.getModel().getValueAt(f, 4).toString()));
+                    l.setDat_fechfin(Timestamp.valueOf(jtbDetalle_Alquiler.getModel().getValueAt(f, 5).toString()));
+                    
+                    lista_detalle.add(l);
+                }
+                     
+            resultado=a.insertarAlquiler(idAgricultor_Alquiler,lista_detalle);
+            if(resultado==true){
+                JOptionPane.showMessageDialog(null, "Se registro Correctamente");
+                limpiarFomulario_Alquiler();
+                limpiarTabla(jtbDetalle_Alquiler);
+            }else{
+                JOptionPane.showMessageDialog(null, "No se pudo Registrar");
+            }
+        } 
+        catch (Exception e) {
+            System.out.println("Error de Ingreso"+e.getMessage());
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_btn_Registrar1ActionPerformed
 
     private void jrbDni_VerPagosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbDni_VerPagosActionPerformed
@@ -5572,7 +5631,7 @@ public class Inicio extends javax.swing.JFrame {
         } else if (fila == 0) {
             temporal.removeRow(fila);
         }
-        btnEliminar_DetLateales.setEnabled(false);
+        btnEliminar_DetLateales.setEnabled(true);
     }//GEN-LAST:event_btnEliminar_DetLatealesActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
@@ -5650,6 +5709,7 @@ public class Inicio extends javax.swing.JFrame {
                 txtTelefono_Agricultor.setText(lista.getVar_telefono());
                 txtCelular_Agricultor.setText(lista.getVar_celular());
                 txtEmail_Agricultor.setText(lista.getVar_email());
+                //btnEliminar_DetLateales.setEnabled(true);
             }
         } catch (Exception e) {
             System.out.println("Error de Listado Editar -vISTA" + e.getMessage());
@@ -5901,16 +5961,19 @@ public class Inicio extends javax.swing.JFrame {
 
     private void btnAgregarDet_AlquilerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarDet_AlquilerActionPerformed
         try {
-            DefaultTableModel temporal = (DefaultTableModel) jtDetalleLaterales_Agricultor.getModel();
+            DefaultTableModel temporal = (DefaultTableModel) jtbDetalle_Alquiler.getModel();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
             Object datos[] = {
-                cboTipoMaterial_Alquiler.getSelectedItem(),
-                txtMonto_Alquiler.getText(),
+                ((Material)cboTipoMaterial_Alquiler.getSelectedItem()).getInt_id(),
+                ((Material)cboTipoMaterial_Alquiler.getSelectedItem()).getVar_nombre(),                
                 txtCantidad_Alquiler.getValue(),
-                txtFechaDesde_Alquiler.getDate(),
-                txtFechaHasta_Alquiler.getDate()
+                txtMonto_Alquiler.getText(),
+                sdf.format(txtFechaDesde_Alquiler.getDate()),
+                sdf.format(txtFechaHasta_Alquiler.getDate())
             };
             temporal.addRow(datos);
             txtMonto_Alquiler.setText("");
+            btnEliminarDet_Alquiler.setEnabled(true);
         } catch (Exception e) {
             System.out.println("" + e.getMessage());
         }
@@ -5919,6 +5982,17 @@ public class Inicio extends javax.swing.JFrame {
     private void btn_Cancelar_UsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Cancelar_UsuarioActionPerformed
         limpiarFomulario_Usuario();
     }//GEN-LAST:event_btn_Cancelar_UsuarioActionPerformed
+
+    private void btnEliminarDet_AlquilerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarDet_AlquilerActionPerformed
+        int fila = jtbDetalle_Alquiler.getSelectedRow();
+        DefaultTableModel temporal = (DefaultTableModel) jtbDetalle_Alquiler.getModel();
+        if (fila > 0) {
+            temporal.removeRow(fila);
+        } else if (fila == 0) {
+            temporal.removeRow(fila);
+        }
+        btnEliminar_DetLateales.setEnabled(true);
+    }//GEN-LAST:event_btnEliminarDet_AlquilerActionPerformed
 
     /*METODOS PARA MOSTRAR EL FORMULARIO*/
     public void iniciarFomrulario(JInternalFrame jif) {

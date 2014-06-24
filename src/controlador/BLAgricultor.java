@@ -77,6 +77,9 @@ public class BLAgricultor {
             if(indicecombo == 1){
                 listAgricultor = new BDAgricultor().get_agricultorlateral_all(" var_dni like '%" + condicion + "%'");
             }
+            if(indicecombo == 2){
+                listAgricultor = new BDAgricultor().get_agricultorlateral_all(" int_id != 0 ");
+            }
         } catch (Exception e) {
             System.out.println("Error de Listado- Agricultores Antiguos - Controlador" + e.getMessage());
         }

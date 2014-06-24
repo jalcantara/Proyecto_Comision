@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -17,8 +18,6 @@ public class Alquiler {
     private int int_id;
     private int cuenta_id;
     private int cliente_id;
-    private Timestamp dat_fechinicio;
-    private Timestamp dat_fechfin;
     private int int_estado;   
     
     
@@ -56,21 +55,6 @@ public class Alquiler {
         this.int_estado = int_estado;
     }
 
-    public Timestamp getDat_fechinicio() {
-        return dat_fechinicio;
-    }
-
-    public void setDat_fechinicio(Timestamp dat_fechinicio) {
-        this.dat_fechinicio = dat_fechinicio;
-    }
-
-    public Timestamp getDat_fechfin() {
-        return dat_fechfin;
-    }
-
-    public void setDat_fechfin(Timestamp dat_fechfin) {
-        this.dat_fechfin = dat_fechfin;
-    }
     
     
 }

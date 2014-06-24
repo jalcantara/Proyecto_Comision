@@ -56,7 +56,10 @@ public class Material {
     public void setInt_estado(int int_estado) {
         this.int_estado = int_estado;
     }
-
+    
+    public String toString(){
+        return this.var_nombre;
+    } 
     
     
     

@@ -6,6 +6,8 @@
 
 package entidad;
 
+import java.sql.Timestamp;
+
 /**
  *
  * @author joseph
@@ -16,7 +18,11 @@ public class Detalle_Alquiler {
     private int material_id;
     private int int_cantidad;
     private double dec_monto;
-
+    private Timestamp dat_fechfin;
+    private Timestamp dat_fechinicio;
+    
+    
+    
     public int getIddetalle_alquiler() {
         return iddetalle_alquiler;
     }
@@ -55,6 +61,22 @@ public class Detalle_Alquiler {
 
     public void setDec_monto(double dec_monto) {
         this.dec_monto = dec_monto;
+    }
+
+    public Timestamp getDat_fechfin() {
+        return dat_fechfin;
+    }
+
+    public void setDat_fechfin(Timestamp dat_fechfin) {
+        this.dat_fechfin = dat_fechfin;
+    }
+
+    public Timestamp getDat_fechinicio() {
+        return dat_fechinicio;
+    }
+
+    public void setDat_fechinicio(Timestamp dat_fechinicio) {
+        this.dat_fechinicio = dat_fechinicio;
     }
     
     
