@@ -19,7 +19,7 @@ public class BLPagos {
         ArrayList<Pago> listPago = new ArrayList<>();
         try {
             BDPago pago = new BDPago();
-            listPago = pago.get_pagos_bycliente(" (var_dni='" + dni + "' or int_id=" + id + ") and int_estado='" + estado + "' ");
+            listPago = pago.get_pagos_bycliente(id,dni,estado);
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Error de Pagos_ByCliente" + e.getMessage());

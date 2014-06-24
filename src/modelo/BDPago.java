@@ -19,13 +19,17 @@ import java.util.ArrayList;
  * @author joseph
  */
 public class BDPago {
-    public ArrayList<Pago> get_pagos_bycliente(String condicion) {
+    public ArrayList<Pago> get_pagos_bycliente(int idCliente,String dni,int filtro) {
         ArrayList<Pago> lista = new ArrayList<Pago>();
         try {
             Connection cnn = BD.getConnection();
-            PreparedStatement ps = null;
-            ps = cnn.prepareStatement("select * from get_pagos_bycliente where" + condicion);
-            ResultSet rs = ps.executeQuery();
+            CallableStatement cstm = null;
+            String sql="call spC_Pagos_ByCliente(?,?,?);";
+            cstm = cnn.prepareCall(sql);
+            cstm.setInt(1, idCliente);
+            cstm.setString(2, dni);
+            cstm.setInt(3, filtro);
+            ResultSet rs = cstm.executeQuery();
             while (rs.next()) {
                 Pago p = new Pago();
                 p.setInt_id(rs.getInt("idPago"));
@@ -39,7 +43,7 @@ public class BDPago {
                 lista.add(p);
             }
             cnn.close();
-            ps.close();
+            cstm.close();
         } catch (SQLException a) {
             System.out.println("" + a);
         } finally {

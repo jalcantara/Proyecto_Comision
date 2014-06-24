@@ -26,6 +26,7 @@ public class BDAlquiler {
         Connection cnn = null;
         CallableStatement cstmt = null;
         CallableStatement cstm1=null;
+        CallableStatement cstm2=null;
         int id_alquiler=0;
         try {
             cnn = BD.getConnection();
@@ -48,7 +49,14 @@ public class BDAlquiler {
                 cstm1.setTimestamp(5, lista_detalle.get(i).getDat_fechfin());
                 cstm1.setTimestamp(6, lista_detalle.get(i).getDat_fechinicio());
                 cstm1.execute();
-            }   
+            }
+            // Registrar Pagos
+            String sql2 = "call spI_Pagos_ByAlquiler(?,?);";
+            cstm2 = cnn.prepareCall(sql2);
+            cstm2.setInt(1, 1); // es el codigo del usuario cambiar despues
+            cstm2.setInt(2, id_alquiler);
+            cstm2.execute();
+            
             cnn.commit();
             resultado=true;
         } catch (SQLException s) {
