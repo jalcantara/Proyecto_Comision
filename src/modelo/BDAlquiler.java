@@ -8,6 +8,7 @@ package modelo;
 
 import entidad.Alquiler;
 import entidad.Detalle_Alquiler;
+import entidad.ListaAlquiler;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -72,5 +73,35 @@ public class BDAlquiler {
             } catch (SQLException ex) {}
         }
         return resultado;
+    }
+    public ArrayList<ListaAlquiler> get_alquiler_byclientefecha(String condicion){
+        Connection cnn = null;
+        CallableStatement cstmt = null;
+        ArrayList<ListaAlquiler> listAlquiler = new ArrayList<ListaAlquiler>();
+        try {
+            cnn = BD.getConnection();
+            String sql="select * from  get_alquiler_byclientefecha where " + condicion;
+            cstmt = cnn.prepareCall(sql);
+            ResultSet rs = cstmt.executeQuery();
+            while(rs.next()) {
+                ListaAlquiler a = new ListaAlquiler();
+                a.setIdCliente(rs.getInt("int_id"));
+                a.setVar_nombre_cliente(rs.getString("var_nombre_cliente"));
+                a.setVar_apepaterno(rs.getString("var_apepaterno"));
+                a.setVar_apematerno(rs.getString("var_apematerno"));
+                a.setVar_nombre_material(rs.getString("var_nombre_material"));
+                a.setDat_fechinicio(rs.getTimestamp("dat_fechinicio"));
+                a.setDat_fechfin(rs.getTimestamp("dat_fechfin"));
+                a.setInt_cantidad(rs.getInt("int_cantidad"));
+                a.setDec_monto(rs.getDouble("dec_monto"));
+                a.setDat_fechaRegistro(rs.getTimestamp("dat_fechaRegistro"));
+                listAlquiler.add(a);
+            }
+            cstmt.close();
+            cnn.close();
+        } catch (SQLException a) {
+            System.out.println("" + a);
+        }
+        return listAlquiler;
     }
 }

@@ -21,6 +21,7 @@ import entidad.Cuenta;
 import entidad.Detalle_Alquiler;
 import entidad.Lateral;
 import entidad.ListaAgricultorLateral;
+import entidad.ListaAlquiler;
 import entidad.ListaConstancia;
 import entidad.ListaTraspasos;
 import entidad.Material;
@@ -332,12 +333,15 @@ public class Inicio extends javax.swing.JFrame {
     private void getcombo_cliente_all() {
         cboAgricultorFiltro_Constancia.removeAllItems();
         cboFiltroAgricultor_VerPagos.removeAllItems();
+        cboAgricultor_Alquiler.removeAllItems();
         for (Agricultor c : new BLAgricultor().get_agricultores_byActivos("")) {
             cboAgricultorFiltro_Constancia.addItem(c);
             cboFiltroAgricultor_VerPagos.addItem(c);
+            cboAgricultor_Alquiler.addItem(c);
         }
         AutoCompleteDecorator.decorate(cboAgricultorFiltro_Constancia);
         AutoCompleteDecorator.decorate(cboFiltroAgricultor_VerPagos);
+        AutoCompleteDecorator.decorate(cboAgricultor_Alquiler);
 
         DefaultTableModel temp = (DefaultTableModel) jtModalAgricultor_Alquiler.getModel();
         temp.setRowCount(0);
@@ -576,11 +580,11 @@ public class Inicio extends javax.swing.JFrame {
         jtLista_Alquileres = new javax.swing.JTable();
         jLabel82 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jCheckBox5 = new javax.swing.JCheckBox();
+        chkFiltroFecha_Alquiler = new javax.swing.JCheckBox();
         txtFechaInicio_Alquiler = new com.toedter.calendar.JDateChooser();
         jLabel29 = new javax.swing.JLabel();
         txtFechaFin_Alquiler = new com.toedter.calendar.JDateChooser();
-        jCheckBox6 = new javax.swing.JCheckBox();
+        chkFiltroAgricultor_Alquiler = new javax.swing.JCheckBox();
         cboAgricultor_Alquiler = new org.jdesktop.swingx.JXComboBox();
         btn_buscar_alquileres = new javax.swing.JButton();
         jPanel13 = new javax.swing.JPanel();
@@ -1952,10 +1956,7 @@ public class Inicio extends javax.swing.JFrame {
 
         jtLista_Alquileres.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Cliente", "Tipo Material", "Fecha Inicio", "Fecha Fin", "Cantidad", "Monto"
@@ -1988,11 +1989,16 @@ public class Inicio extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jCheckBox5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jCheckBox5.setSelected(true);
-        jCheckBox5.setText("Fecha:");
+        chkFiltroFecha_Alquiler.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        chkFiltroFecha_Alquiler.setText("Fecha:");
+        chkFiltroFecha_Alquiler.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkFiltroFecha_AlquilerActionPerformed(evt);
+            }
+        });
 
         txtFechaInicio_Alquiler.setDateFormatString("dd 'de' MMMM 'de' yyyy");
+        txtFechaInicio_Alquiler.setEnabled(false);
         txtFechaInicio_Alquiler.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         jLabel29.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -2000,10 +2006,16 @@ public class Inicio extends javax.swing.JFrame {
         jLabel29.setText("Al");
 
         txtFechaFin_Alquiler.setDateFormatString("dd 'de' MMMM 'de' yyyy");
+        txtFechaFin_Alquiler.setEnabled(false);
         txtFechaFin_Alquiler.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        jCheckBox6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jCheckBox6.setText("Agricultor :");
+        chkFiltroAgricultor_Alquiler.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        chkFiltroAgricultor_Alquiler.setText("Agricultor :");
+        chkFiltroAgricultor_Alquiler.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkFiltroAgricultor_AlquilerActionPerformed(evt);
+            }
+        });
 
         cboAgricultor_Alquiler.setEnabled(false);
         cboAgricultor_Alquiler.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -2025,8 +2037,8 @@ public class Inicio extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jCheckBox5)
-                    .addComponent(jCheckBox6))
+                    .addComponent(chkFiltroFecha_Alquiler)
+                    .addComponent(chkFiltroAgricultor_Alquiler))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -2051,11 +2063,11 @@ public class Inicio extends javax.swing.JFrame {
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtFechaInicio_Alquiler, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
                                     .addComponent(jLabel29, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addComponent(jCheckBox5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(chkFiltroFecha_Alquiler, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtFechaFin_Alquiler, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCheckBox6)
+                            .addComponent(chkFiltroAgricultor_Alquiler)
                             .addComponent(cboAgricultor_Alquiler, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
@@ -5018,6 +5030,7 @@ public class Inicio extends javax.swing.JFrame {
     private void jmiAlquilerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAlquilerActionPerformed
         limpiarFomulario_Alquiler();
         getcombo_material_all();
+        getcombo_cliente_all();
         iniciarFomrulario_Alquiler(jifIngresarAlquiler);
     }//GEN-LAST:event_jmiAlquilerActionPerformed
 
@@ -5420,7 +5433,42 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarAgricultor_AlquilerActionPerformed
 
     private void btn_buscar_alquileresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscar_alquileresActionPerformed
-        // TODO add your handling code here:
+        int contador = 0;
+        ArrayList<String> lista = new ArrayList();
+        String condicionFinal = "";
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        boolean fecha = chkFiltroFecha_Alquiler.isSelected();
+        boolean cliente = chkFiltroAgricultor_Alquiler.isSelected();
+
+        if (fecha == true) {
+            lista.add(" ( date(dat_fechaRegistro) between '" + sdf.format(txtFechaInicio_Alquiler.getDate()) + "' and '" + sdf.format(txtFechaFin_Alquiler.getDate()) + "' ) ");
+            contador++;
+        }
+        if (cliente == true) {
+            lista.add(" ( int_id =" + ((Agricultor) cboAgricultor_Alquiler.getSelectedItem()).getInt_id() + " )");
+            contador++;
+        }
+        switch (contador) {
+            case 1:
+                condicionFinal = lista.get(0);
+                break;
+            case 2:
+                condicionFinal = lista.get(0) + " and " + lista.get(1);
+                break;
+            /*case 3:
+                condicionFinal = lista.get(0) + " and " + lista.get(1) + " and " + lista.get(2);
+                break;
+            case 4:
+                condicionFinal = lista.get(0) + " and " + lista.get(1) + " and " + lista.get(2) + " and " + lista.get(3);
+                break;*/
+        }
+        DefaultTableModel tempConstancia = (DefaultTableModel) jtLista_Alquileres.getModel();
+        tempConstancia.setRowCount(0);
+        for (ListaAlquiler l : new BLAlquiler().get_alquiler_byclientefecha(condicionFinal)) {
+            Object datos[] = {l.getVar_nombre_cliente()+' '+l.getVar_apepaterno()+' '+l.getVar_apematerno(),
+            l.getVar_nombre_material(),l.getDat_fechinicio(),l.getDat_fechfin(),l.getInt_cantidad(),l.getDec_monto()};
+            tempConstancia.addRow(datos);
+        }
     }//GEN-LAST:event_btn_buscar_alquileresActionPerformed
 
     private void btn_Cancelar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Cancelar1ActionPerformed
@@ -5994,6 +6042,24 @@ public class Inicio extends javax.swing.JFrame {
         btnEliminar_DetLateales.setEnabled(true);
     }//GEN-LAST:event_btnEliminarDet_AlquilerActionPerformed
 
+    private void chkFiltroFecha_AlquilerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkFiltroFecha_AlquilerActionPerformed
+        if(chkFiltroFecha_Alquiler.isSelected()){
+            txtFechaInicio_Alquiler.setEnabled(true);
+            txtFechaFin_Alquiler.setEnabled(true);
+        }else{
+            txtFechaInicio_Alquiler.setEnabled(false);
+            txtFechaFin_Alquiler.setEnabled(false);
+        }
+    }//GEN-LAST:event_chkFiltroFecha_AlquilerActionPerformed
+
+    private void chkFiltroAgricultor_AlquilerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkFiltroAgricultor_AlquilerActionPerformed
+        if(chkFiltroAgricultor_Alquiler.isSelected()){
+            cboAgricultor_Alquiler.setEnabled(true);
+        }else{
+            cboAgricultor_Alquiler.setEnabled(false);
+        }
+    }//GEN-LAST:event_chkFiltroAgricultor_AlquilerActionPerformed
+
     /*METODOS PARA MOSTRAR EL FORMULARIO*/
     public void iniciarFomrulario(JInternalFrame jif) {
         try {
@@ -6239,14 +6305,14 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JCheckBox chkCampania_Constancia;
     private javax.swing.JCheckBox chkCliente_Constancia;
     private javax.swing.JCheckBox chkFecha_Constancia;
+    private javax.swing.JCheckBox chkFiltroAgricultor_Alquiler;
+    private javax.swing.JCheckBox chkFiltroFecha_Alquiler;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton17;
     private javax.swing.JButton jButton19;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JCheckBox jCheckBox5;
-    private javax.swing.JCheckBox jCheckBox6;
     private javax.swing.JComboBox jComboBox6;
     private javax.swing.JComboBox jComboBox8;
     private javax.swing.JLabel jLabel1;

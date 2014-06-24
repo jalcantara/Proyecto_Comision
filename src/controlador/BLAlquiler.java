@@ -8,6 +8,7 @@ package controlador;
 
 import entidad.Alquiler;
 import entidad.Detalle_Alquiler;
+import entidad.ListaAlquiler;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import modelo.BDAlquiler;
@@ -28,5 +29,17 @@ public class BLAlquiler {
             e.printStackTrace();
         }
         return resultado;
+    }
+    public ArrayList<ListaAlquiler> get_alquiler_byclientefecha(String condicion){
+        ArrayList<ListaAlquiler> listAlquiler=new ArrayList<ListaAlquiler>();
+        try {
+            BDAlquiler a=new BDAlquiler();
+            listAlquiler=a.get_alquiler_byclientefecha(condicion);
+        } 
+        catch (Exception e) {
+            System.out.println("Error de Listado - Controlador"+e.getMessage());
+            e.printStackTrace();
+        }
+        return listAlquiler;
     }
 }
