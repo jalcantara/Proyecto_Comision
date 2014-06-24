@@ -2,6 +2,7 @@ package vista;
 
 import controlador.BLAgricultor;
 import controlador.BLAlquiler;
+import controlador.BLCargo;
 import controlador.BLComite;
 import controlador.BLConstancia;
 import controlador.BLConstante;
@@ -14,6 +15,7 @@ import controlador.BLPeriodo;
 import controlador.BLTraspaso;
 import entidad.Agricultor;
 import entidad.Asignar_Costo;
+import entidad.Cargo;
 import entidad.Comite;
 import entidad.Constancia;
 import entidad.Constante;
@@ -450,7 +452,7 @@ public class Inicio extends javax.swing.JFrame {
     /*MATERIAL*/
     private void getcombo_material_all() {
         cboTipoMaterial_Alquiler.removeAllItems();
-        for (Material m: new BLMaterial().get_material_all()) {
+        for (Material m : new BLMaterial().get_material_all()) {
             cboTipoMaterial_Alquiler.addItem(m);
         }
         AutoCompleteDecorator.decorate(cboTipoMaterial_Alquiler);
@@ -472,7 +474,20 @@ public class Inicio extends javax.swing.JFrame {
         txtFechaNacimiento_Usuario.setDate(new Date());
     }
     /*FIN USUARIO*/
-
+    
+    /*CARGO*/
+    private void getcombo_cargo_all() {
+        cboCargo_Usuario.removeAllItems();
+        for (Cargo c : new BLCargo().get_cargo_all()) {
+            cboCargo_Usuario.addItem(c);
+        }
+        //AutoCompleteDecorator.decorate(cboTipoOperacion_Movimiento);
+    }
+    /*FIN CARGO*/
+    
+    
+    
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -5061,6 +5076,7 @@ public class Inicio extends javax.swing.JFrame {
 
     private void jmiUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiUsuarioActionPerformed
         limpiarFomulario_Usuario();
+        getcombo_cargo_all();
         iniciarFomrulario_Usuario(jifUsuario);
     }//GEN-LAST:event_jmiUsuarioActionPerformed
 
@@ -5433,41 +5449,45 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarAgricultor_AlquilerActionPerformed
 
     private void btn_buscar_alquileresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscar_alquileresActionPerformed
-        int contador = 0;
-        ArrayList<String> lista = new ArrayList();
-        String condicionFinal = "";
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        boolean fecha = chkFiltroFecha_Alquiler.isSelected();
-        boolean cliente = chkFiltroAgricultor_Alquiler.isSelected();
+        try {
+            int contador = 0;
+            ArrayList<String> lista = new ArrayList();
+            String condicionFinal = "";
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            boolean fecha = chkFiltroFecha_Alquiler.isSelected();
+            boolean cliente = chkFiltroAgricultor_Alquiler.isSelected();
 
-        if (fecha == true) {
-            lista.add(" ( date(dat_fechaRegistro) between '" + sdf.format(txtFechaInicio_Alquiler.getDate()) + "' and '" + sdf.format(txtFechaFin_Alquiler.getDate()) + "' ) ");
-            contador++;
-        }
-        if (cliente == true) {
-            lista.add(" ( int_id =" + ((Agricultor) cboAgricultor_Alquiler.getSelectedItem()).getInt_id() + " )");
-            contador++;
-        }
-        switch (contador) {
-            case 1:
-                condicionFinal = lista.get(0);
-                break;
-            case 2:
-                condicionFinal = lista.get(0) + " and " + lista.get(1);
-                break;
-            /*case 3:
-                condicionFinal = lista.get(0) + " and " + lista.get(1) + " and " + lista.get(2);
-                break;
-            case 4:
-                condicionFinal = lista.get(0) + " and " + lista.get(1) + " and " + lista.get(2) + " and " + lista.get(3);
-                break;*/
-        }
-        DefaultTableModel tempConstancia = (DefaultTableModel) jtLista_Alquileres.getModel();
-        tempConstancia.setRowCount(0);
-        for (ListaAlquiler l : new BLAlquiler().get_alquiler_byclientefecha(condicionFinal)) {
-            Object datos[] = {l.getVar_nombre_cliente()+' '+l.getVar_apepaterno()+' '+l.getVar_apematerno(),
-            l.getVar_nombre_material(),l.getDat_fechinicio(),l.getDat_fechfin(),l.getInt_cantidad(),l.getDec_monto()};
-            tempConstancia.addRow(datos);
+            if (fecha == true) {
+                lista.add(" ( date(dat_fechaRegistro) between '" + sdf.format(txtFechaInicio_Alquiler.getDate()) + "' and '" + sdf.format(txtFechaFin_Alquiler.getDate()) + "' ) ");
+                contador++;
+            }
+            if (cliente == true) {
+                lista.add(" ( int_id =" + ((Agricultor) cboAgricultor_Alquiler.getSelectedItem()).getInt_id() + " )");
+                contador++;
+            }
+            switch (contador) {
+                case 1:
+                    condicionFinal = lista.get(0);
+                    break;
+                case 2:
+                    condicionFinal = lista.get(0) + " and " + lista.get(1);
+                    break;
+                /*case 3:
+                 condicionFinal = lista.get(0) + " and " + lista.get(1) + " and " + lista.get(2);
+                 break;
+                 case 4:
+                 condicionFinal = lista.get(0) + " and " + lista.get(1) + " and " + lista.get(2) + " and " + lista.get(3);
+                 break;*/
+            }
+            DefaultTableModel tempConstancia = (DefaultTableModel) jtLista_Alquileres.getModel();
+            tempConstancia.setRowCount(0);
+            for (ListaAlquiler l : new BLAlquiler().get_alquiler_byclientefecha(condicionFinal)) {
+                Object datos[] = {l.getVar_nombre_cliente() + ' ' + l.getVar_apepaterno() + ' ' + l.getVar_apematerno(),
+                    l.getVar_nombre_material(), l.getDat_fechinicio(), l.getDat_fechfin(), l.getInt_cantidad(), l.getDec_monto()};
+                tempConstancia.addRow(datos);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }//GEN-LAST:event_btn_buscar_alquileresActionPerformed
 
@@ -5477,33 +5497,32 @@ public class Inicio extends javax.swing.JFrame {
 
     private void btn_Registrar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Registrar1ActionPerformed
 
-        boolean resultado=false;
+        boolean resultado = false;
         try {
-            BLAlquiler a=new BLAlquiler();
+            BLAlquiler a = new BLAlquiler();
             ArrayList<Detalle_Alquiler> lista_detalle = new ArrayList<Detalle_Alquiler>();
-                int nroFilas = ((DefaultTableModel) jtbDetalle_Alquiler.getModel()).getRowCount();
-                for (int f = 0; f < nroFilas; f++) {
-                    Detalle_Alquiler l = new Detalle_Alquiler();
-                    l.setMaterial_id(Integer.parseInt(jtbDetalle_Alquiler.getModel().getValueAt(f, 0).toString()));
-                    l.setInt_cantidad(Integer.parseInt(jtbDetalle_Alquiler.getModel().getValueAt(f, 2).toString()));
-                    l.setDec_monto(Double.parseDouble(jtbDetalle_Alquiler.getModel().getValueAt(f, 3).toString()));
-                    l.setDat_fechinicio(Timestamp.valueOf(jtbDetalle_Alquiler.getModel().getValueAt(f, 4).toString()));
-                    l.setDat_fechfin(Timestamp.valueOf(jtbDetalle_Alquiler.getModel().getValueAt(f, 5).toString()));
-                    
-                    lista_detalle.add(l);
-                }
-                     
-            resultado=a.insertarAlquiler(idAgricultor_Alquiler,lista_detalle);
-            if(resultado==true){
+            int nroFilas = ((DefaultTableModel) jtbDetalle_Alquiler.getModel()).getRowCount();
+            for (int f = 0; f < nroFilas; f++) {
+                Detalle_Alquiler l = new Detalle_Alquiler();
+                l.setMaterial_id(Integer.parseInt(jtbDetalle_Alquiler.getModel().getValueAt(f, 0).toString()));
+                l.setInt_cantidad(Integer.parseInt(jtbDetalle_Alquiler.getModel().getValueAt(f, 2).toString()));
+                l.setDec_monto(Double.parseDouble(jtbDetalle_Alquiler.getModel().getValueAt(f, 3).toString()));
+                l.setDat_fechinicio(Timestamp.valueOf(jtbDetalle_Alquiler.getModel().getValueAt(f, 4).toString()));
+                l.setDat_fechfin(Timestamp.valueOf(jtbDetalle_Alquiler.getModel().getValueAt(f, 5).toString()));
+
+                lista_detalle.add(l);
+            }
+
+            resultado = a.insertarAlquiler(idAgricultor_Alquiler, lista_detalle);
+            if (resultado == true) {
                 JOptionPane.showMessageDialog(null, "Se registro Correctamente");
                 limpiarFomulario_Alquiler();
                 limpiarTabla(jtbDetalle_Alquiler);
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "No se pudo Registrar");
             }
-        } 
-        catch (Exception e) {
-            System.out.println("Error de Ingreso"+e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error de Ingreso" + e.getMessage());
             e.printStackTrace();
         }
     }//GEN-LAST:event_btn_Registrar1ActionPerformed
@@ -5780,7 +5799,8 @@ public class Inicio extends javax.swing.JFrame {
                         txtnombres_usuario.getText(),
                         txtapellidos_usuario.getText(),
                         new java.sql.Date(txtFechaNacimiento_Usuario.getDate().getTime()),
-                        txtTeleCelular_Usuario.getText(), 0,
+                        txtTeleCelular_Usuario.getText(),
+                        ((Cargo) cboCargo_Usuario.getSelectedItem()).getInt_id() ,
                         txtDireccion_Usuario.getText(),
                         txtEmail_Usuario.getText())) {
                     limpiarFomulario_Usuario();
@@ -6012,8 +6032,8 @@ public class Inicio extends javax.swing.JFrame {
             DefaultTableModel temporal = (DefaultTableModel) jtbDetalle_Alquiler.getModel();
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
             Object datos[] = {
-                ((Material)cboTipoMaterial_Alquiler.getSelectedItem()).getInt_id(),
-                ((Material)cboTipoMaterial_Alquiler.getSelectedItem()).getVar_nombre(),                
+                ((Material) cboTipoMaterial_Alquiler.getSelectedItem()).getInt_id(),
+                ((Material) cboTipoMaterial_Alquiler.getSelectedItem()).getVar_nombre(),
                 txtCantidad_Alquiler.getValue(),
                 txtMonto_Alquiler.getText(),
                 sdf.format(txtFechaDesde_Alquiler.getDate()),
@@ -6043,19 +6063,19 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarDet_AlquilerActionPerformed
 
     private void chkFiltroFecha_AlquilerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkFiltroFecha_AlquilerActionPerformed
-        if(chkFiltroFecha_Alquiler.isSelected()){
+        if (chkFiltroFecha_Alquiler.isSelected()) {
             txtFechaInicio_Alquiler.setEnabled(true);
             txtFechaFin_Alquiler.setEnabled(true);
-        }else{
+        } else {
             txtFechaInicio_Alquiler.setEnabled(false);
             txtFechaFin_Alquiler.setEnabled(false);
         }
     }//GEN-LAST:event_chkFiltroFecha_AlquilerActionPerformed
 
     private void chkFiltroAgricultor_AlquilerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkFiltroAgricultor_AlquilerActionPerformed
-        if(chkFiltroAgricultor_Alquiler.isSelected()){
+        if (chkFiltroAgricultor_Alquiler.isSelected()) {
             cboAgricultor_Alquiler.setEnabled(true);
-        }else{
+        } else {
             cboAgricultor_Alquiler.setEnabled(false);
         }
     }//GEN-LAST:event_chkFiltroAgricultor_AlquilerActionPerformed

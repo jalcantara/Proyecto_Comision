@@ -39,6 +39,10 @@ public class Cargo {
         this.int_estado = int_estado;
     }
     
+    public String toString(){
+        return this.var_descripcion;
+    } 
+    
     
 
     
