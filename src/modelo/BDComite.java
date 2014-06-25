@@ -54,7 +54,7 @@ public class BDComite {
         ArrayList<Comite> listComite = new ArrayList<Comite>();
         try {
             cnn = BD.getConnection();
-            String sql="select * from  get_comite_all where int_estado='1' and " + condicion;
+            String sql="select * from  get_comite_all where " + condicion;
             cstmt = cnn.prepareCall(sql);
             ResultSet rs = cstmt.executeQuery();
             while(rs.next()) {

@@ -44,7 +44,7 @@ public class BDTraspaso {
             cstm.execute();            
             
             //INSERTAR EN LISTA_LATERAL EL NUEVO CLIENTE
-            String sql2="call spI_ListaLateral(?,?,?,?,?);";
+            String sql2="call spI_ListaLateral_Traspaso(?,?,?,?,?);";
             cstm=cn.prepareCall(sql2);
             cstm.setInt(1, l.getCliente_id());
             cstm.setString(2, l.getVar_lateral());

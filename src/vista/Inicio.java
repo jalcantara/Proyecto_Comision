@@ -1372,7 +1372,6 @@ public class Inicio extends javax.swing.JFrame {
         jPanel7.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         chkAntiguoDuenio_Agricultor.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        chkAntiguoDuenio_Agricultor.setSelected(true);
         chkAntiguoDuenio_Agricultor.setText(" Antiguo Dueño :");
         chkAntiguoDuenio_Agricultor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -5073,6 +5072,7 @@ public class Inicio extends javax.swing.JFrame {
     private void jmiRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiRegistroActionPerformed
         getcombo_periodo_all();
         getcombo_cliente_all();
+        //gettabla_comite_byActivos("");
         getcombo_tipocultivo_all();
         limpiarFomulario_Constancia();
         iniciarFomrulario_Constancia(jifConstancia);
