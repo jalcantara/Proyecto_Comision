@@ -6,8 +6,10 @@
 
 package vista;
 
+import entidad.ListaUsuario;
 import entidad.Usuario;
 import java.sql.Date;
+import java.util.ArrayList;
 import modelo.BDUsuario;
 
 /**
@@ -28,7 +30,7 @@ class BLUsuario {
             u.setVar_nombres(nombres);
             u.setVar_password(pass);
             u.setVar_telefono(telefon);
-            u.setVar_user(pass);
+            u.setVar_user(usuario);
             u.setDat_fechanacimiento(fechaNacimiento);
             u.setCargo_id(idcargo);
             resultado = new BDUsuario().Registrar(u);
@@ -36,6 +38,31 @@ class BLUsuario {
             System.out.println("error en controlador al registrar usuario " + e.toString());
         }
         return resultado;
+    }
+    public ArrayList<ListaUsuario> get_usuario_all(String user_filtro,int indice){
+        ArrayList<ListaUsuario> listUsuario=new ArrayList<ListaUsuario>();
+        try {
+            BDUsuario u=new BDUsuario();
+            if(indice == 0){
+                listUsuario=u.get_usuario_all(" var_dni like '%" + user_filtro + "%' ");
+            }
+            if(indice == 1){
+                listUsuario=u.get_usuario_all(" var_nombres like '%" + user_filtro + "%' ");
+            }
+            if(indice == 2){
+                listUsuario=u.get_usuario_all(" var_apellidos like '%" + user_filtro + "%' ");
+            }
+            if(indice == 3){
+                listUsuario=u.get_usuario_all(" var_user like '%" + user_filtro + "%' ");
+            }
+            
+        } 
+        catch (Exception e) {
+            System.out.println("Error de Listado");
+            e.printStackTrace();
+        }
+        return listUsuario;
+        
     }
    
 }

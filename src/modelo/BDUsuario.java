@@ -5,10 +5,13 @@
  */
 package modelo;
 
+import entidad.ListaUsuario;
 import entidad.Usuario;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -55,6 +58,38 @@ public class BDUsuario {
             }
         }
         return resultado;
+    }
+    
+    
+    
+    
+    public ArrayList<ListaUsuario> get_usuario_all(String condicion){
+        Connection cnn = null;
+        CallableStatement cstmt = null;
+        ArrayList<ListaUsuario> listUsuario = new ArrayList<ListaUsuario>();
+        try {
+            cnn = BD.getConnection();
+            String sql="select * from  get_usuario_all where " + condicion;
+            cstmt = cnn.prepareCall(sql);
+            ResultSet rs = cstmt.executeQuery();
+            while(rs.next()) {
+                ListaUsuario a = new ListaUsuario();
+                a.setInt_id(rs.getInt("int_id"));
+                a.setVar_user(rs.getString("var_user"));
+                a.setVar_password(rs.getString("var_password"));
+                a.setVar_dni(rs.getString("var_dni"));
+                a.setVar_nombres(rs.getString("var_nombres"));
+                a.setVar_apellidos(rs.getString("var_apellidos"));
+                a.setVar_descripcion(rs.getString("var_descripcion"));
+                a.setVar_telefono(rs.getString("var_telefono"));
+                listUsuario.add(a);
+            }
+            cstmt.close();
+            cnn.close();
+        } catch (SQLException a) {
+            System.out.println("" + a);
+        }
+        return listUsuario;
     }
 
 }

@@ -26,6 +26,7 @@ import entidad.ListaAgricultorLateral;
 import entidad.ListaAlquiler;
 import entidad.ListaConstancia;
 import entidad.ListaTraspasos;
+import entidad.ListaUsuario;
 import entidad.Material;
 import entidad.Pago;
 import entidad.PeriodoCampania;
@@ -484,7 +485,18 @@ public class Inicio extends javax.swing.JFrame {
         //AutoCompleteDecorator.decorate(cboTipoOperacion_Movimiento);
     }
     /*FIN CARGO*/
+    /*Usuario*/
+     private void gettabla_usuario_byfiltro(String filtro, int indice) {
+        DefaultTableModel temp = (DefaultTableModel) jtLista_Usuario.getModel();
+        temp.setRowCount(0);
+        for (ListaUsuario u : new BLUsuario().get_usuario_all(filtro, indice)) {
+            Object[] datos = {u.getInt_id(),u.getVar_user(),u.getVar_nombres()+' '+u.getVar_apellidos(),
+            u.getVar_dni(),u.getVar_telefono(),u.getVar_descripcion()};
+            temp.addRow(datos);
+        }
+    }
     
+    /*FIN USUARIO*/
     
     
     
@@ -4453,9 +4465,14 @@ public class Inicio extends javax.swing.JFrame {
         txtFiltro_Usuario.setToolTipText("");
         txtFiltro_Usuario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         txtFiltro_Usuario.setPrompt("Buscar Usuario");
+        txtFiltro_Usuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtFiltro_UsuarioKeyReleased(evt);
+            }
+        });
 
         cboTipoFiltro_Usuario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        cboTipoFiltro_Usuario.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "DNI", "NOMBRES", "APELLIDOS", "USUARIO", " " }));
+        cboTipoFiltro_Usuario.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "DNI", "NOMBRES", "APELLIDOS", "USUARIO" }));
 
         jLabel77.setBackground(new java.awt.Color(0, 153, 153));
         jLabel77.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -5077,6 +5094,7 @@ public class Inicio extends javax.swing.JFrame {
     private void jmiUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiUsuarioActionPerformed
         limpiarFomulario_Usuario();
         getcombo_cargo_all();
+        gettabla_usuario_byfiltro("",0);
         iniciarFomrulario_Usuario(jifUsuario);
     }//GEN-LAST:event_jmiUsuarioActionPerformed
 
@@ -5331,19 +5349,23 @@ public class Inicio extends javax.swing.JFrame {
 
     private void btn_Guardar_TraspasoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Guardar_TraspasoActionPerformed
         try {
-            BLTraspaso t = new BLTraspaso();
-            int cant = Integer.parseInt(txtCantidadHectaria_Traspaso.getText());
-            boolean resultado = t.RegistrarTraspaso(idNuevoAgricultor_Traspaso, 1, cant, idAgri_Traspaso, idLat_Traspaso,
-                    txtNuevoLateral_Traspaso.getText(), txtNuevoSubLateral_Traspaso.getText(),
-                    Double.parseDouble(txtNuevoConMedida_Traspaso.getText()), Double.parseDouble(txtNuevoSinMedida_Traspaso.getText()));
+            if(txtCantidadHectaria_Traspaso.getText().compareTo("") != 0){
+                BLTraspaso t = new BLTraspaso();
+                int cant = Integer.parseInt(txtCantidadHectaria_Traspaso.getText());
+                boolean resultado = t.RegistrarTraspaso(idNuevoAgricultor_Traspaso, 1, cant, idAgri_Traspaso, idLat_Traspaso,
+                        txtNuevoLateral_Traspaso.getText(), txtNuevoSubLateral_Traspaso.getText(),
+                        Double.parseDouble(txtNuevoConMedida_Traspaso.getText()), Double.parseDouble(txtNuevoSinMedida_Traspaso.getText()));
 
-            if (resultado == true) {
-                JOptionPane.showMessageDialog(null, "Se realizo el Traspaso Correctamente");
-                limpiarFomulario_Traspaso();
-            } else {
-                JOptionPane.showMessageDialog(null, "No se pudo traspasar");
-                limpiarFomulario_Traspaso();
-            }
+                if (resultado == true) {
+                    JOptionPane.showMessageDialog(null, "Se realizo el Traspaso Correctamente");
+                    limpiarFomulario_Traspaso();
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se pudo traspasar");
+                    limpiarFomulario_Traspaso();
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "No se admite campos vacios", "ALERTA", JOptionPane.ERROR_MESSAGE);
+            } 
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Error" + e.getMessage());
@@ -6079,6 +6101,10 @@ public class Inicio extends javax.swing.JFrame {
             cboAgricultor_Alquiler.setEnabled(false);
         }
     }//GEN-LAST:event_chkFiltroAgricultor_AlquilerActionPerformed
+
+    private void txtFiltro_UsuarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltro_UsuarioKeyReleased
+        gettabla_usuario_byfiltro(txtFiltro_Usuario.getText(),cboTipoFiltro_Usuario.getSelectedIndex());
+    }//GEN-LAST:event_txtFiltro_UsuarioKeyReleased
 
     /*METODOS PARA MOSTRAR EL FORMULARIO*/
     public void iniciarFomrulario(JInternalFrame jif) {
