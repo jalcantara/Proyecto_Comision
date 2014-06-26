@@ -9,9 +9,11 @@
         </Property>
         <Property name="closable" type="boolean" value="true"/>
         <Property name="iconifiable" type="boolean" value="true"/>
-        <Property name="maximizable" type="boolean" value="true"/>
         <Property name="resizable" type="boolean" value="true"/>
-        <Property name="title" type="java.lang.String" value="REGISTRO CONSTANCIA"/>
+        <Property name="title" type="java.lang.String" value="CONSTANCIA"/>
+        <Property name="frameIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/recurso/comision_logo.jpg"/>
+        </Property>
         <Property name="opaque" type="boolean" value="true"/>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[1014, 650]"/>
@@ -243,7 +245,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="12" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Agricultor :"/>
+                <Property name="text" type="java.lang.String" value="Usuario:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel6">
@@ -336,7 +338,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/recurso/Search.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Buscar Agricultor"/>
+                <Property name="text" type="java.lang.String" value="Buscar Usuario"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_ModalCliente_ConstanciaActionPerformed"/>
@@ -587,7 +589,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="12" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Agricultor :"/>
+                <Property name="text" type="java.lang.String" value="Usuario"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkCliente_ConstanciaActionPerformed"/>
@@ -636,7 +638,7 @@
                   <Table columnCount="10" rowCount="0">
                     <Column editable="false" title="Constancia_id" type="java.lang.Object"/>
                     <Column editable="false" title="# Documento" type="java.lang.Object"/>
-                    <Column editable="false" title="Cliente" type="java.lang.Object"/>
+                    <Column editable="false" title="Usuario" type="java.lang.Object"/>
                     <Column editable="false" title="Periodo" type="java.lang.Object"/>
                     <Column editable="false" title="# Campa&#xf1;a" type="java.lang.Object"/>
                     <Column editable="false" title="Lateral" type="java.lang.Object"/>
@@ -730,9 +732,12 @@
       <Properties>
         <Property name="closable" type="boolean" value="true"/>
         <Property name="iconifiable" type="boolean" value="true"/>
-        <Property name="maximizable" type="boolean" value="true"/>
-        <Property name="title" type="java.lang.String" value="Traspaso de Area Cultivo"/>
+        <Property name="resizable" type="boolean" value="true"/>
+        <Property name="title" type="java.lang.String" value="TRASPASO AREA CULTIVO"/>
         <Property name="toolTipText" type="java.lang.String" value=""/>
+        <Property name="frameIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/recurso/comision_logo.jpg"/>
+        </Property>
         <Property name="visible" type="boolean" value="true"/>
       </Properties>
 
@@ -1178,7 +1183,7 @@
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Tahoma" size="12" style="1"/>
                             </Property>
-                            <Property name="text" type="java.lang.String" value="Agricultor :"/>
+                            <Property name="text" type="java.lang.String" value="Usuario:"/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JTextField" name="txtAgricultor_Traspaso">
@@ -1198,7 +1203,7 @@
                             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                               <Image iconType="3" name="/recurso/Search.png"/>
                             </Property>
-                            <Property name="text" type="java.lang.String" value="Buscar Agricultor"/>
+                            <Property name="text" type="java.lang.String" value="Buscar Usuario"/>
                           </Properties>
                           <Events>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_Traspaso_ModalAgricultorActionPerformed"/>
@@ -1331,7 +1336,7 @@
                                       </Group>
                                       <Component id="btn_Traspaso_ModalNuevoAgricultor" alignment="0" min="-2" pref="161" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace pref="35" max="32767" attributes="0"/>
+                                  <EmptySpace pref="55" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -1382,7 +1387,7 @@
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Tahoma" size="12" style="1"/>
                             </Property>
-                            <Property name="text" type="java.lang.String" value="Nuevo Agricultor :"/>
+                            <Property name="text" type="java.lang.String" value="Nuevo Usuario:"/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JTextField" name="txtNuevoAgricultor_Traspaso">
@@ -1412,7 +1417,7 @@
                             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                               <Image iconType="3" name="/recurso/Search.png"/>
                             </Property>
-                            <Property name="text" type="java.lang.String" value="Buscar Agricultor"/>
+                            <Property name="text" type="java.lang.String" value="Buscar Usuario"/>
                           </Properties>
                           <Events>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_Traspaso_ModalNuevoAgricultorActionPerformed"/>
@@ -1539,8 +1544,11 @@
       <Properties>
         <Property name="closable" type="boolean" value="true"/>
         <Property name="iconifiable" type="boolean" value="true"/>
-        <Property name="maximizable" type="boolean" value="true"/>
-        <Property name="title" type="java.lang.String" value="Ver Pagos"/>
+        <Property name="resizable" type="boolean" value="true"/>
+        <Property name="title" type="java.lang.String" value="VER PAGOS"/>
+        <Property name="frameIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/recurso/comision_logo.jpg"/>
+        </Property>
         <Property name="visible" type="boolean" value="true"/>
       </Properties>
 
@@ -1711,7 +1719,7 @@
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="jLabel86" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="cboEstado_VerPagos" pref="133" max="32767" attributes="0"/>
+                                  <Component id="cboEstado_VerPagos" pref="145" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
@@ -1763,6 +1771,7 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="14" style="0"/>
                     </Property>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                 </Component>
@@ -1821,7 +1830,7 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="12" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Agricultor"/>
+                    <Property name="text" type="java.lang.String" value="Usuario:"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jrbAgricultor_VerPagosActionPerformed"/>
@@ -1856,8 +1865,11 @@
       <Properties>
         <Property name="closable" type="boolean" value="true"/>
         <Property name="iconifiable" type="boolean" value="true"/>
-        <Property name="maximizable" type="boolean" value="true"/>
-        <Property name="title" type="java.lang.String" value="REGISTRAR ALQUILER"/>
+        <Property name="resizable" type="boolean" value="true"/>
+        <Property name="title" type="java.lang.String" value="ALQUILER"/>
+        <Property name="frameIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/recurso/comision_logo.jpg"/>
+        </Property>
         <Property name="visible" type="boolean" value="true"/>
       </Properties>
 
@@ -1969,7 +1981,7 @@
                           <Properties>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                               <Table columnCount="6" rowCount="0">
-                                <Column editable="false" title="Cliente" type="java.lang.Object"/>
+                                <Column editable="false" title="Usuario" type="java.lang.Object"/>
                                 <Column editable="false" title="Tipo Material" type="java.lang.Object"/>
                                 <Column editable="false" title="Fecha Inicio" type="java.lang.Object"/>
                                 <Column editable="false" title="Fecha Fin" type="java.lang.Object"/>
@@ -2055,7 +2067,7 @@
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Component id="txtFechaInicio_Alquiler" pref="192" max="32767" attributes="0"/>
+                                          <Component id="txtFechaInicio_Alquiler" pref="212" max="32767" attributes="0"/>
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
                                           <Component id="jLabel29" min="-2" pref="22" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
@@ -2146,7 +2158,7 @@
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Tahoma" size="12" style="1"/>
                             </Property>
-                            <Property name="text" type="java.lang.String" value="Agricultor :"/>
+                            <Property name="text" type="java.lang.String" value="Usuario:"/>
                           </Properties>
                           <Events>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkFiltroAgricultor_AlquilerActionPerformed"/>
@@ -2352,7 +2364,7 @@
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Tahoma" size="12" style="1"/>
                             </Property>
-                            <Property name="text" type="java.lang.String" value="Tipo Material :"/>
+                            <Property name="text" type="java.lang.String" value="Material :"/>
                           </Properties>
                         </Component>
                         <Component class="org.jdesktop.swingx.JXComboBox" name="cboTipoMaterial_Alquiler">
@@ -2471,7 +2483,7 @@
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Tahoma" size="12" style="1"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="Empleado :"/>
+                        <Property name="text" type="java.lang.String" value="Trabajador:"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel21">
@@ -2479,7 +2491,7 @@
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Tahoma" size="12" style="1"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="Agricultor :"/>
+                        <Property name="text" type="java.lang.String" value="Usuario:"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtAgricultor_Alquiler">
@@ -2510,7 +2522,7 @@
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                               <Table columnCount="6" rowCount="0">
                                 <Column editable="false" title="ID" type="java.lang.Object"/>
-                                <Column editable="false" title="Tipo Material" type="java.lang.Object"/>
+                                <Column editable="false" title="Material" type="java.lang.Object"/>
                                 <Column editable="false" title="Cantidad" type="java.lang.Object"/>
                                 <Column editable="false" title="Monto" type="java.lang.Object"/>
                                 <Column editable="false" title="Desde" type="java.lang.Object"/>
@@ -2602,7 +2614,7 @@
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                           <Image iconType="3" name="/recurso/Search.png"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="Buscar Agricultor"/>
+                        <Property name="text" type="java.lang.String" value="Buscar Usuario"/>
                         <Property name="iconTextGap" type="int" value="8"/>
                       </Properties>
                       <Events>
@@ -2622,7 +2634,10 @@
         <Property name="closable" type="boolean" value="true"/>
         <Property name="iconifiable" type="boolean" value="true"/>
         <Property name="maximizable" type="boolean" value="true"/>
-        <Property name="title" type="java.lang.String" value="Inrgesar Padron Asistencia"/>
+        <Property name="title" type="java.lang.String" value="PADRON - ASISTENCIA"/>
+        <Property name="frameIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/recurso/comision_logo.jpg"/>
+        </Property>
         <Property name="visible" type="boolean" value="true"/>
       </Properties>
 
@@ -2643,8 +2658,11 @@
       <Properties>
         <Property name="closable" type="boolean" value="true"/>
         <Property name="iconifiable" type="boolean" value="true"/>
-        <Property name="maximizable" type="boolean" value="true"/>
-        <Property name="title" type="java.lang.String" value="MANTENEDOR AGRICULTORES"/>
+        <Property name="resizable" type="boolean" value="true"/>
+        <Property name="title" type="java.lang.String" value="USUARIO"/>
+        <Property name="frameIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/recurso/comision_logo.jpg"/>
+        </Property>
         <Property name="visible" type="boolean" value="true"/>
       </Properties>
 
@@ -2745,12 +2763,13 @@
                           <Table columnCount="6" rowCount="0">
                             <Column editable="false" title="#" type="java.lang.Object"/>
                             <Column editable="false" title="DNI" type="java.lang.Object"/>
-                            <Column editable="false" title="CLIENTE" type="java.lang.Object"/>
+                            <Column editable="false" title="USUARIO" type="java.lang.Object"/>
                             <Column editable="false" title="TEL&#xc9;FONO / CELULAR" type="java.lang.Object"/>
                             <Column editable="false" title="DIRECCI&#xd3;N" type="java.lang.Object"/>
                             <Column editable="false" title="# LATERALES" type="java.lang.Object"/>
                           </Table>
                         </Property>
+                        <Property name="toolTipText" type="java.lang.String" value=""/>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                           <TableColumnModel selectionModel="0">
                             <Column maxWidth="-1" minWidth="-1" prefWidth="10" resizable="true">
@@ -2808,16 +2827,17 @@
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="0"/>
-                    <Property name="text" type="java.lang.String" value="LISTA DE AGRICULTORES"/>
+                    <Property name="text" type="java.lang.String" value="LISTA DE USUARIOS"/>
                     <Property name="opaque" type="boolean" value="true"/>
                   </Properties>
                 </Component>
                 <Component class="org.jdesktop.swingx.JXSearchField" name="txtFiltroAgricultor">
                   <Properties>
+                    <Property name="toolTipText" type="java.lang.String" value="Buscar Usuario"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="12" style="0"/>
                     </Property>
-                    <Property name="prompt" type="java.lang.String" value="Buscar Agricultor"/>
+                    <Property name="prompt" type="java.lang.String" value="Buscar Usuario"/>
                   </Properties>
                   <Events>
                     <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtFiltroAgricultorKeyReleased"/>
@@ -3031,6 +3051,7 @@
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Tahoma" size="14" style="0"/>
                             </Property>
+                            <Property name="horizontalAlignment" type="int" value="0"/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JLabel" name="jLabel31">
@@ -3094,6 +3115,7 @@
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Tahoma" size="14" style="0"/>
                             </Property>
+                            <Property name="horizontalAlignment" type="int" value="0"/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JTextField" name="txtDireccion_Agricultor">
@@ -3101,6 +3123,7 @@
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Tahoma" size="14" style="0"/>
                             </Property>
+                            <Property name="horizontalAlignment" type="int" value="0"/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JLabel" name="jLabel36">
@@ -3476,8 +3499,11 @@
       <Properties>
         <Property name="closable" type="boolean" value="true"/>
         <Property name="iconifiable" type="boolean" value="true"/>
-        <Property name="maximizable" type="boolean" value="true"/>
-        <Property name="title" type="java.lang.String" value="MANTENEDOR DE PERIODOS"/>
+        <Property name="resizable" type="boolean" value="true"/>
+        <Property name="title" type="java.lang.String" value="PERIODOS"/>
+        <Property name="frameIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/recurso/comision_logo.jpg"/>
+        </Property>
         <Property name="visible" type="boolean" value="true"/>
       </Properties>
 
@@ -3800,8 +3826,11 @@
       <Properties>
         <Property name="closable" type="boolean" value="true"/>
         <Property name="iconifiable" type="boolean" value="true"/>
-        <Property name="maximizable" type="boolean" value="true"/>
-        <Property name="title" type="java.lang.String" value="Cargos"/>
+        <Property name="resizable" type="boolean" value="true"/>
+        <Property name="title" type="java.lang.String" value="CARGOS"/>
+        <Property name="frameIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/recurso/comision_logo.jpg"/>
+        </Property>
         <Property name="visible" type="boolean" value="true"/>
       </Properties>
 
@@ -3895,6 +3924,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="14" style="0"/>
                 </Property>
+                <Property name="horizontalAlignment" type="int" value="0"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel51">
@@ -3933,6 +3963,9 @@
               </Properties>
             </Component>
             <Component class="org.jdesktop.swingx.JXSearchField" name="txtBuscarCargo">
+              <Events>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtBuscarCargoKeyReleased"/>
+              </Events>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane9">
               <AuxValues>
@@ -3941,7 +3974,7 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTable" name="jTable9">
+                <Component class="javax.swing.JTable" name="jtCargos_Administracion">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="2" rowCount="4">
@@ -3978,8 +4011,11 @@
       <Properties>
         <Property name="closable" type="boolean" value="true"/>
         <Property name="iconifiable" type="boolean" value="true"/>
-        <Property name="maximizable" type="boolean" value="true"/>
-        <Property name="title" type="java.lang.String" value="Documentos"/>
+        <Property name="resizable" type="boolean" value="true"/>
+        <Property name="title" type="java.lang.String" value="DOCUMENTOS"/>
+        <Property name="frameIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/recurso/comision_logo.jpg"/>
+        </Property>
         <Property name="visible" type="boolean" value="true"/>
       </Properties>
 
@@ -4000,8 +4036,11 @@
       <Properties>
         <Property name="closable" type="boolean" value="true"/>
         <Property name="iconifiable" type="boolean" value="true"/>
-        <Property name="maximizable" type="boolean" value="true"/>
-        <Property name="title" type="java.lang.String" value="Inicio / Cierre Caja"/>
+        <Property name="resizable" type="boolean" value="true"/>
+        <Property name="title" type="java.lang.String" value="INICIO / CIERRE CAJA"/>
+        <Property name="frameIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/recurso/comision_logo.jpg"/>
+        </Property>
         <Property name="visible" type="boolean" value="true"/>
       </Properties>
 
@@ -4111,8 +4150,11 @@
       <Properties>
         <Property name="closable" type="boolean" value="true"/>
         <Property name="iconifiable" type="boolean" value="true"/>
-        <Property name="maximizable" type="boolean" value="true"/>
-        <Property name="title" type="java.lang.String" value="Movimientos"/>
+        <Property name="resizable" type="boolean" value="true"/>
+        <Property name="title" type="java.lang.String" value="MOVIMIENTOS"/>
+        <Property name="frameIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/recurso/comision_logo.jpg"/>
+        </Property>
         <Property name="visible" type="boolean" value="true"/>
       </Properties>
 
@@ -4178,40 +4220,38 @@
                                   </Group>
                               </Group>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel50" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel71" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel73" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="cboTipoOperacion_Movimiento" min="-2" pref="147" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="217" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jLabel50" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel71" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel73" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="cboTipoOperacion_Movimiento" alignment="0" min="-2" pref="147" max="-2" attributes="0"/>
+                                          <Component id="txtFecha_Movimiento" alignment="0" min="-2" pref="191" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="txtFecha_Movimiento" min="-2" pref="191" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="173" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel63" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="cboTipoComprobante_Movimiento" min="-2" pref="147" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="txtNroComprobante_Movimiento" min="-2" pref="210" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jXComboBox1" min="-2" pref="240" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="txtRucProveedor_Movimiento" min="-2" pref="117" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel63" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="cboTipoComprobante_Movimiento" min="-2" pref="147" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="txtNroComprobante_Movimiento" min="-2" pref="210" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="jXComboBox1" min="-2" pref="240" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="txtRucProveedor_Movimiento" min="-2" pref="117" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
                                   </Group>
                               </Group>
                               <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
@@ -4587,11 +4627,11 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="jScrollPane14" max="32767" attributes="0"/>
+                          <Component id="jScrollPane14" pref="576" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Component id="jLabel22" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="txtModalCliente_Constancia" min="-2" pref="493" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="txtModalCliente_Constancia" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -4619,7 +4659,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="14" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Agricultor:"/>
+                <Property name="text" type="java.lang.String" value="Usuario:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtModalCliente_Constancia">
@@ -4644,7 +4684,7 @@
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="2" rowCount="0">
                         <Column editable="false" title="ID" type="java.lang.Object"/>
-                        <Column editable="false" title="AGRICULTOR" type="java.lang.Object"/>
+                        <Column editable="false" title="USUARIO" type="java.lang.Object"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -4844,7 +4884,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="14" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Agricultor:"/>
+                <Property name="text" type="java.lang.String" value="Usuario:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtModalAgricultor_Traspaso">
@@ -4869,8 +4909,22 @@
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="2" rowCount="0">
                         <Column editable="false" title="ID" type="java.lang.Object"/>
-                        <Column editable="false" title="AGRICULTOR" type="java.lang.Object"/>
+                        <Column editable="false" title="USUARIO" type="java.lang.Object"/>
                       </Table>
+                    </Property>
+                    <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                      <TableColumnModel selectionModel="0">
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                      </TableColumnModel>
                     </Property>
                     <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                       <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
@@ -4917,8 +4971,9 @@
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="jScrollPane17" alignment="1" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace min="0" pref="8" max="32767" attributes="0"/>
                               <Component id="jLabel53" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="txtModalAgricultorNuevo_Traspaso" min="-2" pref="488" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -4947,7 +5002,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="12" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Agricultor:"/>
+                <Property name="text" type="java.lang.String" value="Usuario:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtModalAgricultorNuevo_Traspaso">
@@ -4972,8 +5027,22 @@
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="2" rowCount="0">
                         <Column editable="false" title="ID" type="java.lang.Object"/>
-                        <Column editable="false" title="AGRICULTOR" type="java.lang.Object"/>
+                        <Column editable="false" title="USUARIO" type="java.lang.Object"/>
                       </Table>
+                    </Property>
+                    <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                      <TableColumnModel selectionModel="0">
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                      </TableColumnModel>
                     </Property>
                     <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                       <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
@@ -5052,7 +5121,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="14" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Agricultor:"/>
+                <Property name="text" type="java.lang.String" value="Usuario:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtModalAgricultor_Alquiler">
@@ -5077,7 +5146,7 @@
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="2" rowCount="0">
                         <Column editable="false" title="ID" type="java.lang.Object"/>
-                        <Column editable="false" title="AGRICULTOR" type="java.lang.Object"/>
+                        <Column editable="false" title="USUARIO" type="java.lang.Object"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -5260,7 +5329,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="12" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Voucher:"/>
+                <Property name="text" type="java.lang.String" value="Boucher:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel87">
@@ -5459,7 +5528,11 @@
       <Properties>
         <Property name="closable" type="boolean" value="true"/>
         <Property name="iconifiable" type="boolean" value="true"/>
-        <Property name="maximizable" type="boolean" value="true"/>
+        <Property name="resizable" type="boolean" value="true"/>
+        <Property name="title" type="java.lang.String" value="CUENTAS"/>
+        <Property name="frameIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/recurso/comision_logo.jpg"/>
+        </Property>
         <Property name="visible" type="boolean" value="true"/>
       </Properties>
 
@@ -5795,6 +5868,7 @@
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Tahoma" size="14" style="0"/>
                             </Property>
+                            <Property name="horizontalAlignment" type="int" value="0"/>
                           </Properties>
                         </Component>
                         <Component class="org.jdesktop.swingx.JXTextField" name="txtCodigo_Cuenta">
@@ -6096,8 +6170,11 @@
       <Properties>
         <Property name="closable" type="boolean" value="true"/>
         <Property name="iconifiable" type="boolean" value="true"/>
-        <Property name="maximizable" type="boolean" value="true"/>
-        <Property name="title" type="java.lang.String" value="MANTENEDOR USUARIO"/>
+        <Property name="resizable" type="boolean" value="true"/>
+        <Property name="title" type="java.lang.String" value="TRABAJADORES"/>
+        <Property name="frameIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/recurso/comision_logo.jpg"/>
+        </Property>
         <Property name="visible" type="boolean" value="true"/>
       </Properties>
 
@@ -6193,7 +6270,7 @@
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="jLabel77" min="-2" pref="32" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jScrollPane22" pref="358" max="32767" attributes="0"/>
+                              <Component id="jScrollPane22" pref="370" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -6347,10 +6424,10 @@
                                   <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                                       <Group type="102" alignment="1" attributes="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jLabel96" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel95" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel109" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel96" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel95" min="-2" max="-2" attributes="0"/>
                                           </Group>
+                                          <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Group type="102" alignment="0" attributes="0">
                                                   <EmptySpace min="-2" pref="267" max="-2" attributes="0"/>
@@ -6390,6 +6467,7 @@
                                               <Group type="103" groupAlignment="0" attributes="0">
                                                   <Component id="jLabel108" alignment="0" min="-2" max="-2" attributes="0"/>
                                                   <Component id="jLabel106" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jLabel109" alignment="0" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                               <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -6460,7 +6538,7 @@
                                   <Component id="btn_Guardar_Usuario" alignment="0" max="32767" attributes="0"/>
                                   <Component id="btn_Cancelar_Usuario" alignment="0" min="-2" pref="58" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="52" max="32767" attributes="0"/>
+                              <EmptySpace pref="60" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -6487,7 +6565,7 @@
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Tahoma" size="14" style="1"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="USUARIO:"/>
+                        <Property name="text" type="java.lang.String" value="ID:"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel96">
@@ -6543,6 +6621,7 @@
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Tahoma" size="14" style="0"/>
                         </Property>
+                        <Property name="horizontalAlignment" type="int" value="0"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtapellidos_usuario">
@@ -6550,6 +6629,7 @@
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Tahoma" size="14" style="0"/>
                         </Property>
+                        <Property name="horizontalAlignment" type="int" value="0"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtID_Usuario">
@@ -6565,6 +6645,7 @@
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Tahoma" size="14" style="0"/>
                         </Property>
+                        <Property name="horizontalAlignment" type="int" value="0"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtEmail_Usuario">
@@ -6572,6 +6653,7 @@
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Tahoma" size="14" style="0"/>
                         </Property>
+                        <Property name="horizontalAlignment" type="int" value="0"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtTeleCelular_Usuario">
@@ -6579,6 +6661,7 @@
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Tahoma" size="14" style="0"/>
                         </Property>
+                        <Property name="horizontalAlignment" type="int" value="0"/>
                       </Properties>
                     </Component>
                     <Component class="com.toedter.calendar.JDateChooser" name="txtFechaNacimiento_Usuario">
@@ -6671,8 +6754,11 @@
       <Properties>
         <Property name="closable" type="boolean" value="true"/>
         <Property name="iconifiable" type="boolean" value="true"/>
-        <Property name="maximizable" type="boolean" value="true"/>
-        <Property name="title" type="java.lang.String" value="MANTENEDOR COMITES"/>
+        <Property name="resizable" type="boolean" value="true"/>
+        <Property name="title" type="java.lang.String" value="COMITES"/>
+        <Property name="frameIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/recurso/comision_logo.jpg"/>
+        </Property>
         <Property name="visible" type="boolean" value="true"/>
       </Properties>
 
@@ -6706,7 +6792,7 @@
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="jPanel29" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jLabel111" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jXSearchField4" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="txtFiltroComite_Administracion" alignment="0" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
@@ -6724,7 +6810,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel111" min="-2" pref="32" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jXSearchField4" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtFiltroComite_Administracion" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jScrollPane25" min="-2" pref="278" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
@@ -6787,6 +6873,7 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="14" style="0"/>
                     </Property>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JButton" name="btnGuardar_Comite">
@@ -6812,7 +6899,7 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTable" name="jTable2">
+                <Component class="javax.swing.JTable" name="jtComite_Administracion">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="2" rowCount="0">
@@ -6843,12 +6930,15 @@
                 <Property name="opaque" type="boolean" value="true"/>
               </Properties>
             </Component>
-            <Component class="org.jdesktop.swingx.JXSearchField" name="jXSearchField4">
+            <Component class="org.jdesktop.swingx.JXSearchField" name="txtFiltroComite_Administracion">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="14" style="0"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtFiltroComite_AdministracionKeyReleased"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -6905,7 +6995,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jmiInicioCierre">
               <Properties>
-                <Property name="text" type="java.lang.String" value="INICIR / CIERRE"/>
+                <Property name="text" type="java.lang.String" value="INICIAR / CIERRE"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiInicioCierreActionPerformed"/>
@@ -7015,17 +7105,17 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jmiPagos">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Pagos"/>
+                <Property name="text" type="java.lang.String" value="PAGOS"/>
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jmiMovimientos">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Movimientos"/>
+                <Property name="text" type="java.lang.String" value="MOVIMIENTOS"/>
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jmiClientes">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Clientes"/>
+                <Property name="text" type="java.lang.String" value="CLIENTES"/>
               </Properties>
             </MenuItem>
           </SubComponents>
@@ -7046,7 +7136,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/recurso/icon_usuario.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="USUARIO"/>
+                <Property name="text" type="java.lang.String" value="TRABAJADOR"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiUsuarioActionPerformed"/>
@@ -7057,7 +7147,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/recurso/icon_agricultor.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="AGRICULTOR"/>
+                <Property name="text" type="java.lang.String" value="USUARIO"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiAgricultorActionPerformed"/>
@@ -7110,6 +7200,10 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
+    <Property name="title" type="java.lang.String" value="Sistema de Cobranza Comisi&#xf3;n de Usuarios Perla del Huallaga"/>
+    <Property name="iconImage" type="java.awt.Image" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+      <Connection code="new ImageIcon(getClass().getResource(&quot;/recurso/comision_logo.jpg&quot;)).getImage()" type="code"/>
+    </Property>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="menuBar" type="java.lang.String" value="jmbPrincipal"/>
@@ -7146,7 +7240,7 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="jdeskpanInicio" alignment="0" max="32767" attributes="0"/>
+              <Component id="jdeskpanInicio" alignment="1" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">

@@ -15,11 +15,11 @@ import modelo.BDCargo;
  * @author joseph
  */
 public class BLCargo {
-    public ArrayList<Cargo> get_cargo_all() {
+    public ArrayList<Cargo> get_cargo_all(String condicion) {
         ArrayList<Cargo> listCargo=new ArrayList<Cargo>();
         try {
             BDCargo c=new BDCargo();
-            listCargo=c.get_cargo_all();
+            listCargo=c.get_cargo_all(" var_descripcion like '%" + condicion + "%'");
         } 
         catch (Exception e) {
             System.out.println("Error de Listado Cargo -Controlador"+e.getMessage());

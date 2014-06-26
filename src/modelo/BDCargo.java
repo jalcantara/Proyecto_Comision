@@ -18,18 +18,23 @@ import java.util.ArrayList;
  * @author joseph
  */
 public class BDCargo {
-    public ArrayList<Cargo> get_cargo_all() {
+    public ArrayList<Cargo> get_cargo_all(String condicion) {
         ArrayList<Cargo> lista = new ArrayList<Cargo>();
         try {
             Connection cnn = BD.getConnection();
             PreparedStatement ps = null;
-            ps = cnn.prepareStatement("select * from get_cargo_all;");
+            ps = cnn.prepareStatement("select * from get_cargo_all where "+condicion);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Cargo c = new Cargo();
                 c.setInt_id(rs.getInt("int_id"));
                 c.setVar_descripcion(rs.getString("var_descripcion"));
                 c.setInt_estado(rs.getInt("int_estado"));
+                if(rs.getInt("int_estado")== 1){
+                    c.setVar_estado("Activo");
+                }else{
+                    c.setVar_estado("Inactivo");
+                }
                 lista.add(c);
             }
             cnn.close();

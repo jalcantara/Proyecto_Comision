@@ -37,6 +37,7 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
@@ -84,6 +85,9 @@ public class Inicio extends javax.swing.JFrame {
         this.setSize(1280, 720);
         this.setLocationRelativeTo(null);
         formatear_estructura_todas_tablas();
+        
+        //colocar icono a una ventana
+        
     }
     /*METOO LIMPIAR TABLA*/
 
@@ -279,10 +283,14 @@ public class Inicio extends javax.swing.JFrame {
     /*COMITE*/
     private void gettabla_comite_byActivos(String palabra) {
         DefaultTableModel temp = (DefaultTableModel) jtModalComite_Constancia.getModel();
+        DefaultTableModel temp1 = (DefaultTableModel) jtComite_Administracion.getModel();
         temp.setRowCount(0);
+        temp1.setRowCount(0);
         for (Comite c : new BLComite().get_comite_byActivos(palabra)) {
             Object[] datos = {c.getInt_id(), c.getVar_nombre()};
+            Object[] datos1 = {c.getVar_nombre(), c.getVar_estado()};
             temp.addRow(datos);
+            temp1.addRow(datos1);
         }
     }
     /*FIN COMITE*/
@@ -477,10 +485,14 @@ public class Inicio extends javax.swing.JFrame {
     /*FIN USUARIO*/
     
     /*CARGO*/
-    private void getcombo_cargo_all() {
+    private void getcombo_cargo_all(String condicion) {
+        DefaultTableModel temp = (DefaultTableModel) jtCargos_Administracion.getModel();
+        temp.setRowCount(0);
         cboCargo_Usuario.removeAllItems();
-        for (Cargo c : new BLCargo().get_cargo_all()) {
+        for (Cargo c : new BLCargo().get_cargo_all(condicion)) {
             cboCargo_Usuario.addItem(c);
+            Object[] datos = {c.getVar_descripcion(),c.getVar_estado()};
+            temp.addRow(datos);
         }
         //AutoCompleteDecorator.decorate(cboTipoOperacion_Movimiento);
     }
@@ -709,7 +721,7 @@ public class Inicio extends javax.swing.JFrame {
         jLabel75 = new javax.swing.JLabel();
         txtBuscarCargo = new org.jdesktop.swingx.JXSearchField();
         jScrollPane9 = new javax.swing.JScrollPane();
-        jTable9 = new javax.swing.JTable();
+        jtCargos_Administracion = new javax.swing.JTable();
         jifDocumento = new javax.swing.JInternalFrame();
         jifInicioCierreCaja = new javax.swing.JInternalFrame();
         jpInicioCierre = new javax.swing.JPanel();
@@ -873,9 +885,9 @@ public class Inicio extends javax.swing.JFrame {
         txtComite_Registrar = new javax.swing.JTextField();
         btnGuardar_Comite = new javax.swing.JButton();
         jScrollPane25 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jtComite_Administracion = new javax.swing.JTable();
         jLabel111 = new javax.swing.JLabel();
-        jXSearchField4 = new org.jdesktop.swingx.JXSearchField();
+        txtFiltroComite_Administracion = new org.jdesktop.swingx.JXSearchField();
         jpInicio = new javax.swing.JPanel();
         jdeskpanInicio = new javax.swing.JDesktopPane();
         jmbPrincipal = new javax.swing.JMenuBar();
@@ -909,9 +921,9 @@ public class Inicio extends javax.swing.JFrame {
         jifConstancia.setBackground(new java.awt.Color(225, 253, 203));
         jifConstancia.setClosable(true);
         jifConstancia.setIconifiable(true);
-        jifConstancia.setMaximizable(true);
         jifConstancia.setResizable(true);
-        jifConstancia.setTitle("REGISTRO CONSTANCIA");
+        jifConstancia.setTitle("CONSTANCIA");
+        jifConstancia.setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/comision_logo.jpg"))); // NOI18N
         jifConstancia.setOpaque(true);
         jifConstancia.setPreferredSize(new java.awt.Dimension(1014, 650));
         jifConstancia.setVisible(true);
@@ -929,7 +941,7 @@ public class Inicio extends javax.swing.JFrame {
         txtCliente_Constancia.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel3.setText("Agricultor :");
+        jLabel3.setText("Usuario:");
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel6.setText("Periodo :");
@@ -977,7 +989,7 @@ public class Inicio extends javax.swing.JFrame {
 
         btn_ModalCliente_Constancia.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btn_ModalCliente_Constancia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/Search.png"))); // NOI18N
-        btn_ModalCliente_Constancia.setText("Buscar Agricultor");
+        btn_ModalCliente_Constancia.setText("Buscar Usuario");
         btn_ModalCliente_Constancia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_ModalCliente_ConstanciaActionPerformed(evt);
@@ -1174,7 +1186,7 @@ public class Inicio extends javax.swing.JFrame {
         });
 
         chkCliente_Constancia.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        chkCliente_Constancia.setText("Agricultor :");
+        chkCliente_Constancia.setText("Usuario");
         chkCliente_Constancia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chkCliente_ConstanciaActionPerformed(evt);
@@ -1250,7 +1262,7 @@ public class Inicio extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Constancia_id", "# Documento", "Cliente", "Periodo", "# Campaña", "Lateral", "# Hectareas", "Fecha Registro", "Tipo Siembra", "Fecha Siembra"
+                "Constancia_id", "# Documento", "Usuario", "Periodo", "# Campaña", "Lateral", "# Hectareas", "Fecha Registro", "Tipo Siembra", "Fecha Siembra"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -1328,9 +1340,10 @@ public class Inicio extends javax.swing.JFrame {
 
         jifTraspaso.setClosable(true);
         jifTraspaso.setIconifiable(true);
-        jifTraspaso.setMaximizable(true);
-        jifTraspaso.setTitle("Traspaso de Area Cultivo");
+        jifTraspaso.setResizable(true);
+        jifTraspaso.setTitle("TRASPASO AREA CULTIVO");
         jifTraspaso.setToolTipText("");
+        jifTraspaso.setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/comision_logo.jpg"))); // NOI18N
         jifTraspaso.setVisible(true);
 
         jtbTraspaso.setBackground(new java.awt.Color(225, 253, 203));
@@ -1479,7 +1492,7 @@ public class Inicio extends javax.swing.JFrame {
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Dueño Antiguo", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel9.setText("Agricultor :");
+        jLabel9.setText("Usuario:");
 
         txtAgricultor_Traspaso.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtAgricultor_Traspaso.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -1487,7 +1500,7 @@ public class Inicio extends javax.swing.JFrame {
 
         btn_Traspaso_ModalAgricultor.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btn_Traspaso_ModalAgricultor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/Search.png"))); // NOI18N
-        btn_Traspaso_ModalAgricultor.setText("Buscar Agricultor");
+        btn_Traspaso_ModalAgricultor.setText("Buscar Usuario");
         btn_Traspaso_ModalAgricultor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_Traspaso_ModalAgricultorActionPerformed(evt);
@@ -1586,7 +1599,7 @@ public class Inicio extends javax.swing.JFrame {
         jLabel14.setText("Cantidad Hectario a Traspaso:");
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel13.setText("Nuevo Agricultor :");
+        jLabel13.setText("Nuevo Usuario:");
 
         txtNuevoAgricultor_Traspaso.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtNuevoAgricultor_Traspaso.setEnabled(false);
@@ -1601,7 +1614,7 @@ public class Inicio extends javax.swing.JFrame {
 
         btn_Traspaso_ModalNuevoAgricultor.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btn_Traspaso_ModalNuevoAgricultor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/Search.png"))); // NOI18N
-        btn_Traspaso_ModalNuevoAgricultor.setText("Buscar Agricultor");
+        btn_Traspaso_ModalNuevoAgricultor.setText("Buscar Usuario");
         btn_Traspaso_ModalNuevoAgricultor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_Traspaso_ModalNuevoAgricultorActionPerformed(evt);
@@ -1681,7 +1694,7 @@ public class Inicio extends javax.swing.JFrame {
                             .addComponent(txtNuevoSinMedida_Traspaso, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtNuevoSubLateral_Traspaso, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(btn_Traspaso_ModalNuevoAgricultor, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1790,8 +1803,9 @@ public class Inicio extends javax.swing.JFrame {
 
         jifVerPagos.setClosable(true);
         jifVerPagos.setIconifiable(true);
-        jifVerPagos.setMaximizable(true);
-        jifVerPagos.setTitle("Ver Pagos");
+        jifVerPagos.setResizable(true);
+        jifVerPagos.setTitle("VER PAGOS");
+        jifVerPagos.setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/comision_logo.jpg"))); // NOI18N
         jifVerPagos.setVisible(true);
 
         jPanel8.setBackground(new java.awt.Color(225, 253, 203));
@@ -1844,6 +1858,7 @@ public class Inicio extends javax.swing.JFrame {
         cboFiltroAgricultor_VerPagos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         txtFiltroDni_VerPagos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtFiltroDni_VerPagos.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtFiltroDni_VerPagos.setEnabled(false);
 
         btn_buscar_pagos.setBackground(new java.awt.Color(204, 255, 204));
@@ -1874,7 +1889,7 @@ public class Inicio extends javax.swing.JFrame {
 
         rb_group.add(jrbAgricultor_VerPagos);
         jrbAgricultor_VerPagos.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jrbAgricultor_VerPagos.setText("Agricultor");
+        jrbAgricultor_VerPagos.setText("Usuario:");
         jrbAgricultor_VerPagos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jrbAgricultor_VerPagosActionPerformed(evt);
@@ -1903,7 +1918,7 @@ public class Inicio extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel86)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cboEstado_VerPagos, 0, 133, Short.MAX_VALUE)))
+                        .addComponent(cboEstado_VerPagos, 0, 145, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
                 .addComponent(btn_buscar_pagos, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1968,8 +1983,9 @@ public class Inicio extends javax.swing.JFrame {
 
         jifIngresarAlquiler.setClosable(true);
         jifIngresarAlquiler.setIconifiable(true);
-        jifIngresarAlquiler.setMaximizable(true);
-        jifIngresarAlquiler.setTitle("REGISTRAR ALQUILER");
+        jifIngresarAlquiler.setResizable(true);
+        jifIngresarAlquiler.setTitle("ALQUILER");
+        jifIngresarAlquiler.setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/comision_logo.jpg"))); // NOI18N
         jifIngresarAlquiler.setVisible(true);
 
         jifRegistrarAlquiler.setBackground(new java.awt.Color(255, 255, 255));
@@ -1985,7 +2001,7 @@ public class Inicio extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Cliente", "Tipo Material", "Fecha Inicio", "Fecha Fin", "Cantidad", "Monto"
+                "Usuario", "Tipo Material", "Fecha Inicio", "Fecha Fin", "Cantidad", "Monto"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -2036,7 +2052,7 @@ public class Inicio extends javax.swing.JFrame {
         txtFechaFin_Alquiler.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         chkFiltroAgricultor_Alquiler.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        chkFiltroAgricultor_Alquiler.setText("Agricultor :");
+        chkFiltroAgricultor_Alquiler.setText("Usuario:");
         chkFiltroAgricultor_Alquiler.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chkFiltroAgricultor_AlquilerActionPerformed(evt);
@@ -2068,7 +2084,7 @@ public class Inicio extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(txtFechaInicio_Alquiler, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
+                        .addComponent(txtFechaInicio_Alquiler, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(27, 27, 27)
@@ -2135,7 +2151,7 @@ public class Inicio extends javax.swing.JFrame {
         jPanel11.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel24.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel24.setText("Tipo Material :");
+        jLabel24.setText("Material :");
 
         cboTipoMaterial_Alquiler.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
@@ -2250,10 +2266,10 @@ public class Inicio extends javax.swing.JFrame {
         );
 
         jLabel20.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel20.setText("Empleado :");
+        jLabel20.setText("Trabajador:");
 
         jLabel21.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel21.setText("Agricultor :");
+        jLabel21.setText("Usuario:");
 
         txtAgricultor_Alquiler.setEditable(false);
         txtAgricultor_Alquiler.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -2266,7 +2282,7 @@ public class Inicio extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Tipo Material", "Cantidad", "Monto", "Desde", "Hasta"
+                "ID", "Material", "Cantidad", "Monto", "Desde", "Hasta"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -2310,7 +2326,7 @@ public class Inicio extends javax.swing.JFrame {
 
         btnBuscarAgricultor_Alquiler.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnBuscarAgricultor_Alquiler.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/Search.png"))); // NOI18N
-        btnBuscarAgricultor_Alquiler.setText("Buscar Agricultor");
+        btnBuscarAgricultor_Alquiler.setText("Buscar Usuario");
         btnBuscarAgricultor_Alquiler.setIconTextGap(8);
         btnBuscarAgricultor_Alquiler.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2396,7 +2412,8 @@ public class Inicio extends javax.swing.JFrame {
         jifIngresarPadronAsistencia.setClosable(true);
         jifIngresarPadronAsistencia.setIconifiable(true);
         jifIngresarPadronAsistencia.setMaximizable(true);
-        jifIngresarPadronAsistencia.setTitle("Inrgesar Padron Asistencia");
+        jifIngresarPadronAsistencia.setTitle("PADRON - ASISTENCIA");
+        jifIngresarPadronAsistencia.setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/comision_logo.jpg"))); // NOI18N
         jifIngresarPadronAsistencia.setVisible(true);
 
         javax.swing.GroupLayout jifIngresarPadronAsistenciaLayout = new javax.swing.GroupLayout(jifIngresarPadronAsistencia.getContentPane());
@@ -2412,8 +2429,9 @@ public class Inicio extends javax.swing.JFrame {
 
         jifAgricultores.setClosable(true);
         jifAgricultores.setIconifiable(true);
-        jifAgricultores.setMaximizable(true);
-        jifAgricultores.setTitle("MANTENEDOR AGRICULTORES");
+        jifAgricultores.setResizable(true);
+        jifAgricultores.setTitle("USUARIO");
+        jifAgricultores.setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/comision_logo.jpg"))); // NOI18N
         jifAgricultores.setVisible(true);
 
         jTabbedPane4.setBackground(new java.awt.Color(225, 253, 203));
@@ -2428,7 +2446,7 @@ public class Inicio extends javax.swing.JFrame {
 
             },
             new String [] {
-                "#", "DNI", "CLIENTE", "TELÉFONO / CELULAR", "DIRECCIÓN", "# LATERALES"
+                "#", "DNI", "USUARIO", "TELÉFONO / CELULAR", "DIRECCIÓN", "# LATERALES"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -2439,6 +2457,7 @@ public class Inicio extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jtAgricultor.setToolTipText("");
         jtAgricultor.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 jtAgricultorMouseReleased(evt);
@@ -2461,11 +2480,12 @@ public class Inicio extends javax.swing.JFrame {
         jLabel70.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel70.setForeground(new java.awt.Color(255, 255, 255));
         jLabel70.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel70.setText("LISTA DE AGRICULTORES");
+        jLabel70.setText("LISTA DE USUARIOS");
         jLabel70.setOpaque(true);
 
+        txtFiltroAgricultor.setToolTipText("Buscar Usuario");
         txtFiltroAgricultor.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        txtFiltroAgricultor.setPrompt("Buscar Agricultor");
+        txtFiltroAgricultor.setPrompt("Buscar Usuario");
         txtFiltroAgricultor.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtFiltroAgricultorKeyReleased(evt);
@@ -2521,6 +2541,7 @@ public class Inicio extends javax.swing.JFrame {
         jLabel30.setText("Nombres:");
 
         txtNombres_Agricultor.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtNombres_Agricultor.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         jLabel31.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel31.setText("Ape. Paterno:");
@@ -2544,8 +2565,10 @@ public class Inicio extends javax.swing.JFrame {
         jLabel35.setText("DNI:");
 
         txtEmail_Agricultor.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtEmail_Agricultor.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         txtDireccion_Agricultor.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtDireccion_Agricultor.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         jLabel36.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel36.setText("Sexo:");
@@ -2838,8 +2861,9 @@ public class Inicio extends javax.swing.JFrame {
 
         jifPeriodos.setClosable(true);
         jifPeriodos.setIconifiable(true);
-        jifPeriodos.setMaximizable(true);
-        jifPeriodos.setTitle("MANTENEDOR DE PERIODOS");
+        jifPeriodos.setResizable(true);
+        jifPeriodos.setTitle("PERIODOS");
+        jifPeriodos.setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/comision_logo.jpg"))); // NOI18N
         jifPeriodos.setVisible(true);
 
         jPanel26.setBackground(new java.awt.Color(225, 253, 203));
@@ -3013,8 +3037,9 @@ public class Inicio extends javax.swing.JFrame {
 
         jifCargos.setClosable(true);
         jifCargos.setIconifiable(true);
-        jifCargos.setMaximizable(true);
-        jifCargos.setTitle("Cargos");
+        jifCargos.setResizable(true);
+        jifCargos.setTitle("CARGOS");
+        jifCargos.setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/comision_logo.jpg"))); // NOI18N
         jifCargos.setVisible(true);
 
         jPanel19.setBackground(new java.awt.Color(225, 253, 203));
@@ -3027,6 +3052,7 @@ public class Inicio extends javax.swing.JFrame {
         jLabel74.setOpaque(true);
 
         txtDescripcionCargo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtDescripcionCargo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         jLabel51.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel51.setText("Descripción :");
@@ -3042,7 +3068,13 @@ public class Inicio extends javax.swing.JFrame {
         jLabel75.setText("LISTA DE CARGOS");
         jLabel75.setOpaque(true);
 
-        jTable9.setModel(new javax.swing.table.DefaultTableModel(
+        txtBuscarCargo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarCargoKeyReleased(evt);
+            }
+        });
+
+        jtCargos_Administracion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -3061,10 +3093,10 @@ public class Inicio extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane9.setViewportView(jTable9);
-        if (jTable9.getColumnModel().getColumnCount() > 0) {
-            jTable9.getColumnModel().getColumn(0).setPreferredWidth(150);
-            jTable9.getColumnModel().getColumn(1).setPreferredWidth(50);
+        jScrollPane9.setViewportView(jtCargos_Administracion);
+        if (jtCargos_Administracion.getColumnModel().getColumnCount() > 0) {
+            jtCargos_Administracion.getColumnModel().getColumn(0).setPreferredWidth(150);
+            jtCargos_Administracion.getColumnModel().getColumn(1).setPreferredWidth(50);
         }
 
         javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
@@ -3119,8 +3151,9 @@ public class Inicio extends javax.swing.JFrame {
 
         jifDocumento.setClosable(true);
         jifDocumento.setIconifiable(true);
-        jifDocumento.setMaximizable(true);
-        jifDocumento.setTitle("Documentos");
+        jifDocumento.setResizable(true);
+        jifDocumento.setTitle("DOCUMENTOS");
+        jifDocumento.setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/comision_logo.jpg"))); // NOI18N
         jifDocumento.setVisible(true);
 
         javax.swing.GroupLayout jifDocumentoLayout = new javax.swing.GroupLayout(jifDocumento.getContentPane());
@@ -3136,8 +3169,9 @@ public class Inicio extends javax.swing.JFrame {
 
         jifInicioCierreCaja.setClosable(true);
         jifInicioCierreCaja.setIconifiable(true);
-        jifInicioCierreCaja.setMaximizable(true);
-        jifInicioCierreCaja.setTitle("Inicio / Cierre Caja");
+        jifInicioCierreCaja.setResizable(true);
+        jifInicioCierreCaja.setTitle("INICIO / CIERRE CAJA");
+        jifInicioCierreCaja.setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/comision_logo.jpg"))); // NOI18N
         jifInicioCierreCaja.setVisible(true);
 
         jpInicioCierre.setBackground(new java.awt.Color(225, 253, 203));
@@ -3202,8 +3236,9 @@ public class Inicio extends javax.swing.JFrame {
 
         jifMovimientos.setClosable(true);
         jifMovimientos.setIconifiable(true);
-        jifMovimientos.setMaximizable(true);
-        jifMovimientos.setTitle("Movimientos");
+        jifMovimientos.setResizable(true);
+        jifMovimientos.setTitle("MOVIMIENTOS");
+        jifMovimientos.setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/comision_logo.jpg"))); // NOI18N
         jifMovimientos.setVisible(true);
 
         jpMovimiento.setBackground(new java.awt.Color(225, 253, 203));
@@ -3318,31 +3353,29 @@ public class Inicio extends javax.swing.JFrame {
                                     .addComponent(jScrollPane11)))))
                     .addGroup(jpMovimientoLayout.createSequentialGroup()
                         .addGroup(jpMovimientoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel50)
-                            .addComponent(jLabel71)
-                            .addComponent(jLabel73))
-                        .addGap(31, 31, 31)
-                        .addGroup(jpMovimientoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jpMovimientoLayout.createSequentialGroup()
-                                .addComponent(cboTipoOperacion_Movimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(217, 217, 217))
+                                .addGroup(jpMovimientoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel50)
+                                    .addComponent(jLabel71)
+                                    .addComponent(jLabel73))
+                                .addGap(31, 31, 31)
+                                .addGroup(jpMovimientoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cboTipoOperacion_Movimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtFecha_Movimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jpMovimientoLayout.createSequentialGroup()
-                                .addComponent(txtFecha_Movimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(173, 173, 173))))
-                    .addGroup(jpMovimientoLayout.createSequentialGroup()
-                        .addGroup(jpMovimientoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel63))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jpMovimientoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jpMovimientoLayout.createSequentialGroup()
-                                .addComponent(cboTipoComprobante_Movimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtNroComprobante_Movimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jpMovimientoLayout.createSequentialGroup()
-                                .addComponent(jXComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtRucProveedor_Movimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(jpMovimientoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel63))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jpMovimientoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(jpMovimientoLayout.createSequentialGroup()
+                                        .addComponent(cboTipoComprobante_Movimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtNroComprobante_Movimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jpMovimientoLayout.createSequentialGroup()
+                                        .addComponent(jXComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtRucProveedor_Movimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addGap(1, 1, 1)))
                 .addGap(43, 43, 43))
         );
@@ -3482,7 +3515,7 @@ public class Inicio extends javax.swing.JFrame {
         jPanel10.setBackground(new java.awt.Color(225, 253, 203));
 
         jLabel22.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel22.setText("Agricultor:");
+        jLabel22.setText("Usuario:");
 
         txtModalCliente_Constancia.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtModalCliente_Constancia.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -3496,7 +3529,7 @@ public class Inicio extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "AGRICULTOR"
+                "ID", "USUARIO"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -3530,11 +3563,11 @@ public class Inicio extends javax.swing.JFrame {
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane14)
+                    .addComponent(jScrollPane14, javax.swing.GroupLayout.DEFAULT_SIZE, 576, Short.MAX_VALUE)
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addComponent(jLabel22)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtModalCliente_Constancia, javax.swing.GroupLayout.PREFERRED_SIZE, 493, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(txtModalCliente_Constancia)))
                 .addContainerGap())
         );
         jPanel10Layout.setVerticalGroup(
@@ -3637,7 +3670,7 @@ public class Inicio extends javax.swing.JFrame {
         jpBuscarAgricultor_Traspaso.setBackground(new java.awt.Color(225, 253, 203));
 
         jLabel52.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel52.setText("Agricultor:");
+        jLabel52.setText("Usuario:");
 
         txtModalAgricultor_Traspaso.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtModalAgricultor_Traspaso.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -3651,7 +3684,7 @@ public class Inicio extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "AGRICULTOR"
+                "ID", "USUARIO"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -3714,7 +3747,7 @@ public class Inicio extends javax.swing.JFrame {
         jpBuscarAgricultorNuevo_Traspaso.setBackground(new java.awt.Color(225, 253, 203));
 
         jLabel53.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel53.setText("Agricultor:");
+        jLabel53.setText("Usuario:");
 
         txtModalAgricultorNuevo_Traspaso.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtModalAgricultorNuevo_Traspaso.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -3728,7 +3761,7 @@ public class Inicio extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "AGRICULTOR"
+                "ID", "USUARIO"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -3760,8 +3793,9 @@ public class Inicio extends javax.swing.JFrame {
                 .addGroup(jpBuscarAgricultorNuevo_TraspasoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane17)
                     .addGroup(jpBuscarAgricultorNuevo_TraspasoLayout.createSequentialGroup()
+                        .addGap(0, 8, Short.MAX_VALUE)
                         .addComponent(jLabel53)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(txtModalAgricultorNuevo_Traspaso, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -3791,7 +3825,7 @@ public class Inicio extends javax.swing.JFrame {
         jpBuscarAgricultor_Traspaso1.setBackground(new java.awt.Color(225, 253, 203));
 
         jLabel59.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel59.setText("Agricultor:");
+        jLabel59.setText("Usuario:");
 
         txtModalAgricultor_Alquiler.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtModalAgricultor_Alquiler.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -3805,7 +3839,7 @@ public class Inicio extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "AGRICULTOR"
+                "ID", "USUARIO"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -3908,7 +3942,7 @@ public class Inicio extends javax.swing.JFrame {
         jLabel45.setText("Fecha:");
 
         jLabel85.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel85.setText("Voucher:");
+        jLabel85.setText("Boucher:");
 
         jLabel87.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel87.setText("Observacion:");
@@ -4081,7 +4115,9 @@ public class Inicio extends javax.swing.JFrame {
 
         jifCuentas.setClosable(true);
         jifCuentas.setIconifiable(true);
-        jifCuentas.setMaximizable(true);
+        jifCuentas.setResizable(true);
+        jifCuentas.setTitle("CUENTAS");
+        jifCuentas.setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/comision_logo.jpg"))); // NOI18N
         jifCuentas.setVisible(true);
 
         jTabbedPane2.setBackground(new java.awt.Color(225, 253, 203));
@@ -4159,6 +4195,7 @@ public class Inicio extends javax.swing.JFrame {
         jLabel101.setText("N° Cuenta:");
 
         txtNombre_Cuentas.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtNombre_Cuentas.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         txtCodigo_Cuenta.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtCodigo_Cuenta.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -4432,8 +4469,9 @@ public class Inicio extends javax.swing.JFrame {
 
         jifUsuario.setClosable(true);
         jifUsuario.setIconifiable(true);
-        jifUsuario.setMaximizable(true);
-        jifUsuario.setTitle("MANTENEDOR USUARIO");
+        jifUsuario.setResizable(true);
+        jifUsuario.setTitle("TRABAJADORES");
+        jifUsuario.setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/comision_logo.jpg"))); // NOI18N
         jifUsuario.setVisible(true);
 
         jTabbedPane10.setBackground(new java.awt.Color(225, 253, 203));
@@ -4505,7 +4543,7 @@ public class Inicio extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel77, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane22, javax.swing.GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE)
+                .addComponent(jScrollPane22, javax.swing.GroupLayout.DEFAULT_SIZE, 370, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -4521,7 +4559,7 @@ public class Inicio extends javax.swing.JFrame {
         jLabel94.setText("Apellidos:");
 
         jLabel95.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel95.setText("USUARIO:");
+        jLabel95.setText("ID:");
 
         jLabel96.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel96.setText("DNI:");
@@ -4542,17 +4580,22 @@ public class Inicio extends javax.swing.JFrame {
         jLabel109.setText("Cargo :");
 
         txtnombres_usuario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtnombres_usuario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         txtapellidos_usuario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtapellidos_usuario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         txtID_Usuario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtID_Usuario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         txtDireccion_Usuario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtDireccion_Usuario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         txtEmail_Usuario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtEmail_Usuario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         txtTeleCelular_Usuario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtTeleCelular_Usuario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         txtFechaNacimiento_Usuario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
@@ -4610,8 +4653,8 @@ public class Inicio extends javax.swing.JFrame {
                         .addGroup(jPanel46Layout.createSequentialGroup()
                             .addGroup(jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel96)
-                                .addComponent(jLabel95)
-                                .addComponent(jLabel109))
+                                .addComponent(jLabel95))
+                            .addGap(39, 39, 39)
                             .addGroup(jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(jPanel46Layout.createSequentialGroup()
                                     .addGap(267, 267, 267)
@@ -4642,7 +4685,8 @@ public class Inicio extends javax.swing.JFrame {
                             .addGroup(jPanel46Layout.createSequentialGroup()
                                 .addGroup(jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel108)
-                                    .addComponent(jLabel106))
+                                    .addComponent(jLabel106)
+                                    .addComponent(jLabel109))
                                 .addGap(75, 75, 75)
                                 .addGroup(jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtDireccion_Usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 442, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -4694,7 +4738,7 @@ public class Inicio extends javax.swing.JFrame {
                 .addGroup(jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btn_Guardar_Usuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btn_Cancelar_Usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
 
         jTabbedPane10.addTab("REGISTRAR  ", new javax.swing.ImageIcon(getClass().getResource("/recurso/agricultor.png")), jPanel46); // NOI18N
@@ -4723,8 +4767,9 @@ public class Inicio extends javax.swing.JFrame {
 
         jifComites.setClosable(true);
         jifComites.setIconifiable(true);
-        jifComites.setMaximizable(true);
-        jifComites.setTitle("MANTENEDOR COMITES");
+        jifComites.setResizable(true);
+        jifComites.setTitle("COMITES");
+        jifComites.setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/comision_logo.jpg"))); // NOI18N
         jifComites.setVisible(true);
 
         jPanel28.setBackground(new java.awt.Color(225, 253, 203));
@@ -4736,6 +4781,7 @@ public class Inicio extends javax.swing.JFrame {
         jLabel110.setText("Comite :");
 
         txtComite_Registrar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtComite_Registrar.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         btnGuardar_Comite.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnGuardar_Comite.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/Save.png"))); // NOI18N
@@ -4770,7 +4816,7 @@ public class Inicio extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        jtComite_Administracion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -4786,7 +4832,7 @@ public class Inicio extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane25.setViewportView(jTable2);
+        jScrollPane25.setViewportView(jtComite_Administracion);
 
         jLabel111.setBackground(new java.awt.Color(0, 153, 153));
         jLabel111.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -4795,7 +4841,12 @@ public class Inicio extends javax.swing.JFrame {
         jLabel111.setText("LISTA DE COMITES");
         jLabel111.setOpaque(true);
 
-        jXSearchField4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtFiltroComite_Administracion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtFiltroComite_Administracion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtFiltroComite_AdministracionKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel28Layout = new javax.swing.GroupLayout(jPanel28);
         jPanel28.setLayout(jPanel28Layout);
@@ -4808,7 +4859,7 @@ public class Inicio extends javax.swing.JFrame {
                         .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanel29, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel111, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jXSearchField4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(txtFiltroComite_Administracion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane25, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
@@ -4821,7 +4872,7 @@ public class Inicio extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel111, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jXSearchField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtFiltroComite_Administracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane25, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -4839,6 +4890,8 @@ public class Inicio extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Sistema de Cobranza Comisión de Usuarios Perla del Huallaga");
+        setIconImage(new ImageIcon(getClass().getResource("/recurso/comision_logo.jpg")).getImage());
 
         jdeskpanInicio.setBackground(new java.awt.Color(255, 255, 255));
         jdeskpanInicio.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -4858,7 +4911,7 @@ public class Inicio extends javax.swing.JFrame {
         jpInicio.setLayout(jpInicioLayout);
         jpInicioLayout.setHorizontalGroup(
             jpInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jdeskpanInicio)
+            .addComponent(jdeskpanInicio, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         jpInicioLayout.setVerticalGroup(
             jpInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -4889,7 +4942,7 @@ public class Inicio extends javax.swing.JFrame {
         jmCaja.setText("CAJA");
         jmCaja.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
-        jmiInicioCierre.setText("INICIR / CIERRE");
+        jmiInicioCierre.setText("INICIAR / CIERRE");
         jmiInicioCierre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmiInicioCierreActionPerformed(evt);
@@ -4967,13 +5020,13 @@ public class Inicio extends javax.swing.JFrame {
         jpReportes.setText("REPORTES");
         jpReportes.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
-        jmiPagos.setText("Pagos");
+        jmiPagos.setText("PAGOS");
         jpReportes.add(jmiPagos);
 
-        jmiMovimientos.setText("Movimientos");
+        jmiMovimientos.setText("MOVIMIENTOS");
         jpReportes.add(jmiMovimientos);
 
-        jmiClientes.setText("Clientes");
+        jmiClientes.setText("CLIENTES");
         jpReportes.add(jmiClientes);
 
         jmbPrincipal.add(jpReportes);
@@ -4983,7 +5036,7 @@ public class Inicio extends javax.swing.JFrame {
         jmAdministracion.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         jmiUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/icon_usuario.png"))); // NOI18N
-        jmiUsuario.setText("USUARIO");
+        jmiUsuario.setText("TRABAJADOR");
         jmiUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmiUsuarioActionPerformed(evt);
@@ -4992,7 +5045,7 @@ public class Inicio extends javax.swing.JFrame {
         jmAdministracion.add(jmiUsuario);
 
         jmiAgricultor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/icon_agricultor.png"))); // NOI18N
-        jmiAgricultor.setText("AGRICULTOR");
+        jmiAgricultor.setText("USUARIO");
         jmiAgricultor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmiAgricultorActionPerformed(evt);
@@ -5055,6 +5108,7 @@ public class Inicio extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jmiCargosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCargosActionPerformed
+        getcombo_cargo_all("");
         iniciarFomrulario_Cargo(jifCargos);
     }//GEN-LAST:event_jmiCargosActionPerformed
 
@@ -5093,7 +5147,7 @@ public class Inicio extends javax.swing.JFrame {
 
     private void jmiUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiUsuarioActionPerformed
         limpiarFomulario_Usuario();
-        getcombo_cargo_all();
+        getcombo_cargo_all("");
         gettabla_usuario_byfiltro("",0);
         iniciarFomrulario_Usuario(jifUsuario);
     }//GEN-LAST:event_jmiUsuarioActionPerformed
@@ -5118,6 +5172,7 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_jmiPeriodoActionPerformed
 
     private void jmiComiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiComiteActionPerformed
+        gettabla_comite_byActivos("");
         iniciarFomrulario_Comite(jifComites);
     }//GEN-LAST:event_jmiComiteActionPerformed
 
@@ -5680,7 +5735,8 @@ public class Inicio extends javax.swing.JFrame {
                 id_cuenta = ((Cuenta) cboCuentas_AsignarCostos.getSelectedItem()).getInt_id();
                 if (cu.AsignarCosto(id_cuenta, Double.parseDouble(txtMonto_AsignarCuenta.getText()),
                         txtConcepto_AsignarCosto.getText().trim())) {
-                    gettabla_cuenta_all("");
+                    limpiarTabla(jtAsignarCosto_Cuentas);
+                    gettabla_asignacioncosto_cuenta_all();
                     JOptionPane.showMessageDialog(null, "Registro Exitoso", "MENSAJE", JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(null, "Error al Registrar", "MENSAJE", JOptionPane.ERROR_MESSAGE);
@@ -5842,6 +5898,8 @@ public class Inicio extends javax.swing.JFrame {
         try {
             if (txtComite_Registrar.getText().compareTo("") != 0) {
                 if (new BLComite().Registrar(txtComite_Registrar.getText())) {
+                    limpiarTabla(jtComite_Administracion);
+                    gettabla_comite_byActivos("");
                     JOptionPane.showMessageDialog(null, "Registro Exitoso", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(null, "Registro Fallido", "Mensaje", JOptionPane.ERROR_MESSAGE);
@@ -6106,6 +6164,14 @@ public class Inicio extends javax.swing.JFrame {
         gettabla_usuario_byfiltro(txtFiltro_Usuario.getText(),cboTipoFiltro_Usuario.getSelectedIndex());
     }//GEN-LAST:event_txtFiltro_UsuarioKeyReleased
 
+    private void txtFiltroComite_AdministracionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroComite_AdministracionKeyReleased
+        gettabla_comite_byActivos(txtFiltroComite_Administracion.getText());
+    }//GEN-LAST:event_txtFiltroComite_AdministracionKeyReleased
+
+    private void txtBuscarCargoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarCargoKeyReleased
+        getcombo_cargo_all(txtBuscarCargo.getText());
+    }//GEN-LAST:event_txtBuscarCargoKeyReleased
+
     /*METODOS PARA MOSTRAR EL FORMULARIO*/
     public void iniciarFomrulario(JInternalFrame jif) {
         try {
@@ -6113,6 +6179,9 @@ public class Inicio extends javax.swing.JFrame {
             jdeskpanInicio.add(jif);
             //jif.setMaximum(true);
             jif.setVisible(true);
+            int x=(jdeskpanInicio.getWidth()/2)-(jif.getWidth()/2);
+            int y=(jdeskpanInicio.getHeight()/2)-(jif.getHeight()/2);
+            jif.setLocation(x,y);
         } catch (Exception e) {
             System.out.println("" + e.toString());
             System.out.println("" + e.getMessage());
@@ -6124,6 +6193,9 @@ public class Inicio extends javax.swing.JFrame {
             jif.setSize(1014, 650);
             jdeskpanInicio.add(jif);
             jif.setVisible(true);
+            int x=(jdeskpanInicio.getWidth()/2)-(jif.getWidth()/2);
+            int y=(jdeskpanInicio.getHeight()/2)-(jif.getHeight()/2);
+            jif.setLocation(x,y);
         } catch (Exception e) {
             System.out.println("" + e.toString());
         }
@@ -6134,6 +6206,9 @@ public class Inicio extends javax.swing.JFrame {
             jif.setSize(1013, 516);
             jdeskpanInicio.add(jif);
             jif.setVisible(true);
+            int x=(jdeskpanInicio.getWidth()/2)-(jif.getWidth()/2);
+            int y=(jdeskpanInicio.getHeight()/2)-(jif.getHeight()/2);
+            jif.setLocation(x,y);
         } catch (Exception e) {
             System.out.println("" + e.toString());
         }
@@ -6144,6 +6219,9 @@ public class Inicio extends javax.swing.JFrame {
             jif.setSize(893, 450);
             jdeskpanInicio.add(jif);
             jif.setVisible(true);
+            int x=(jdeskpanInicio.getWidth()/2)-(jif.getWidth()/2);
+            int y=(jdeskpanInicio.getHeight()/2)-(jif.getHeight()/2);
+            jif.setLocation(x,y);
         } catch (Exception e) {
             System.out.println("" + e.toString());
         }
@@ -6154,6 +6232,9 @@ public class Inicio extends javax.swing.JFrame {
             jif.setSize(822, 535);
             jdeskpanInicio.add(jif);
             jif.setVisible(true);
+            int x=(jdeskpanInicio.getWidth()/2)-(jif.getWidth()/2);
+            int y=(jdeskpanInicio.getHeight()/2)-(jif.getHeight()/2);
+            jif.setLocation(x,y);
         } catch (Exception e) {
             System.out.println("" + e.toString());
         }
@@ -6164,6 +6245,9 @@ public class Inicio extends javax.swing.JFrame {
             jif.setSize(833, 485);
             jdeskpanInicio.add(jif);
             jif.setVisible(true);
+            int x=(jdeskpanInicio.getWidth()/2)-(jif.getWidth()/2);
+            int y=(jdeskpanInicio.getHeight()/2)-(jif.getHeight()/2);
+            jif.setLocation(x,y);
         } catch (Exception e) {
             System.out.println("" + e.toString());
         }
@@ -6174,6 +6258,9 @@ public class Inicio extends javax.swing.JFrame {
             jif.setSize(610, 461);
             jdeskpanInicio.add(jif);
             jif.setVisible(true);
+            int x=(jdeskpanInicio.getWidth()/2)-(jif.getWidth()/2);
+            int y=(jdeskpanInicio.getHeight()/2)-(jif.getHeight()/2);
+            jif.setLocation(x,y);
         } catch (Exception e) {
             System.out.println("" + e.toString());
         }
@@ -6184,6 +6271,9 @@ public class Inicio extends javax.swing.JFrame {
             jif.setSize(678, 531);
             jdeskpanInicio.add(jif);
             jif.setVisible(true);
+            int x=(jdeskpanInicio.getWidth()/2)-(jif.getWidth()/2);
+            int y=(jdeskpanInicio.getHeight()/2)-(jif.getHeight()/2);
+            jif.setLocation(x,y);
         } catch (Exception e) {
             System.out.println("" + e.toString());
         }
@@ -6194,6 +6284,9 @@ public class Inicio extends javax.swing.JFrame {
             jif.setSize(740, 555);
             jdeskpanInicio.add(jif);
             jif.setVisible(true);
+            int x=(jdeskpanInicio.getWidth()/2)-(jif.getWidth()/2);
+            int y=(jdeskpanInicio.getHeight()/2)-(jif.getHeight()/2);
+            jif.setLocation(x,y);
         } catch (Exception e) {
             System.out.println("" + e.toString());
         }
@@ -6204,6 +6297,9 @@ public class Inicio extends javax.swing.JFrame {
             jif.setSize(532, 431);
             jdeskpanInicio.add(jif);
             jif.setVisible(true);
+            int x=(jdeskpanInicio.getWidth()/2)-(jif.getWidth()/2);
+            int y=(jdeskpanInicio.getHeight()/2)-(jif.getHeight()/2);
+            jif.setLocation(x,y);
         } catch (Exception e) {
             System.out.println("" + e.toString());
         }
@@ -6214,6 +6310,9 @@ public class Inicio extends javax.swing.JFrame {
             jif.setSize(689, 534);
             jdeskpanInicio.add(jif);
             jif.setVisible(true);
+            int x=(jdeskpanInicio.getWidth()/2)-(jif.getWidth()/2);
+            int y=(jdeskpanInicio.getHeight()/2)-(jif.getHeight()/2);
+            jif.setLocation(x,y);
         } catch (Exception e) {
             System.out.println("" + e.toString());
         }
@@ -6224,6 +6323,9 @@ public class Inicio extends javax.swing.JFrame {
             jif.setSize(472, 239);
             jdeskpanInicio.add(jif);
             jif.setVisible(true);
+            int x=(jdeskpanInicio.getWidth()/2)-(jif.getWidth()/2);
+            int y=(jdeskpanInicio.getHeight()/2)-(jif.getHeight()/2);
+            jif.setLocation(x,y);
         } catch (Exception e) {
             System.out.println("" + e.toString());
         }
@@ -6234,6 +6336,9 @@ public class Inicio extends javax.swing.JFrame {
             jif.setSize(711, 471);
             jdeskpanInicio.add(jif);
             jif.setVisible(true);
+            int x=(jdeskpanInicio.getWidth()/2)-(jif.getWidth()/2);
+            int y=(jdeskpanInicio.getHeight()/2)-(jif.getHeight()/2);
+            jif.setLocation(x,y);
         } catch (Exception e) {
             System.out.println("" + e.toString());
         }
@@ -6244,6 +6349,9 @@ public class Inicio extends javax.swing.JFrame {
             jif.setSize(709, 457);
             jdeskpanInicio.add(jif);
             jif.setVisible(true);
+            int x=(jdeskpanInicio.getWidth()/2)-(jif.getWidth()/2);
+            int y=(jdeskpanInicio.getHeight()/2)-(jif.getHeight()/2);
+            jif.setLocation(x,y);
         } catch (Exception e) {
             System.out.println("" + e.toString());
         }
@@ -6516,13 +6624,10 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTabbedPane jTabbedPane4;
     private javax.swing.JTabbedPane jTabbedPane7;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable8;
-    private javax.swing.JTable jTable9;
     private org.jdesktop.swingx.JXComboBox jXComboBox1;
     private org.jdesktop.swingx.JXComboBox jXComboBox2;
     private org.jdesktop.swingx.JXComboBox jXComboBox5;
-    private org.jdesktop.swingx.JXSearchField jXSearchField4;
     private org.jdesktop.swingx.JXSearchField jXSearchField5;
     private org.jdesktop.swingx.JXTextField jXTextField4;
     private javax.swing.JDialog jdAlquilerAgricultor;
@@ -6597,6 +6702,8 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JTable jtAgricultor;
     private javax.swing.JTable jtAsignarCosto_Cuentas;
     private javax.swing.JTable jtBusqueda_Constancia;
+    private javax.swing.JTable jtCargos_Administracion;
+    private javax.swing.JTable jtComite_Administracion;
     private javax.swing.JTable jtCuentas;
     private javax.swing.JTable jtDetalleLaterales_Agricultor;
     private javax.swing.JTable jtLista_Alquileres;
@@ -6650,6 +6757,7 @@ public class Inicio extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser txtFecha_Movimiento;
     private com.toedter.calendar.JDateChooser txtFecha_RegistrarPagos;
     private org.jdesktop.swingx.JXSearchField txtFiltroAgricultor;
+    private org.jdesktop.swingx.JXSearchField txtFiltroComite_Administracion;
     private javax.swing.JTextField txtFiltroDni_VerPagos;
     private com.toedter.calendar.JDateChooser txtFiltroFin_Constancia;
     private com.toedter.calendar.JDateChooser txtFiltroInicio_Constancia;

@@ -14,7 +14,10 @@ public class Cargo {
     private int int_id;
     private String var_descripcion;
     private int int_estado;
-
+    private String var_estado;
+    
+    
+    
     public int getInt_id() {
         return int_id;
     }
@@ -42,6 +45,14 @@ public class Cargo {
     public String toString(){
         return this.var_descripcion;
     } 
+
+    public String getVar_estado() {
+        return var_estado;
+    }
+
+    public void setVar_estado(String var_estado) {
+        this.var_estado = var_estado;
+    }
     
     
 
