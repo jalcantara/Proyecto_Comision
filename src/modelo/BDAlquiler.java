@@ -41,7 +41,7 @@ public class BDAlquiler {
                 id_alquiler = rs.getInt("int_id");
             }
             for (int i = 0; i < lista_detalle.size(); i++) {
-                String sql1 = "call spI_DetalleAlquiler(?,?,?,?,?,?);";
+                String sql1 = "call spI_DetalleAlquiler(?,?,?,?,?,?,?);";
                 cstm1 = cnn.prepareCall(sql1);
                 cstm1.setInt(1, id_alquiler);
                 cstm1.setInt(2, lista_detalle.get(i).getMaterial_id());
@@ -49,6 +49,7 @@ public class BDAlquiler {
                 cstm1.setDouble(4, lista_detalle.get(i).getDec_monto());
                 cstm1.setTimestamp(5, lista_detalle.get(i).getDat_fechfin());
                 cstm1.setTimestamp(6, lista_detalle.get(i).getDat_fechinicio());
+                cstm1.setInt(7, lista_detalle.get(i).getInt_horas());
                 cstm1.execute();
             }
             // Registrar Pagos

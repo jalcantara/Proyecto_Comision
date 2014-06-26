@@ -20,6 +20,8 @@ public class Detalle_Alquiler {
     private double dec_monto;
     private Timestamp dat_fechfin;
     private Timestamp dat_fechinicio;
+    private int int_horas;
+    
     
     
     
@@ -77,6 +79,14 @@ public class Detalle_Alquiler {
 
     public void setDat_fechinicio(Timestamp dat_fechinicio) {
         this.dat_fechinicio = dat_fechinicio;
+    }
+
+    public int getInt_horas() {
+        return int_horas;
+    }
+
+    public void setInt_horas(int int_horas) {
+        this.int_horas = int_horas;
     }
     
     

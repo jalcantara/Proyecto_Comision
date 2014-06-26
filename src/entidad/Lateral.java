@@ -17,7 +17,9 @@ public class Lateral {
     private String var_sublateral;
     private double dec_conmedida;
     private double dec_sinmedida;
-
+    private int int_numhectareas;
+    
+    
     public int getInt_id() {
         return int_id;
     }
@@ -66,6 +68,14 @@ public class Lateral {
 
     public void setCliente_id(int cliente_id) {
         this.cliente_id = cliente_id;
+    }
+
+    public int getInt_numhectareas() {
+        return int_numhectareas;
+    }
+
+    public void setInt_numhectareas(int int_numhectareas) {
+        this.int_numhectareas = int_numhectareas;
     }
 
     

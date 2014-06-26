@@ -16,7 +16,10 @@ public class Traspaso {
     private int usuario_id;
     private int int_cantidadtraspaso;
     private int int_clienteAntiguo_id;
-
+    private String var_observacion;
+    private String var_numdocumento;
+    
+    
     public int getInt_clienteAntiguo_id() {
         return int_clienteAntiguo_id;
     }
@@ -57,6 +60,22 @@ public class Traspaso {
 
     public void setUsuario_id(int usuario_id) {
         this.usuario_id = usuario_id;
+    }
+
+    public String getVar_observacion() {
+        return var_observacion;
+    }
+
+    public void setVar_observacion(String var_observacion) {
+        this.var_observacion = var_observacion;
+    }
+
+    public String getVar_numdocumento() {
+        return var_numdocumento;
+    }
+
+    public void setVar_numdocumento(String var_numdocumento) {
+        this.var_numdocumento = var_numdocumento;
     }
     
     

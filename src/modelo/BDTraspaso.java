@@ -28,12 +28,14 @@ public class BDTraspaso {
         try {
             cn=BD.getConnection();
             cn.setAutoCommit(false);
-            String sql="call spI_Traspaso(?,?,?,?);";
+            String sql="call spI_Traspaso(?,?,?,?,?,?);";
             cstm=cn.prepareCall(sql);
             cstm.setInt(1, t.getCliente_id());
             cstm.setInt(2, t.getUsuario_id());
             cstm.setInt(3, t.getInt_cantidadtraspaso());
             cstm.setInt(4, t.getInt_clienteAntiguo_id());
+            cstm.setString(5, t.getVar_observacion());
+            cstm.setString(6, t.getVar_numdocumento());
             cstm.execute();
             //DESCONTAR HECTAREAS
             String sql1="call spU_Traspaso_RestarHectareas(?,?,?);";

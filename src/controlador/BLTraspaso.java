@@ -18,7 +18,7 @@ import modelo.BDTraspaso;
 public class BLTraspaso {
 
     public boolean RegistrarTraspaso(int idCliente_Nuevo, int idUsuario, int numhectareas, int idClienteAntiguo,
-            int idLateral, String lateral, String sublateral, double conmedida, double sinmedida) {
+            int idLateral, String lateral, String sublateral, double conmedida, double sinmedida,String observacion,String numdoc) {
 
         boolean resultado = false;
         try {
@@ -28,6 +28,8 @@ public class BLTraspaso {
             t.setUsuario_id(idUsuario);
             t.setInt_cantidadtraspaso(numhectareas);
             t.setInt_clienteAntiguo_id(idClienteAntiguo);
+            t.setVar_observacion(observacion);
+            t.setVar_numdocumento(numdoc);
             //OBJETO LATERAL
             Lateral l = new Lateral();
             l.setInt_id(idLateral);
@@ -36,6 +38,7 @@ public class BLTraspaso {
             l.setVar_sublateral(sublateral);
             l.setDec_conmedida(conmedida);
             l.setDec_sinmedida(sinmedida);
+            
             resultado = new BDTraspaso().RegistrarTraspaso(t, idClienteAntiguo, l);
         } catch (Exception e) {
             e.printStackTrace();

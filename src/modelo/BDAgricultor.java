@@ -278,7 +278,7 @@ public class BDAgricultor {
             
              // Registrar Lista Laterales
             for (Lateral l : listaLaterales) {
-                String sql1 = "call spI_ListaLateral(?,?,?,?,?,?);";
+                String sql1 = "call spI_ListaLateral(?,?,?,?,?,?,?);";
                 cstm1 = cn.prepareCall(sql1);
                 cstm1.setInt(1, l.getInt_id());
                 cstm1.setInt(2, id_agricultor);
@@ -286,6 +286,7 @@ public class BDAgricultor {
                 cstm1.setString(4, l.getVar_sublateral());
                 cstm1.setDouble(5, l.getDec_conmedida());
                 cstm1.setDouble(6, l.getDec_sinmedida());
+                cstm1.setInt(7, l.getInt_numhectareas());
                 cstm1.execute();
             }
             cn.commit();
