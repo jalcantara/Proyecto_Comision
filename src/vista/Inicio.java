@@ -4402,7 +4402,7 @@ public class Inicio extends javax.swing.JFrame {
         });
 
         jComboBox8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jComboBox8.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox8.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Nombre", "N° Cuenta" }));
 
         jtCuentas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -6020,7 +6020,7 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_Traspaso_ModalLateralActionPerformed
 
     private void txtNuevoSubLateral_TraspasoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNuevoSubLateral_TraspasoKeyTyped
-       if (txtNuevoSubLateral_Traspaso.getText().length() == 45) {
+        if (txtNuevoSubLateral_Traspaso.getText().length() == 45) {
             evt.consume();
         }
     }//GEN-LAST:event_txtNuevoSubLateral_TraspasoKeyTyped
@@ -6086,9 +6086,9 @@ public class Inicio extends javax.swing.JFrame {
 
     private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
         try {
-            if (txtSinMedida_Agricultor.getText().compareTo("")!=0 && txtConMedida_Agricultor.getText().compareTo("")!= 0
-               && txtNumHectareas_Agricultor.getText().compareTo("")!=0
-               && (cboLateral_Agricultor.getSelectedItem().toString()).compareTo("")!=0 && (cboSubLateral_Agricultor.getSelectedItem().toString()).compareTo("")!=0) {
+            if (txtSinMedida_Agricultor.getText().compareTo("") != 0 && txtConMedida_Agricultor.getText().compareTo("") != 0
+                    && txtNumHectareas_Agricultor.getText().compareTo("") != 0
+                    && (cboLateral_Agricultor.getSelectedItem().toString()).compareTo("") != 0 && (cboSubLateral_Agricultor.getSelectedItem().toString()).compareTo("") != 0) {
                 DefaultTableModel temporal = (DefaultTableModel) jtDetalleLaterales_Agricultor.getModel();
                 Object datos[] = {
                     0,
@@ -6102,8 +6102,8 @@ public class Inicio extends javax.swing.JFrame {
                 txtSinMedida_Agricultor.setText("0.0");
                 txtConMedida_Agricultor.setText("0.0");
                 btnEliminar_DetLateales.setEnabled(true);
-            }else{
-                JOptionPane.showMessageDialog(null,"No se Admiten Campos Vacios","ALERTA", JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "No se Admiten Campos Vacios", "ALERTA", JOptionPane.ERROR_MESSAGE);
             }
         } catch (Exception e) {
             System.out.println("" + e.getMessage());
@@ -6545,7 +6545,22 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jButton19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton19ActionPerformed
-        // TODO add your handling code here:
+        try {
+            if (txtDescripcionCargo.getText().compareTo("")!=0) {
+                boolean resultado = false;
+                resultado = new BLCargo().Registrar(txtDescripcionCargo.getText());
+                if (resultado == true) {
+                    JOptionPane.showMessageDialog(null, "Se registro Correctamente", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+                    limpiarTabla(jtCargos_Administracion);
+                    getcombo_cargo_all("");
+                }
+            }else{
+                JOptionPane.showMessageDialog(null,"No se Admiten Campos Vacios","ALERTA",JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
+            System.out.println("Error de Ingreso" + e.getMessage());
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_jButton19ActionPerformed
 
     private void txtFiltroDni_VerPagosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroDni_VerPagosKeyTyped
@@ -6556,21 +6571,21 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_txtFiltroDni_VerPagosKeyTyped
 
     private void txtNombres_AgricultorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombres_AgricultorKeyTyped
-         new Funciones().soloLetras(evt);
+        new Funciones().soloLetras(evt);
         if (txtNombres_Agricultor.getText().length() == 30) {
             evt.consume();
         }
     }//GEN-LAST:event_txtNombres_AgricultorKeyTyped
 
     private void txtApePaterno_AgricultorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApePaterno_AgricultorKeyTyped
-         new Funciones().soloLetras(evt);
+        new Funciones().soloLetras(evt);
         if (txtApeMaterno_Agricultor.getText().length() == 30) {
             evt.consume();
         }
     }//GEN-LAST:event_txtApePaterno_AgricultorKeyTyped
 
     private void txtApeMaterno_AgricultorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApeMaterno_AgricultorKeyTyped
-         new Funciones().soloLetras(evt);
+        new Funciones().soloLetras(evt);
         if (txtFiltroDni_VerPagos.getText().length() == 30) {
             evt.consume();
         }
@@ -6591,49 +6606,49 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_txtConMedida_AgricultorKeyTyped
 
     private void txtNumHectareas_AgricultorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumHectareas_AgricultorKeyTyped
-         new Funciones().soloDecimales(evt);
+        new Funciones().soloDecimales(evt);
         if (txtNumHectareas_Agricultor.getText().length() == 8) {
             evt.consume();
         }
     }//GEN-LAST:event_txtNumHectareas_AgricultorKeyTyped
 
     private void txtDescripcionCargoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionCargoKeyTyped
-         new Funciones().soloLetras(evt);
+        new Funciones().soloLetras(evt);
         if (txtFiltroDni_VerPagos.getText().length() == 30) {
             evt.consume();
         }
     }//GEN-LAST:event_txtDescripcionCargoKeyTyped
 
     private void txtMontoInicial_InicioCierreCajaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMontoInicial_InicioCierreCajaKeyTyped
-         new Funciones().soloDecimales(evt);
+        new Funciones().soloDecimales(evt);
         if (txtMontoInicial_InicioCierreCaja.getText().length() == 10) {
             evt.consume();
         }
     }//GEN-LAST:event_txtMontoInicial_InicioCierreCajaKeyTyped
 
     private void txtMonto_AsignarCuentaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMonto_AsignarCuentaKeyTyped
-         new Funciones().soloDecimales(evt);
+        new Funciones().soloDecimales(evt);
         if (txtMonto_AsignarCuenta.getText().length() == 16) {
             evt.consume();
         }
     }//GEN-LAST:event_txtMonto_AsignarCuentaKeyTyped
 
     private void txtdni_usuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtdni_usuarioKeyTyped
-         new Funciones().soloNumeros(evt);
+        new Funciones().soloNumeros(evt);
         if (txtdni_usuario.getText().length() == 8) {
             evt.consume();
         }
     }//GEN-LAST:event_txtdni_usuarioKeyTyped
 
     private void txtnombres_usuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnombres_usuarioKeyTyped
-         new Funciones().soloLetras(evt);
+        new Funciones().soloLetras(evt);
         if (txtnombres_usuario.getText().length() == 80) {
             evt.consume();
         }
     }//GEN-LAST:event_txtnombres_usuarioKeyTyped
 
     private void txtapellidos_usuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtapellidos_usuarioKeyTyped
-         new Funciones().soloLetras(evt);
+        new Funciones().soloLetras(evt);
         if (txtapellidos_usuario.getText().length() == 80) {
             evt.consume();
         }
@@ -6653,7 +6668,7 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_txtpass_usuarioKeyTyped
 
     private void txtTeleCelular_UsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTeleCelular_UsuarioKeyTyped
-       if (txtTeleCelular_Usuario.getText().length() == 15) {
+        if (txtTeleCelular_Usuario.getText().length() == 15) {
             evt.consume();
         }
     }//GEN-LAST:event_txtTeleCelular_UsuarioKeyTyped
@@ -6665,7 +6680,7 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDireccion_UsuarioKeyTyped
 
     private void txtEmail_UsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmail_UsuarioKeyTyped
-       if (txtEmail_Usuario.getText().length() == 250) {
+        if (txtEmail_Usuario.getText().length() == 250) {
             evt.consume();
         }
     }//GEN-LAST:event_txtEmail_UsuarioKeyTyped
@@ -6697,7 +6712,7 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNuevoConMedida_TraspasoKeyReleased
 
     private void txtTelefono_AgricultorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefono_AgricultorKeyTyped
-       if (txtTelefono_Agricultor.getText().length() == 20) {
+        if (txtTelefono_Agricultor.getText().length() == 20) {
             evt.consume();
         }
     }//GEN-LAST:event_txtTelefono_AgricultorKeyTyped
@@ -6727,7 +6742,7 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCodigo_CuentaKeyTyped
 
     private void txtNumCuenta_RegistrarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumCuenta_RegistrarKeyTyped
-         if (txtNumCuenta_Registrar.getText().length() == 45) {
+        if (txtNumCuenta_Registrar.getText().length() == 45) {
             evt.consume();
         }
     }//GEN-LAST:event_txtNumCuenta_RegistrarKeyTyped
@@ -6739,7 +6754,7 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNombre_CuentasKeyTyped
 
     private void txtConcepto_AsignarCostoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtConcepto_AsignarCostoKeyTyped
-       if (txtConcepto_AsignarCosto.getText().length() == 45) {
+        if (txtConcepto_AsignarCosto.getText().length() == 45) {
             evt.consume();
         }
     }//GEN-LAST:event_txtConcepto_AsignarCostoKeyTyped

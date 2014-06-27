@@ -27,4 +27,15 @@ public class BLCargo {
         }
         return listCargo;
     }
+    public boolean Registrar(String descripcion)throws Exception{
+        boolean resultado=false;
+        try {
+            BDCargo c=new BDCargo();
+            resultado=c.Registrar(descripcion);
+        } 
+        catch (Exception e) {
+            System.out.println("Error de Registro en el Controlador"+e.getMessage());
+        }
+        return resultado;
+    }
 }
