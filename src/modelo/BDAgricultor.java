@@ -78,6 +78,7 @@ public class BDAgricultor {
                 c.setVar_celular(rs.getString("var_celular"));
                 c.setVar_estado("nom_estado");
                 c.setNumLaterales(rs.getInt("numlaterales"));
+                c.setInt_numhectareas(rs.getInt("int_numhectareas"));
                 lista_agricultor.add(c);
             }
             cstmt.close();

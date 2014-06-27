@@ -24,6 +24,9 @@ public class Agricultor {
     private String var_celular;
     private String var_estado;
     private int numLaterales;
+    private int int_numhectareas;
+    
+    
 
     public int getNumLaterales() {
         return numLaterales;
@@ -135,6 +138,14 @@ public class Agricultor {
     public String toString(){
         return this.var_nombre+" "+var_apepaterno+" "+var_apematerno;
     } 
+
+    public int getInt_numhectareas() {
+        return int_numhectareas;
+    }
+
+    public void setInt_numhectareas(int int_numhectareas) {
+        this.int_numhectareas = int_numhectareas;
+    }
     
     
 }

@@ -7,6 +7,7 @@ package controlador;
 
 import entidad.Asignar_Costo;
 import entidad.Cuenta;
+import entidad.ListaCuentaMonto;
 import java.util.ArrayList;
 import modelo.BDAsignar_Costo;
 import modelo.BDCuenta;
@@ -65,6 +66,18 @@ public class BLCuenta {
             System.out.println("error en controlador al consultar costo_cuenta " + e.toString());
         }
         return listCuenta;
+    }
+    public ListaCuentaMonto get_cuentamonto_all(double numhectareas) {
+        ListaCuentaMonto objcuentamonto=new ListaCuentaMonto();
+        try {
+            BDCuenta c=new BDCuenta();
+            objcuentamonto=c.get_cuentamonto_all(numhectareas);
+        } 
+        catch (Exception e) {
+            System.out.println("Error de Listado"+e.getMessage());
+            e.printStackTrace();
+        }
+        return objcuentamonto;
     }
 
 }

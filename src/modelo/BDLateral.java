@@ -63,6 +63,7 @@ public class BDLateral {
                 l.setVar_sublateral(rs.getString(4));
                 l.setDec_conmedida(rs.getDouble(5));
                 l.setDec_sinmedida(rs.getDouble(6));
+                l.setInt_numhectareas(rs.getInt(7));
                 listLateral.add(l);
             }
             cstmt.close();

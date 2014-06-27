@@ -6,6 +6,7 @@
 package modelo;
 
 import entidad.Cuenta;
+import entidad.ListaCuentaMonto;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -77,5 +78,25 @@ public class BDCuenta {
         } finally {
         }
         return lista;
+    }
+    public ListaCuentaMonto get_cuentamonto_all(double  numhectareas) {
+        ListaCuentaMonto c = new ListaCuentaMonto();
+        try {
+            Connection cnn = BD.getConnection();
+            CallableStatement cstm = null;
+            cstm = cnn.prepareCall("call spC_CalcularMonto_ByClienteHectarea(?);");
+            cstm.setDouble(1, numhectareas);
+            ResultSet rs = cstm.executeQuery();
+            if (rs.next()) {               
+                c.setMontojunta(rs.getDouble("montojunta"));
+                c.setMontocomision(rs.getDouble("montocomision"));                
+            }
+            cnn.close();
+            cstm.close();
+        } catch (SQLException a) {
+            System.out.println("" + a);
+        } finally {
+        }
+        return c;
     }
 }
