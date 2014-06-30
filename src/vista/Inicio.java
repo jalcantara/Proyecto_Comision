@@ -34,18 +34,21 @@ import entidad.PeriodoCampania;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+import java.io.FileInputStream;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
+import javax.swing.JFileChooser;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.KeyStroke;
 import javax.swing.ListSelectionModel;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import modelo.BDAgricultor;
@@ -669,7 +672,12 @@ public class Inicio extends javax.swing.JFrame {
         btn_Cancelar1 = new javax.swing.JButton();
         btn_Registrar1 = new javax.swing.JButton();
         btnBuscarAgricultor_Alquiler = new javax.swing.JButton();
-        jifIngresarPadronAsistencia = new javax.swing.JInternalFrame();
+        jifMultaAsamblea = new javax.swing.JInternalFrame();
+        jLabel57 = new javax.swing.JLabel();
+        btn_cargar_asistencia_asamblea = new javax.swing.JButton();
+        jScrollPane21 = new javax.swing.JScrollPane();
+        txtListaAsistenciaUsuario_Asamblea = new javax.swing.JTextArea();
+        jSeparator1 = new javax.swing.JSeparator();
         jifAgricultores = new javax.swing.JInternalFrame();
         jTabbedPane4 = new javax.swing.JTabbedPane();
         jPanel17 = new javax.swing.JPanel();
@@ -927,8 +935,8 @@ public class Inicio extends javax.swing.JFrame {
         jmiVerPagos = new javax.swing.JMenuItem();
         jmiAlquiler = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem8 = new javax.swing.JMenuItem();
+        jmiPagoMultaAsamblea = new javax.swing.JMenuItem();
+        jmiPagoMultaSufragio = new javax.swing.JMenuItem();
         jpReportes = new javax.swing.JMenu();
         jmiPagos = new javax.swing.JMenuItem();
         jmiMovimientos = new javax.swing.JMenuItem();
@@ -2551,22 +2559,56 @@ public class Inicio extends javax.swing.JFrame {
             .addComponent(jifRegistrarAlquiler, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        jifIngresarPadronAsistencia.setClosable(true);
-        jifIngresarPadronAsistencia.setIconifiable(true);
-        jifIngresarPadronAsistencia.setMaximizable(true);
-        jifIngresarPadronAsistencia.setTitle("PADRON - ASISTENCIA");
-        jifIngresarPadronAsistencia.setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/comision_logo.jpg"))); // NOI18N
-        jifIngresarPadronAsistencia.setVisible(true);
+        jifMultaAsamblea.setBackground(new java.awt.Color(225, 253, 203));
+        jifMultaAsamblea.setClosable(true);
+        jifMultaAsamblea.setIconifiable(true);
+        jifMultaAsamblea.setMaximizable(true);
+        jifMultaAsamblea.setTitle("PADRON MULTA - ASISTENCIA DE ASAMBLEA");
+        jifMultaAsamblea.setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/comision_logo.jpg"))); // NOI18N
+        jifMultaAsamblea.setVisible(true);
 
-        javax.swing.GroupLayout jifIngresarPadronAsistenciaLayout = new javax.swing.GroupLayout(jifIngresarPadronAsistencia.getContentPane());
-        jifIngresarPadronAsistencia.getContentPane().setLayout(jifIngresarPadronAsistenciaLayout);
-        jifIngresarPadronAsistenciaLayout.setHorizontalGroup(
-            jifIngresarPadronAsistenciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 817, Short.MAX_VALUE)
+        jLabel57.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jLabel57.setText("LISTA DE ASISTENCIA DE USUARIOS ASAMBLEA :");
+
+        btn_cargar_asistencia_asamblea.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btn_cargar_asistencia_asamblea.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/cargar_archivo.png"))); // NOI18N
+        btn_cargar_asistencia_asamblea.setText("CARGAR ARCHIVO");
+        btn_cargar_asistencia_asamblea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cargar_asistencia_asambleaActionPerformed(evt);
+            }
+        });
+
+        txtListaAsistenciaUsuario_Asamblea.setColumns(20);
+        txtListaAsistenciaUsuario_Asamblea.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        txtListaAsistenciaUsuario_Asamblea.setRows(5);
+        txtListaAsistenciaUsuario_Asamblea.setWrapStyleWord(true);
+        jScrollPane21.setViewportView(txtListaAsistenciaUsuario_Asamblea);
+
+        javax.swing.GroupLayout jifMultaAsambleaLayout = new javax.swing.GroupLayout(jifMultaAsamblea.getContentPane());
+        jifMultaAsamblea.getContentPane().setLayout(jifMultaAsambleaLayout);
+        jifMultaAsambleaLayout.setHorizontalGroup(
+            jifMultaAsambleaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jifMultaAsambleaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel57, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btn_cargar_asistencia_asamblea, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addComponent(jSeparator1)
+            .addComponent(jScrollPane21)
         );
-        jifIngresarPadronAsistenciaLayout.setVerticalGroup(
-            jifIngresarPadronAsistenciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 455, Short.MAX_VALUE)
+        jifMultaAsambleaLayout.setVerticalGroup(
+            jifMultaAsambleaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jifMultaAsambleaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jifMultaAsambleaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_cargar_asistencia_asamblea)
+                    .addComponent(jLabel57, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane21, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE))
         );
 
         jifAgricultores.setClosable(true);
@@ -5282,6 +5324,7 @@ public class Inicio extends javax.swing.JFrame {
         jmConstancia.setText("CONSTANCIA");
         jmConstancia.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
+        jmiRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/constancia_icon.png"))); // NOI18N
         jmiRegistro.setText("REGISTRO");
         jmiRegistro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -5290,6 +5333,7 @@ public class Inicio extends javax.swing.JFrame {
         });
         jmConstancia.add(jmiRegistro);
 
+        jmiTraspaso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/traspaso.png"))); // NOI18N
         jmiTraspaso.setText("TRASPASO");
         jmiTraspaso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -5313,6 +5357,7 @@ public class Inicio extends javax.swing.JFrame {
         });
         jmPagos.add(jmiVerPagos);
 
+        jmiAlquiler.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/alquiler.png"))); // NOI18N
         jmiAlquiler.setText("ALQUILER");
         jmiAlquiler.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -5323,16 +5368,16 @@ public class Inicio extends javax.swing.JFrame {
 
         jMenu1.setText("PAGO MULTAS");
 
-        jMenuItem3.setText("ASAMBLEA");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        jmiPagoMultaAsamblea.setText("ASAMBLEA");
+        jmiPagoMultaAsamblea.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                jmiPagoMultaAsambleaActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem3);
+        jMenu1.add(jmiPagoMultaAsamblea);
 
-        jMenuItem8.setText("SUFRAGIO");
-        jMenu1.add(jMenuItem8);
+        jmiPagoMultaSufragio.setText("SUFRAGIO");
+        jMenu1.add(jmiPagoMultaSufragio);
 
         jmPagos.add(jMenu1);
 
@@ -6540,13 +6585,13 @@ public class Inicio extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtHectareas_ConstanciaKeyReleased
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    private void jmiPagoMultaAsambleaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiPagoMultaAsambleaActionPerformed
+        iniciarFomrulario_PadronMultaAsamblea(jifMultaAsamblea);
+    }//GEN-LAST:event_jmiPagoMultaAsambleaActionPerformed
 
     private void jButton19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton19ActionPerformed
         try {
-            if (txtDescripcionCargo.getText().compareTo("")!=0) {
+            if (txtDescripcionCargo.getText().compareTo("") != 0) {
                 boolean resultado = false;
                 resultado = new BLCargo().Registrar(txtDescripcionCargo.getText());
                 if (resultado == true) {
@@ -6554,8 +6599,8 @@ public class Inicio extends javax.swing.JFrame {
                     limpiarTabla(jtCargos_Administracion);
                     getcombo_cargo_all("");
                 }
-            }else{
-                JOptionPane.showMessageDialog(null,"No se Admiten Campos Vacios","ALERTA",JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "No se Admiten Campos Vacios", "ALERTA", JOptionPane.ERROR_MESSAGE);
             }
         } catch (Exception e) {
             System.out.println("Error de Ingreso" + e.getMessage());
@@ -6765,6 +6810,22 @@ public class Inicio extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtComite_RegistrarKeyTyped
 
+    private void btn_cargar_asistencia_asambleaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cargar_asistencia_asambleaActionPerformed
+        try {
+            JFileChooser jfc_archivo = new JFileChooser();
+            FileNameExtensionFilter filtroImagen = new FileNameExtensionFilter("XLS","XLSX");
+            jfc_archivo.setFileFilter(filtroImagen);
+            jfc_archivo.setApproveButtonText("Abrir Excel");
+            jfc_archivo.showOpenDialog(null);
+            //jfc_archivo.showOpenDialog(jfc_archivo);
+            System.out.println(""+jfc_archivo.getSelectedFile().getAbsolutePath());
+            FileInputStream archivo = new FileInputStream(jfc_archivo.getSelectedFile().getAbsolutePath());
+            //txtListaAsistenciaUsuario_Asamblea.setText(new utilitario.Excel_Reader().leer_excel(archivo,1));
+        } catch (Exception e) {
+            System.out.println("" + e.getMessage());
+        }
+    }//GEN-LAST:event_btn_cargar_asistencia_asambleaActionPerformed
+
     /*METODOS PARA MOSTRAR EL FORMULARIO*/
     public void iniciarFomrulario(JInternalFrame jif) {
         try {
@@ -6833,7 +6894,7 @@ public class Inicio extends javax.swing.JFrame {
         }
     }
 
-    public void iniciarFomrulario_PadronAsistencia(JInternalFrame jif) {
+    public void iniciarFomrulario_PadronMultaAsamblea(JInternalFrame jif) {
         try {
             jif.setSize(833, 485);
             jdeskpanInicio.add(jif);
@@ -7029,6 +7090,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JButton btn_Traspaso_ModalNuevoAgricultor;
     private javax.swing.JButton btn_buscar_alquileres;
     private javax.swing.JButton btn_buscar_pagos;
+    private javax.swing.JButton btn_cargar_asistencia_asamblea;
     private org.jdesktop.swingx.JXComboBox cboAgricultorFiltro_Constancia;
     private org.jdesktop.swingx.JXComboBox cboAgricultor_Alquiler;
     private org.jdesktop.swingx.JXComboBox cboAntiguoAgricultor_Traspaso;
@@ -7126,6 +7188,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel54;
     private javax.swing.JLabel jLabel55;
     private javax.swing.JLabel jLabel56;
+    private javax.swing.JLabel jLabel57;
     private javax.swing.JLabel jLabel59;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel60;
@@ -7166,8 +7229,6 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel98;
     private javax.swing.JLabel jLabel99;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
@@ -7210,6 +7271,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane19;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane20;
+    private javax.swing.JScrollPane jScrollPane21;
     private javax.swing.JScrollPane jScrollPane22;
     private javax.swing.JScrollPane jScrollPane23;
     private javax.swing.JScrollPane jScrollPane24;
@@ -7221,6 +7283,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane10;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTabbedPane jTabbedPane4;
@@ -7246,9 +7309,9 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JInternalFrame jifCuentas;
     private javax.swing.JInternalFrame jifDocumento;
     private javax.swing.JInternalFrame jifIngresarAlquiler;
-    private javax.swing.JInternalFrame jifIngresarPadronAsistencia;
     private javax.swing.JInternalFrame jifInicioCierreCaja;
     private javax.swing.JInternalFrame jifMovimientos;
+    private javax.swing.JInternalFrame jifMultaAsamblea;
     private javax.swing.JInternalFrame jifPeriodos;
     private javax.swing.JPanel jifRegistrarAlquiler;
     private javax.swing.JInternalFrame jifTraspaso;
@@ -7270,6 +7333,8 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmiInicioCierre;
     private javax.swing.JMenuItem jmiMovimiento;
     private javax.swing.JMenuItem jmiMovimientos;
+    private javax.swing.JMenuItem jmiPagoMultaAsamblea;
+    private javax.swing.JMenuItem jmiPagoMultaSufragio;
     private javax.swing.JMenuItem jmiPagos;
     private javax.swing.JMenuItem jmiPeriodo;
     private javax.swing.JMenuItem jmiRegistro;
@@ -7368,6 +7433,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JTextField txtID_Usuario;
     private javax.swing.JTextField txtLateralCliente_Traspaso;
     private javax.swing.JTextField txtLateral_Constancia;
+    private javax.swing.JTextArea txtListaAsistenciaUsuario_Asamblea;
     private javax.swing.JTextField txtModalAgricultorNuevo_Traspaso;
     private javax.swing.JTextField txtModalAgricultor_Alquiler;
     private javax.swing.JTextField txtModalAgricultor_Traspaso;
