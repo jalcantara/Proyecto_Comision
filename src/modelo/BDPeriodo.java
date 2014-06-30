@@ -5,6 +5,7 @@
  */
 package modelo;
 
+import entidad.Periodo;
 import entidad.PeriodoCampania;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -72,5 +73,41 @@ public class BDPeriodo {
             System.out.println("" + a);
         }
         return pc;
+    }
+    
+    public boolean Registrar(Periodo p)throws Exception{
+        boolean resultado=false;
+        Connection cn=null;
+        CallableStatement cstm=null;
+        try {
+            cn = BD.getConnection();
+            cn.setAutoCommit(false);
+            String sql = "call spI_Periodo(?,?,?);";
+            cstm = cn.prepareCall(sql);
+            cstm.setString(1, p.getVar_periodo());
+            cstm.setInt(2, p.getInt_mesInicio());
+            cstm.setInt(3, p.getInt_mesFin());
+            cstm.execute();
+            resultado=true;
+            cn.commit();
+        } 
+        catch (Exception e) {
+            try {
+                cn.rollback();
+            } catch (SQLException b) {
+                System.out.println("" + b.toString());
+            } finally {
+                resultado = false;
+            }
+            System.out.println("error al registrar constancia " + e.toString());
+        } finally {
+            try {
+                cstm.close();
+                cn.close();
+            } catch (SQLException ex) {
+                System.out.println("" + ex.getMessage());
+            }
+        }
+        return resultado;
     }
 }

@@ -5,6 +5,7 @@
  */
 package controlador;
 
+import entidad.Periodo;
 import entidad.PeriodoCampania;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -37,5 +38,22 @@ public class BLPeriodo {
             System.out.println("error periodocampania_bycliente :" + e.toString());
         }
         return pc;
+    }
+    public boolean Registrar(String desc,int mesinicio,int mesfin)throws Exception{
+        boolean resultado=false;
+        try {
+            Periodo p=new Periodo();
+            p.setVar_periodo(desc);
+            p.setInt_mesInicio(mesinicio);
+            p.setInt_mesFin(mesfin);
+            BDPeriodo pe=new BDPeriodo();
+            resultado=pe.Registrar(p);
+        } 
+        catch (Exception e) {
+            System.out.println("Error de Registro-Controlador"+e.getMessage());
+            e.printStackTrace();
+            
+        }
+        return resultado;
     }
 }

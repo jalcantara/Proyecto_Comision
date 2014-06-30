@@ -429,6 +429,15 @@ public class Inicio extends javax.swing.JFrame {
         }
         AutoCompleteDecorator.decorate(cboPeriodoFiltro_Constancia);
     }
+    private void getcombo_periodo_mesiniciofin() {
+        cboPeriodo_MesInicio.removeAllItems();
+        cboPeriodo_MesFin.removeAllItems();
+        for (Constante c : new BLConstante().get_constante_all_byClase(1)) {
+            cboPeriodo_MesInicio.addItem(c);
+            cboPeriodo_MesFin.addItem(c);
+        }
+        //AutoCompleteDecorator.decorate(cboPeriodoFiltro_Constancia);
+    }
     /*FIN PERIODO*/
 
     /*TRASPASO*/
@@ -739,8 +748,8 @@ public class Inicio extends javax.swing.JFrame {
         jLabel44 = new javax.swing.JLabel();
         jLabel46 = new javax.swing.JLabel();
         jLabel47 = new javax.swing.JLabel();
-        jXComboBox2 = new org.jdesktop.swingx.JXComboBox();
-        jXComboBox5 = new org.jdesktop.swingx.JXComboBox();
+        cboPeriodo_MesInicio = new org.jdesktop.swingx.JXComboBox();
+        cboPeriodo_MesFin = new org.jdesktop.swingx.JXComboBox();
         jLabel79 = new javax.swing.JLabel();
         jifCargos = new javax.swing.JInternalFrame();
         jPanel19 = new javax.swing.JPanel();
@@ -920,6 +929,13 @@ public class Inicio extends javax.swing.JFrame {
         jtComite_Administracion = new javax.swing.JTable();
         jLabel111 = new javax.swing.JLabel();
         txtFiltroComite_Administracion = new org.jdesktop.swingx.JXSearchField();
+        jifMultaSufragio = new javax.swing.JInternalFrame();
+        jPanel14 = new javax.swing.JPanel();
+        jLabel58 = new javax.swing.JLabel();
+        btn_cargar_asistencia_asamblea1 = new javax.swing.JButton();
+        jSeparator2 = new javax.swing.JSeparator();
+        jScrollPane26 = new javax.swing.JScrollPane();
+        txtListaAsistenciaUsuario_Sufragio = new javax.swing.JTextArea();
         jpInicio = new javax.swing.JPanel();
         jdeskpanInicio = new javax.swing.JDesktopPane();
         jmbPrincipal = new javax.swing.JMenuBar();
@@ -3184,9 +3200,9 @@ public class Inicio extends javax.swing.JFrame {
         jLabel47.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel47.setText("Mes Fin :");
 
-        jXComboBox2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        cboPeriodo_MesInicio.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        jXComboBox5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        cboPeriodo_MesFin.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
         jPanel16.setLayout(jPanel16Layout);
@@ -3202,12 +3218,12 @@ public class Inicio extends javax.swing.JFrame {
                         .addComponent(jLabel44)
                         .addGap(42, 42, 42)))
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jXComboBox2, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
+                    .addComponent(cboPeriodo_MesInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
                     .addComponent(txtNombre_Periodo))
                 .addGap(27, 27, 27)
                 .addComponent(jLabel47)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jXComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cboPeriodo_MesFin, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel16Layout.setVerticalGroup(
@@ -3222,11 +3238,11 @@ public class Inicio extends javax.swing.JFrame {
                         .addGap(37, 37, 37)
                         .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jXComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cboPeriodo_MesFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel47))
                             .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel46, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jXComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(cboPeriodo_MesInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
@@ -5247,6 +5263,67 @@ public class Inicio extends javax.swing.JFrame {
             .addComponent(jPanel28, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        jifMultaSufragio.setClosable(true);
+        jifMultaSufragio.setIconifiable(true);
+        jifMultaSufragio.setVisible(true);
+
+        jPanel14.setBackground(new java.awt.Color(225, 253, 203));
+
+        jLabel58.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jLabel58.setText("LISTA DE SUFRAGIO DE USUARIOS :");
+
+        btn_cargar_asistencia_asamblea1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btn_cargar_asistencia_asamblea1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/cargar_archivo.png"))); // NOI18N
+        btn_cargar_asistencia_asamblea1.setText("CARGAR ARCHIVO");
+        btn_cargar_asistencia_asamblea1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cargar_asistencia_asamblea1ActionPerformed(evt);
+            }
+        });
+
+        txtListaAsistenciaUsuario_Sufragio.setColumns(20);
+        txtListaAsistenciaUsuario_Sufragio.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        txtListaAsistenciaUsuario_Sufragio.setRows(5);
+        txtListaAsistenciaUsuario_Sufragio.setWrapStyleWord(true);
+        jScrollPane26.setViewportView(txtListaAsistenciaUsuario_Sufragio);
+
+        javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
+        jPanel14.setLayout(jPanel14Layout);
+        jPanel14Layout.setHorizontalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel14Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel58, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btn_cargar_asistencia_asamblea1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addComponent(jSeparator2)
+            .addComponent(jScrollPane26)
+        );
+        jPanel14Layout.setVerticalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel14Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_cargar_asistencia_asamblea1)
+                    .addComponent(jLabel58, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane26, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jifMultaSufragioLayout = new javax.swing.GroupLayout(jifMultaSufragio.getContentPane());
+        jifMultaSufragio.getContentPane().setLayout(jifMultaSufragioLayout);
+        jifMultaSufragioLayout.setHorizontalGroup(
+            jifMultaSufragioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jifMultaSufragioLayout.setVerticalGroup(
+            jifMultaSufragioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Sistema de Cobranza Comisión de Usuarios Perla del Huallaga");
         setIconImage(new ImageIcon(getClass().getResource("/recurso/comision_logo.jpg")).getImage());
@@ -5377,6 +5454,11 @@ public class Inicio extends javax.swing.JFrame {
         jMenu1.add(jmiPagoMultaAsamblea);
 
         jmiPagoMultaSufragio.setText("SUFRAGIO");
+        jmiPagoMultaSufragio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiPagoMultaSufragioActionPerformed(evt);
+            }
+        });
         jMenu1.add(jmiPagoMultaSufragio);
 
         jmPagos.add(jMenu1);
@@ -5535,6 +5617,7 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_jmiCuentasActionPerformed
 
     private void jmiPeriodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiPeriodoActionPerformed
+        getcombo_periodo_mesiniciofin();
         iniciarFomrulario_Periodo(jifPeriodos);
     }//GEN-LAST:event_jmiPeriodoActionPerformed
 
@@ -6209,7 +6292,25 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        JOptionPane.showMessageDialog(null, "Solo es Prueba");
+        try {
+            if(txtNombre_Periodo.getText().compareTo("")!= 0){
+                boolean resultado=false;
+                resultado=new BLPeriodo().Registrar(txtNombre_Periodo.getText(),((Constante)cboPeriodo_MesInicio.getSelectedItem()).getInt_valor(),
+                        ((Constante)cboPeriodo_MesFin.getSelectedItem()).getInt_valor());
+                if(resultado==true){
+                    JOptionPane.showMessageDialog(null, "Se Registro Correctamente");
+                }else{
+                    JOptionPane.showMessageDialog(null,"No se Pudo Registrar","Alerta",JOptionPane.ERROR_MESSAGE);
+                }
+                
+            }else{
+                JOptionPane.showMessageDialog(null,"No se Admiten Campos Vacios","Alerta",JOptionPane.ERROR_MESSAGE);
+            }
+        } 
+        catch (Exception e) {
+            System.out.println("Error"+e.getMessage());
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jtAgricultorMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtAgricultorMousePressed
@@ -6819,12 +6920,44 @@ public class Inicio extends javax.swing.JFrame {
             jfc_archivo.showOpenDialog(null);
             //jfc_archivo.showOpenDialog(jfc_archivo);
             System.out.println(""+jfc_archivo.getSelectedFile().getAbsolutePath());
+            //FileInputStream archivo = new FileInputStream(jfc_archivo.getSelectedFile().getAbsolutePath());
             FileInputStream archivo = new FileInputStream(jfc_archivo.getSelectedFile().getAbsolutePath());
-            //txtListaAsistenciaUsuario_Asamblea.setText(new utilitario.Excel_Reader().leer_excel(archivo,1));
+            int respuesta=JOptionPane.showConfirmDialog(null, "¿Desea Registrar?", "Mensaje", JOptionPane.YES_NO_OPTION);
+            if(respuesta == JOptionPane.YES_OPTION){
+                txtListaAsistenciaUsuario_Asamblea.setText(new utilitario.Excel_Reader().leer_registrar_excel(archivo,1));/**/
+            }else{
+               txtListaAsistenciaUsuario_Asamblea.setText(new utilitario.Excel_Reader().leer_excel(archivo,1)); 
+            }
         } catch (Exception e) {
             System.out.println("" + e.getMessage());
         }
     }//GEN-LAST:event_btn_cargar_asistencia_asambleaActionPerformed
+
+    private void jmiPagoMultaSufragioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiPagoMultaSufragioActionPerformed
+       iniciarFomrulario_PadronMultaSufragio(jifMultaSufragio);
+    }//GEN-LAST:event_jmiPagoMultaSufragioActionPerformed
+
+    private void btn_cargar_asistencia_asamblea1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cargar_asistencia_asamblea1ActionPerformed
+        try {
+            JFileChooser jfc_archivo = new JFileChooser();
+            FileNameExtensionFilter filtroImagen = new FileNameExtensionFilter("XLS","XLSX");
+            jfc_archivo.setFileFilter(filtroImagen);
+            jfc_archivo.setApproveButtonText("Abrir Excel");
+            jfc_archivo.showOpenDialog(null);
+            //jfc_archivo.showOpenDialog(jfc_archivo);
+            System.out.println(""+jfc_archivo.getSelectedFile().getAbsolutePath());
+            //FileInputStream archivo = new FileInputStream(jfc_archivo.getSelectedFile().getAbsolutePath());
+            FileInputStream archivo = new FileInputStream(jfc_archivo.getSelectedFile().getAbsolutePath());
+            int respuesta=JOptionPane.showConfirmDialog(null, "¿Desea Registrar?", "Mensaje", JOptionPane.YES_NO_OPTION);
+            if(respuesta == JOptionPane.YES_OPTION){
+                txtListaAsistenciaUsuario_Sufragio.setText(new utilitario.Excel_Reader().leer_registrar_excel(archivo,2));/**/
+            }else{
+               txtListaAsistenciaUsuario_Sufragio.setText(new utilitario.Excel_Reader().leer_excel(archivo,2)); 
+            }
+        } catch (Exception e) {
+            System.out.println("" + e.getMessage());
+        }
+    }//GEN-LAST:event_btn_cargar_asistencia_asamblea1ActionPerformed
 
     /*METODOS PARA MOSTRAR EL FORMULARIO*/
     public void iniciarFomrulario(JInternalFrame jif) {
@@ -6895,6 +7028,18 @@ public class Inicio extends javax.swing.JFrame {
     }
 
     public void iniciarFomrulario_PadronMultaAsamblea(JInternalFrame jif) {
+        try {
+            jif.setSize(833, 485);
+            jdeskpanInicio.add(jif);
+            jif.setVisible(true);
+            int x = (jdeskpanInicio.getWidth() / 2) - (jif.getWidth() / 2);
+            int y = (jdeskpanInicio.getHeight() / 2) - (jif.getHeight() / 2);
+            jif.setLocation(x, y);
+        } catch (Exception e) {
+            System.out.println("" + e.toString());
+        }
+    }
+    public void iniciarFomrulario_PadronMultaSufragio(JInternalFrame jif) {
         try {
             jif.setSize(833, 485);
             jdeskpanInicio.add(jif);
@@ -7091,6 +7236,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JButton btn_buscar_alquileres;
     private javax.swing.JButton btn_buscar_pagos;
     private javax.swing.JButton btn_cargar_asistencia_asamblea;
+    private javax.swing.JButton btn_cargar_asistencia_asamblea1;
     private org.jdesktop.swingx.JXComboBox cboAgricultorFiltro_Constancia;
     private org.jdesktop.swingx.JXComboBox cboAgricultor_Alquiler;
     private org.jdesktop.swingx.JXComboBox cboAntiguoAgricultor_Traspaso;
@@ -7102,6 +7248,8 @@ public class Inicio extends javax.swing.JFrame {
     private org.jdesktop.swingx.JXComboBox cboLateral_Agricultor;
     private org.jdesktop.swingx.JXComboBox cboNuevoAgricultor_Traspaso;
     private org.jdesktop.swingx.JXComboBox cboPeriodoFiltro_Constancia;
+    private org.jdesktop.swingx.JXComboBox cboPeriodo_MesFin;
+    private org.jdesktop.swingx.JXComboBox cboPeriodo_MesInicio;
     private org.jdesktop.swingx.JXComboBox cboSexo_Agricultor;
     private org.jdesktop.swingx.JXComboBox cboSubLateral_Agricultor;
     private javax.swing.JComboBox cboTipoComprobante_Movimiento;
@@ -7189,6 +7337,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel55;
     private javax.swing.JLabel jLabel56;
     private javax.swing.JLabel jLabel57;
+    private javax.swing.JLabel jLabel58;
     private javax.swing.JLabel jLabel59;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel60;
@@ -7235,6 +7384,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
+    private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel18;
@@ -7276,6 +7426,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane23;
     private javax.swing.JScrollPane jScrollPane24;
     private javax.swing.JScrollPane jScrollPane25;
+    private javax.swing.JScrollPane jScrollPane26;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
@@ -7284,14 +7435,13 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTabbedPane jTabbedPane10;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTabbedPane jTabbedPane4;
     private javax.swing.JTabbedPane jTabbedPane7;
     private javax.swing.JTable jTable8;
     private org.jdesktop.swingx.JXComboBox jXComboBox1;
-    private org.jdesktop.swingx.JXComboBox jXComboBox2;
-    private org.jdesktop.swingx.JXComboBox jXComboBox5;
     private org.jdesktop.swingx.JXSearchField jXSearchField5;
     private javax.swing.JDialog jdAlquilerAgricultor;
     private javax.swing.JDialog jdConstanciaAgricultor;
@@ -7312,6 +7462,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JInternalFrame jifInicioCierreCaja;
     private javax.swing.JInternalFrame jifMovimientos;
     private javax.swing.JInternalFrame jifMultaAsamblea;
+    private javax.swing.JInternalFrame jifMultaSufragio;
     private javax.swing.JInternalFrame jifPeriodos;
     private javax.swing.JPanel jifRegistrarAlquiler;
     private javax.swing.JInternalFrame jifTraspaso;
@@ -7434,6 +7585,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JTextField txtLateralCliente_Traspaso;
     private javax.swing.JTextField txtLateral_Constancia;
     private javax.swing.JTextArea txtListaAsistenciaUsuario_Asamblea;
+    private javax.swing.JTextArea txtListaAsistenciaUsuario_Sufragio;
     private javax.swing.JTextField txtModalAgricultorNuevo_Traspaso;
     private javax.swing.JTextField txtModalAgricultor_Alquiler;
     private javax.swing.JTextField txtModalAgricultor_Traspaso;
