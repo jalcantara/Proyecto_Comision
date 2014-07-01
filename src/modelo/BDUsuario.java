@@ -59,20 +59,17 @@ public class BDUsuario {
         }
         return resultado;
     }
-    
-    
-    
-    
-    public ArrayList<ListaUsuario> get_usuario_all(String condicion){
+
+    public ArrayList<ListaUsuario> get_usuario_all(String condicion) {
         Connection cnn = null;
         CallableStatement cstmt = null;
         ArrayList<ListaUsuario> listUsuario = new ArrayList<ListaUsuario>();
         try {
             cnn = BD.getConnection();
-            String sql="select * from  get_usuario_all where " + condicion;
+            String sql = "select * from  get_usuario_all where " + condicion;
             cstmt = cnn.prepareCall(sql);
             ResultSet rs = cstmt.executeQuery();
-            while(rs.next()) {
+            while (rs.next()) {
                 ListaUsuario a = new ListaUsuario();
                 a.setInt_id(rs.getInt("int_id"));
                 a.setVar_user(rs.getString("var_user"));
@@ -90,6 +87,54 @@ public class BDUsuario {
             System.out.println("" + a);
         }
         return listUsuario;
+    }
+
+    public Usuario login(String usuario, String password) {
+        Connection cnn = null;
+        CallableStatement cstmt = null;
+        Usuario u = new Usuario();
+        try {
+            cnn = BD.getConnection();
+            String sql = "call spC_Login(?,?);";
+            cstmt = cnn.prepareCall(sql);
+            cstmt.setString(1, usuario);
+            cstmt.setString(2, password);
+            ResultSet rs = cstmt.executeQuery();
+            while (rs.next()) {
+                u.setInt_id(rs.getInt("int_id"));
+                u.setVar_user(rs.getString("var_user"));
+                u.setVar_password(rs.getString("var_password"));
+                u.setVar_estado(rs.getString("var_estado"));
+            }
+            cstmt.close();
+            cnn.close();
+        } catch (SQLException a) {
+            System.out.println("" + a);
+        }
+        return u;
+    }
+    public Usuario get_usuario_bypassword(String pass) {
+        Connection cnn = null;
+        CallableStatement cstmt = null;
+        Usuario u = new Usuario();
+        try {
+            cnn = BD.getConnection();
+            String sql = "call spC_Usuario_ByPassword(?);";
+            cstmt = cnn.prepareCall(sql);
+            cstmt.setString(1, pass);
+            ResultSet rs = cstmt.executeQuery();
+            while (rs.next()) {
+                u.setInt_id(rs.getInt("int_id"));
+                u.setVar_user(rs.getString("var_user"));
+                u.setVar_password(rs.getString("var_password"));
+                u.setVar_estado(rs.getString("var_estado"));
+            }
+            cstmt.close();
+            cnn.close();
+        } catch (SQLException a) {
+            System.out.println("" + a);
+        }
+        return u;
     }
 
 }

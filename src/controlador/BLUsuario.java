@@ -64,5 +64,29 @@ class BLUsuario {
         return listUsuario;
         
     }
+    public Usuario login(String usuario, String password) {
+        Usuario u=new Usuario();
+        try {
+            BDUsuario us=new BDUsuario();
+            u=us.login(usuario, password);
+        } 
+        catch (Exception e) {
+            System.out.println("Error de Login"+e.getMessage());
+            e.printStackTrace();
+        }
+        return u;
+    }
+    public Usuario get_usuario_bypassword(String pass) {
+        Usuario us=new Usuario();
+        try {
+            BDUsuario u=new BDUsuario();
+            us=u.get_usuario_bypassword(pass);
+        } 
+        catch (Exception e) {
+            System.out.println("Error de Validacion "+e.getMessage());
+            e.printStackTrace();
+        }
+        return us;
+    }
    
 }

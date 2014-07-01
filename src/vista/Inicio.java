@@ -202,6 +202,34 @@ public class Inicio extends javax.swing.JFrame {
         }
         AutoCompleteDecorator.decorate(cboTipoCultivo_Constancia);
     }
+
+    private void RegistrarConstancia() {
+        Constancia c = new Constancia();
+        c.setComite_id(idComite_Constancia);
+        c.setLateral_id(idLateral_Constancia);
+        c.setPeriodo_id(idPeriodo_Constancia);
+        c.setInt_campania(Integer.parseInt(txtCampania_Constancia.getText()));
+        c.setDec_nrohectaria(Double.parseDouble(txtHectareas_Constancia.getText()));
+        if (rbAlmacigo_Constancia.isSelected()) {
+            c.setVar_tipoconstancia("A"); // Almacigo
+            c.setDat_fechRealizacion(new java.sql.Timestamp(txtFechaAlmacigo_constancia.getDate().getTime()));
+        } else {
+            c.setVar_tipoconstancia("B"); // Boleo
+            c.setDat_fechRealizacion(new java.sql.Timestamp(txtFechaAlmacigo_constancia.getDate().getTime()));
+        }
+        c.setDat_fechRegistro(new java.sql.Timestamp(txtFecha_Constancia.getDate().getTime()));
+        c.setInt_tipocultivo(((Constante) cboTipoCultivo_Constancia.getSelectedItem()).getInt_valor());
+        c.setDec_montoComision(Double.parseDouble(txtMontoComision_Constancia.getText()));
+        c.setDec_montoJunta(Double.parseDouble(txtMontoJunta_Constancia.getText()));
+        //modalvalidacion_constancia();
+        BLConstancia co = new BLConstancia();
+         if (co.insertarConstancia(c)) {
+         limpiarFomulario_Constancia();
+         JOptionPane.showMessageDialog(null, "Registro Exitoso", "MENSAJE", JOptionPane.INFORMATION_MESSAGE);
+         } else {
+         JOptionPane.showMessageDialog(null, "Error al Registrar", "MENSAJE", JOptionPane.ERROR_MESSAGE);
+         }
+    }
     /*FIN CONSTANCIA*/
 
     /*LATERALES*/
@@ -333,11 +361,11 @@ public class Inicio extends javax.swing.JFrame {
         cboCuentas_AsignarCostos.setSelectedIndex(0);
     }
 
-    private void gettabla_cuenta_all(String palabra,int indice) {
+    private void gettabla_cuenta_all(String palabra, int indice) {
         cboCuentas_AsignarCostos.removeAllItems();
         DefaultTableModel temp = (DefaultTableModel) jtCuentas.getModel();
         temp.setRowCount(0);
-        for (Cuenta c : new BLCuenta().get_cuenta_all(palabra,indice)) {
+        for (Cuenta c : new BLCuenta().get_cuenta_all(palabra, indice)) {
             Object[] datos = {c.getVar_codigo(), c.getVar_nombre(), c.getVar_numcuenta()};
             temp.addRow(datos);
             cboCuentas_AsignarCostos.addItem(c);
@@ -432,6 +460,7 @@ public class Inicio extends javax.swing.JFrame {
         }
         AutoCompleteDecorator.decorate(cboPeriodoFiltro_Constancia);
     }
+
     private void getcombo_periodo_mesiniciofin() {
         cboPeriodo_MesInicio.removeAllItems();
         cboPeriodo_MesFin.removeAllItems();
@@ -441,13 +470,14 @@ public class Inicio extends javax.swing.JFrame {
         }
         //AutoCompleteDecorator.decorate(cboPeriodoFiltro_Constancia);
     }
-    private void gettabla_periodo_all(String palabra,int indice) {
-        DefaultTableModel temp = (DefaultTableModel) jtPeriodo_All.getModel();        
-        temp.setRowCount(0);       
-        for (PeriodoCampania p : new BLPeriodo().get_periodo_all(palabra,indice)) {
-            Object[] datos = {p.getVar_periodo(),p.getNom_mesInicio(),p.getNom_mesFin()};
+
+    private void gettabla_periodo_all(String palabra, int indice) {
+        DefaultTableModel temp = (DefaultTableModel) jtPeriodo_All.getModel();
+        temp.setRowCount(0);
+        for (PeriodoCampania p : new BLPeriodo().get_periodo_all(palabra, indice)) {
+            Object[] datos = {p.getVar_periodo(), p.getNom_mesInicio(), p.getNom_mesFin()};
             temp.addRow(datos);
-            
+
         }
     }
     /*FIN PERIODO*/
@@ -950,12 +980,22 @@ public class Inicio extends javax.swing.JFrame {
         txtListaAsistenciaUsuario_Sufragio = new javax.swing.JTextArea();
         jdValidacion_Constancia = new javax.swing.JDialog();
         jPanel15 = new javax.swing.JPanel();
+        jPanel23 = new javax.swing.JPanel();
+        jLabel65 = new javax.swing.JLabel();
+        txtValidacionPass_Constancia = new javax.swing.JPasswordField();
+        jButton7 = new javax.swing.JButton();
         jdValidacion_Movimiento = new javax.swing.JDialog();
         jPanel20 = new javax.swing.JPanel();
         jdValidacion_Pago = new javax.swing.JDialog();
         jPanel21 = new javax.swing.JPanel();
+        jLabel64 = new javax.swing.JLabel();
+        jPasswordField2 = new javax.swing.JPasswordField();
+        jButton6 = new javax.swing.JButton();
         jdValidacion_Alquiler = new javax.swing.JDialog();
         jPanel22 = new javax.swing.JPanel();
+        jPasswordField1 = new javax.swing.JPasswordField();
+        jButton3 = new javax.swing.JButton();
+        jLabel62 = new javax.swing.JLabel();
         jpInicio = new javax.swing.JPanel();
         jdeskpanInicio = new javax.swing.JDesktopPane();
         jmbPrincipal = new javax.swing.JMenuBar();
@@ -5352,15 +5392,57 @@ public class Inicio extends javax.swing.JFrame {
             .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        jdValidacion_Constancia.setResizable(false);
+
+        jLabel65.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel65.setText("Ingrese Clave:");
+
+        jButton7.setText("OK");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel23Layout = new javax.swing.GroupLayout(jPanel23);
+        jPanel23.setLayout(jPanel23Layout);
+        jPanel23Layout.setHorizontalGroup(
+            jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel23Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel23Layout.createSequentialGroup()
+                        .addComponent(txtValidacionPass_Constancia)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel23Layout.createSequentialGroup()
+                        .addComponent(jLabel65)
+                        .addGap(0, 163, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel23Layout.setVerticalGroup(
+            jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel23Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jLabel65)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtValidacionPass_Constancia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton7))
+                .addContainerGap(34, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
         jPanel15.setLayout(jPanel15Layout);
         jPanel15Layout.setHorizontalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 426, Short.MAX_VALUE)
+            .addComponent(jPanel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 314, Short.MAX_VALUE)
+            .addGroup(jPanel15Layout.createSequentialGroup()
+                .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jdValidacion_ConstanciaLayout = new javax.swing.GroupLayout(jdValidacion_Constancia.getContentPane());
@@ -5396,15 +5478,37 @@ public class Inicio extends javax.swing.JFrame {
             .addComponent(jPanel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        jLabel64.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel64.setText("Contraseña:");
+
+        jPasswordField2.setText("jPasswordField2");
+
+        jButton6.setText("OK");
+
         javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
         jPanel21.setLayout(jPanel21Layout);
         jPanel21Layout.setHorizontalGroup(
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(jPanel21Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel21Layout.createSequentialGroup()
+                        .addComponent(jLabel64)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
         jPanel21Layout.setVerticalGroup(
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(jPanel21Layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel64)
+                    .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jButton6)
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jdValidacion_PagoLayout = new javax.swing.GroupLayout(jdValidacion_Pago.getContentPane());
@@ -5418,22 +5522,46 @@ public class Inicio extends javax.swing.JFrame {
             .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        jPasswordField1.setText("jPasswordField1");
+
+        jButton3.setText("OK");
+
+        jLabel62.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel62.setText("Contraseña:");
+
         javax.swing.GroupLayout jPanel22Layout = new javax.swing.GroupLayout(jPanel22);
         jPanel22.setLayout(jPanel22Layout);
         jPanel22Layout.setHorizontalGroup(
             jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(jPanel22Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel22Layout.createSequentialGroup()
+                        .addComponent(jLabel62)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
         jPanel22Layout.setVerticalGroup(
             jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(jPanel22Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel62)
+                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jButton3)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jdValidacion_AlquilerLayout = new javax.swing.GroupLayout(jdValidacion_Alquiler.getContentPane());
         jdValidacion_Alquiler.getContentPane().setLayout(jdValidacion_AlquilerLayout);
         jdValidacion_AlquilerLayout.setHorizontalGroup(
             jdValidacion_AlquilerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jdValidacion_AlquilerLayout.createSequentialGroup()
+                .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jdValidacion_AlquilerLayout.setVerticalGroup(
             jdValidacion_AlquilerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -5725,7 +5853,7 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_jmiAgricultorActionPerformed
 
     private void jmiCuentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCuentasActionPerformed
-        gettabla_cuenta_all("",0);
+        gettabla_cuenta_all("", 0);
         gettabla_asignacioncosto_cuenta_all();
         limpiarFomulario_Cuenta();
         limpiarFomulario_AsignacionCosto_Cuenta();
@@ -5734,7 +5862,7 @@ public class Inicio extends javax.swing.JFrame {
 
     private void jmiPeriodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiPeriodoActionPerformed
         getcombo_periodo_mesiniciofin();
-        gettabla_periodo_all("",0);
+        gettabla_periodo_all("", 0);
         iniciarFomrulario_Periodo(jifPeriodos);
     }//GEN-LAST:event_jmiPeriodoActionPerformed
 
@@ -5870,30 +5998,8 @@ public class Inicio extends javax.swing.JFrame {
             if (txtFecha_Constancia.getDate() != null && txtComite_Constancia.getText().compareTo("") != 0
                     && txtCliente_Constancia.getText().compareTo("") != 0 && txtPeriodoRango_Constancia.getText().compareTo("") != 0
                     && txtLateral_Constancia.getText().compareTo("") != 0 && txtHectareas_Constancia.getText().compareTo("") != 0) {
-                Constancia c = new Constancia();
-                c.setComite_id(idComite_Constancia);
-                c.setLateral_id(idLateral_Constancia);
-                c.setPeriodo_id(idPeriodo_Constancia);
-                c.setInt_campania(Integer.parseInt(txtCampania_Constancia.getText()));
-                c.setDec_nrohectaria(Double.parseDouble(txtHectareas_Constancia.getText()));
-                if (rbAlmacigo_Constancia.isSelected()) {
-                    c.setVar_tipoconstancia("A"); // Almacigo
-                    c.setDat_fechRealizacion(new java.sql.Timestamp(txtFechaAlmacigo_constancia.getDate().getTime()));
-                } else {
-                    c.setVar_tipoconstancia("B"); // Boleo
-                    c.setDat_fechRealizacion(new java.sql.Timestamp(txtFechaAlmacigo_constancia.getDate().getTime()));
-                }
-                c.setDat_fechRegistro(new java.sql.Timestamp(txtFecha_Constancia.getDate().getTime()));
-                c.setInt_tipocultivo(((Constante) cboTipoCultivo_Constancia.getSelectedItem()).getInt_valor());
-                c.setDec_montoComision(Double.parseDouble(txtMontoComision_Constancia.getText()));
-                c.setDec_montoJunta(Double.parseDouble(txtMontoJunta_Constancia.getText()));
-                BLConstancia co = new BLConstancia();
-                if (co.insertarConstancia(c)) {
-                    limpiarFomulario_Constancia();
-                    JOptionPane.showMessageDialog(null, "Registro Exitoso", "MENSAJE", JOptionPane.INFORMATION_MESSAGE);
-                } else {
-                    JOptionPane.showMessageDialog(null, "Error al Registrar", "MENSAJE", JOptionPane.ERROR_MESSAGE);
-                }
+                    modalvalidacion_constancia();
+                    
             } else {
                 JOptionPane.showMessageDialog(null, "No se admite campos vacios", "ALERTA", JOptionPane.ERROR_MESSAGE);
             }
@@ -6292,7 +6398,7 @@ public class Inicio extends javax.swing.JFrame {
             if (txtCodigo_Cuenta.getText().compareTo("") != 0 && txtNombre_Cuentas.getText().compareTo("") != 0
                     && txtNumCuenta_Registrar.getText().compareTo("") != 0) {
                 if (new BLCuenta().Registrar(txtCodigo_Cuenta.getText(), txtNombre_Cuentas.getText(), txtNumCuenta_Registrar.getText())) {
-                    gettabla_cuenta_all("",0);
+                    gettabla_cuenta_all("", 0);
                     JOptionPane.showMessageDialog(null, "Registro Exitoso", "MENSAJE", JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(null, "Error al Registrar", "MENSAJE", JOptionPane.ERROR_MESSAGE);
@@ -6306,7 +6412,7 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGuardar5ActionPerformed
 
     private void txtFiltroNombre_Cuenta2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroNombre_Cuenta2KeyReleased
-        gettabla_cuenta_all(txtFiltroNombre_Cuenta2.getText(),cboFiltro_Cuenta.getSelectedIndex());
+        gettabla_cuenta_all(txtFiltroNombre_Cuenta2.getText(), cboFiltro_Cuenta.getSelectedIndex());
     }//GEN-LAST:event_txtFiltroNombre_Cuenta2KeyReleased
 
     private void btnGuardar6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardar6ActionPerformed
@@ -6412,24 +6518,23 @@ public class Inicio extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try {
-            if(txtNombre_Periodo.getText().compareTo("")!= 0){
-                boolean resultado=false;
-                resultado=new BLPeriodo().Registrar(txtNombre_Periodo.getText(),((Constante)cboPeriodo_MesInicio.getSelectedItem()).getInt_valor(),
-                        ((Constante)cboPeriodo_MesFin.getSelectedItem()).getInt_valor());
-                if(resultado==true){
+            if (txtNombre_Periodo.getText().compareTo("") != 0) {
+                boolean resultado = false;
+                resultado = new BLPeriodo().Registrar(txtNombre_Periodo.getText(), ((Constante) cboPeriodo_MesInicio.getSelectedItem()).getInt_valor(),
+                        ((Constante) cboPeriodo_MesFin.getSelectedItem()).getInt_valor());
+                if (resultado == true) {
                     limpiarTabla(jtPeriodo_All);
                     gettabla_periodo_all("", 0);
                     JOptionPane.showMessageDialog(null, "Se Registro Correctamente");
-                }else{
-                    JOptionPane.showMessageDialog(null,"No se Pudo Registrar","Alerta",JOptionPane.ERROR_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se Pudo Registrar", "Alerta", JOptionPane.ERROR_MESSAGE);
                 }
-                
-            }else{
-                JOptionPane.showMessageDialog(null,"No se Admiten Campos Vacios","Alerta",JOptionPane.ERROR_MESSAGE);
+
+            } else {
+                JOptionPane.showMessageDialog(null, "No se Admiten Campos Vacios", "Alerta", JOptionPane.ERROR_MESSAGE);
             }
-        } 
-        catch (Exception e) {
-            System.out.println("Error"+e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error" + e.getMessage());
             e.printStackTrace();
         }
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -6482,8 +6587,10 @@ public class Inicio extends javax.swing.JFrame {
                     && txtdni_usuario.getText().compareTo("") != 0 && txtnombres_usuario.getText().compareTo("") != 0
                     && txtapellidos_usuario.getText().compareTo("") != 0 && txtTeleCelular_Usuario.getText().compareTo("") != 0
                     && txtFechaNacimiento_Usuario.getDate() != null) {
+                char passArray[] = txtpass_usuario.getPassword();
+                String pass = new String(passArray);
                 if (new BLUsuario().Registrar(txtID_Usuario.getText(),
-                        txtpass_usuario.getPassword().toString(),
+                        pass,
                         txtdni_usuario.getText(),
                         txtnombres_usuario.getText(),
                         txtapellidos_usuario.getText(),
@@ -7035,19 +7142,20 @@ public class Inicio extends javax.swing.JFrame {
     private void btn_cargar_asistencia_asambleaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cargar_asistencia_asambleaActionPerformed
         try {
             JFileChooser jfc_archivo = new JFileChooser();
-            FileNameExtensionFilter filtroImagen = new FileNameExtensionFilter("XLS","XLSX");
+            FileNameExtensionFilter filtroImagen = new FileNameExtensionFilter("XLS", "XLSX");
             jfc_archivo.setFileFilter(filtroImagen);
             jfc_archivo.setApproveButtonText("Abrir Excel");
             jfc_archivo.showOpenDialog(null);
             //jfc_archivo.showOpenDialog(jfc_archivo);
-            System.out.println(""+jfc_archivo.getSelectedFile().getAbsolutePath());
+            System.out.println("" + jfc_archivo.getSelectedFile().getAbsolutePath());
             //FileInputStream archivo = new FileInputStream(jfc_archivo.getSelectedFile().getAbsolutePath());
             FileInputStream archivo = new FileInputStream(jfc_archivo.getSelectedFile().getAbsolutePath());
-            int respuesta=JOptionPane.showConfirmDialog(null, "¿Desea Registrar?", "Mensaje", JOptionPane.YES_NO_OPTION);
-            if(respuesta == JOptionPane.YES_OPTION){
-                txtListaAsistenciaUsuario_Asamblea.setText(new utilitario.Excel_Reader().leer_registrar_excel(archivo,1));/**/
-            }else{
-               txtListaAsistenciaUsuario_Asamblea.setText(new utilitario.Excel_Reader().leer_excel(archivo,1)); 
+            int respuesta = JOptionPane.showConfirmDialog(null, "¿Desea Registrar?", "Mensaje", JOptionPane.YES_NO_OPTION);
+            if (respuesta == JOptionPane.YES_OPTION) {
+                txtListaAsistenciaUsuario_Asamblea.setText(new utilitario.Excel_Reader().leer_registrar_excel(archivo, 1));/**/
+
+            } else {
+                txtListaAsistenciaUsuario_Asamblea.setText(new utilitario.Excel_Reader().leer_excel(archivo, 1));
             }
         } catch (Exception e) {
             System.out.println("" + e.getMessage());
@@ -7055,25 +7163,26 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_cargar_asistencia_asambleaActionPerformed
 
     private void jmiPagoMultaSufragioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiPagoMultaSufragioActionPerformed
-       iniciarFomrulario_PadronMultaSufragio(jifMultaSufragio);
+        iniciarFomrulario_PadronMultaSufragio(jifMultaSufragio);
     }//GEN-LAST:event_jmiPagoMultaSufragioActionPerformed
 
     private void btn_cargar_asistencia_asamblea1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cargar_asistencia_asamblea1ActionPerformed
         try {
             JFileChooser jfc_archivo = new JFileChooser();
-            FileNameExtensionFilter filtroImagen = new FileNameExtensionFilter("XLS","XLSX");
+            FileNameExtensionFilter filtroImagen = new FileNameExtensionFilter("XLS", "XLSX");
             jfc_archivo.setFileFilter(filtroImagen);
             jfc_archivo.setApproveButtonText("Abrir Excel");
             jfc_archivo.showOpenDialog(null);
             //jfc_archivo.showOpenDialog(jfc_archivo);
-            System.out.println(""+jfc_archivo.getSelectedFile().getAbsolutePath());
+            System.out.println("" + jfc_archivo.getSelectedFile().getAbsolutePath());
             //FileInputStream archivo = new FileInputStream(jfc_archivo.getSelectedFile().getAbsolutePath());
             FileInputStream archivo = new FileInputStream(jfc_archivo.getSelectedFile().getAbsolutePath());
-            int respuesta=JOptionPane.showConfirmDialog(null, "¿Desea Registrar?", "Mensaje", JOptionPane.YES_NO_OPTION);
-            if(respuesta == JOptionPane.YES_OPTION){
-                txtListaAsistenciaUsuario_Sufragio.setText(new utilitario.Excel_Reader().leer_registrar_excel(archivo,2));/**/
-            }else{
-               txtListaAsistenciaUsuario_Sufragio.setText(new utilitario.Excel_Reader().leer_excel(archivo,2)); 
+            int respuesta = JOptionPane.showConfirmDialog(null, "¿Desea Registrar?", "Mensaje", JOptionPane.YES_NO_OPTION);
+            if (respuesta == JOptionPane.YES_OPTION) {
+                txtListaAsistenciaUsuario_Sufragio.setText(new utilitario.Excel_Reader().leer_registrar_excel(archivo, 2));/**/
+
+            } else {
+                txtListaAsistenciaUsuario_Sufragio.setText(new utilitario.Excel_Reader().leer_excel(archivo, 2));
             }
         } catch (Exception e) {
             System.out.println("" + e.getMessage());
@@ -7081,10 +7190,40 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_cargar_asistencia_asamblea1ActionPerformed
 
     private void txtFiltro_PeriodoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltro_PeriodoKeyReleased
-        gettabla_periodo_all(txtFiltro_Periodo.getText(),cboFiltro_Periodo.getSelectedIndex());
+        gettabla_periodo_all(txtFiltro_Periodo.getText(), cboFiltro_Periodo.getSelectedIndex());
     }//GEN-LAST:event_txtFiltro_PeriodoKeyReleased
 
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        try {
+          Usuario u=new Usuario();
+          BLUsuario us=new BLUsuario();
+          char passArray[]=txtValidacionPass_Constancia.getPassword();
+          String pass=new String(passArray);
+          u=us.get_usuario_bypassword(pass);
+          if(u.getVar_user() != null){
+              jdValidacion_Constancia.dispose();
+              RegistrarConstancia();
+          }else{
+              JOptionPane.showMessageDialog(null, "[Clave Incorrecta]","Alerta",JOptionPane.ERROR_MESSAGE);
+              txtValidacionPass_Constancia.requestFocus();
+          }
+        } 
+        catch (Exception e) {
+            System.out.println("Error de Validacion ");
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jButton7ActionPerformed
+
     /*METODOS PARA MOSTRAR EL FORMULARIO*/
+    public void modalvalidacion_constancia() {
+        jdValidacion_Constancia.pack();
+        jdValidacion_Constancia.setLocationRelativeTo(null);
+        jdValidacion_Constancia.getRootPane().registerKeyboardAction(new CloseDialogEscape(jdValidacion_Constancia),
+                KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_IN_FOCUSED_WINDOW);
+        jdValidacion_Constancia.setModal(true);
+        jdValidacion_Constancia.setVisible(true);
+    }
+
     public void iniciarFomrulario(JInternalFrame jif) {
         try {
             jif.setSize(1014, 650);
@@ -7164,6 +7303,7 @@ public class Inicio extends javax.swing.JFrame {
             System.out.println("" + e.toString());
         }
     }
+
     public void iniciarFomrulario_PadronMultaSufragio(JInternalFrame jif) {
         try {
             jif.setSize(833, 485);
@@ -7395,8 +7535,11 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JButton jButton17;
     private javax.swing.JButton jButton19;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel100;
@@ -7467,7 +7610,10 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel60;
     private javax.swing.JLabel jLabel61;
+    private javax.swing.JLabel jLabel62;
     private javax.swing.JLabel jLabel63;
+    private javax.swing.JLabel jLabel64;
+    private javax.swing.JLabel jLabel65;
     private javax.swing.JLabel jLabel66;
     private javax.swing.JLabel jLabel67;
     private javax.swing.JLabel jLabel68;
@@ -7519,6 +7665,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel21;
     private javax.swing.JPanel jPanel22;
+    private javax.swing.JPanel jPanel23;
     private javax.swing.JPanel jPanel26;
     private javax.swing.JPanel jPanel28;
     private javax.swing.JPanel jPanel29;
@@ -7537,6 +7684,8 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JPasswordField jPasswordField1;
+    private javax.swing.JPasswordField jPasswordField2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane11;
@@ -7681,6 +7830,8 @@ public class Inicio extends javax.swing.JFrame {
     private com.toedter.components.JSpinField txtCantidad_Alquiler;
     private com.toedter.components.JSpinField txtCantidad_Movimientos;
     private javax.swing.JTextField txtCelular_Agricultor;
+    private javax.swing.JPasswordField txtClaveVerificacion;
+    private javax.swing.JPasswordField txtClaveVerificacion1;
     private javax.swing.JTextField txtCliente_Constancia;
     private org.jdesktop.swingx.JXTextField txtCodigo_Cuenta;
     private javax.swing.JTextField txtComite_Constancia;
@@ -7754,6 +7905,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JTextField txtSubLateralAgricultor_Traspo;
     private javax.swing.JTextField txtTeleCelular_Usuario;
     private javax.swing.JTextField txtTelefono_Agricultor;
+    private javax.swing.JPasswordField txtValidacionPass_Constancia;
     private javax.swing.JTextField txtVoucher_RegistrarPago;
     private javax.swing.JTextField txtapellidos_usuario;
     private javax.swing.JTextField txtdni_usuario;
