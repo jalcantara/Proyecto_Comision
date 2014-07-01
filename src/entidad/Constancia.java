@@ -26,6 +26,8 @@ public class Constancia {
     private Timestamp dat_fechRealizacion;
     private double dec_nrohectaria;
     private int int_tipocultivo;
+    private double dec_montoJunta;
+    private double dec_montoComision;
     
     
     
@@ -133,6 +135,22 @@ public class Constancia {
 
     public void setInt_tipocultivo(int int_tipocultivo) {
         this.int_tipocultivo = int_tipocultivo;
+    }
+
+    public double getDec_montoJunta() {
+        return dec_montoJunta;
+    }
+
+    public void setDec_montoJunta(double dec_montoJunta) {
+        this.dec_montoJunta = dec_montoJunta;
+    }
+
+    public double getDec_montoComision() {
+        return dec_montoComision;
+    }
+
+    public void setDec_montoComision(double dec_montoComision) {
+        this.dec_montoComision = dec_montoComision;
     }
 
 }

@@ -46,7 +46,35 @@ public class BDPeriodo {
         }
         return lista_periodo;
     }
-
+    
+    public ArrayList<PeriodoCampania> get_periodo_all(String condicion) {
+        Connection cnn = null;
+        CallableStatement cstmt = null;
+        ArrayList<PeriodoCampania> lista_periodo = new ArrayList<PeriodoCampania>();
+        try {
+            cnn = BD.getConnection();
+            String sql = "select * from get_periodo_all where "+condicion;
+            cstmt = cnn.prepareCall(sql);
+            ResultSet rs = cstmt.executeQuery();
+            while (rs.next()) {
+                PeriodoCampania pc = new PeriodoCampania();
+                pc.setPeriodo_id(rs.getInt("int_id"));
+                pc.setVar_periodo(rs.getString("var_periodo"));
+                pc.setInt_mesInicio(rs.getInt("int_mesInicio"));
+                pc.setInt_mesFin(rs.getInt("int_mesFin"));
+                pc.setInt_estado(rs.getInt("int_estado"));
+                pc.setNom_estado(rs.getString("nom_estado"));
+                pc.setNom_mesInicio(rs.getString("mesinicio"));
+                pc.setNom_mesFin(rs.getString("mesfin"));
+                lista_periodo.add(pc);
+            }
+            cstmt.close();
+            cnn.close();
+        } catch (SQLException a) {
+            System.out.println("" + a);
+        }
+        return lista_periodo;
+    }
     public PeriodoCampania get_peridocampania_byagricultor(int idCliente, Date fechaRegistro) {
         Connection cnn = null;
         CallableStatement cstmt = null;

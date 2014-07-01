@@ -55,6 +55,7 @@ import modelo.BDAgricultor;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 import utilitario.CloseDialogEscape;
 import utilitario.Funciones;
+import entidad.*;
 
 /**
  *
@@ -211,7 +212,8 @@ public class Inicio extends javax.swing.JFrame {
         for (int i = 0; i < lista_lat.size(); i++) {
             cboLateral_Agricultor.addItem(lista_lat.get(i));
         }
-        AutoCompleteDecorator.decorate(cboLateral_Agricultor);
+        cboLateral_Agricultor.setSelectedIndex(1);
+        //AutoCompleteDecorator.decorate(cboLateral_Agricultor);
     }
 
     private void get_sublatreles_all() {
@@ -221,7 +223,8 @@ public class Inicio extends javax.swing.JFrame {
         for (int i = 0; i < lista_lat.size(); i++) {
             cboSubLateral_Agricultor.addItem(lista_lat.get(i));
         }
-        AutoCompleteDecorator.decorate(cboSubLateral_Agricultor);
+        cboSubLateral_Agricultor.setSelectedIndex(1);
+        //AutoCompleteDecorator.decorate(cboSubLateral_Agricultor);
     }
 
     private void gettabla_lateral_byagricultoractivos(String palabra, int id) {
@@ -330,11 +333,11 @@ public class Inicio extends javax.swing.JFrame {
         cboCuentas_AsignarCostos.setSelectedIndex(0);
     }
 
-    private void gettabla_cuenta_all(String palabra) {
+    private void gettabla_cuenta_all(String palabra,int indice) {
         cboCuentas_AsignarCostos.removeAllItems();
         DefaultTableModel temp = (DefaultTableModel) jtCuentas.getModel();
         temp.setRowCount(0);
-        for (Cuenta c : new BLCuenta().get_cuenta_all(palabra)) {
+        for (Cuenta c : new BLCuenta().get_cuenta_all(palabra,indice)) {
             Object[] datos = {c.getVar_codigo(), c.getVar_nombre(), c.getVar_numcuenta()};
             temp.addRow(datos);
             cboCuentas_AsignarCostos.addItem(c);
@@ -437,6 +440,15 @@ public class Inicio extends javax.swing.JFrame {
             cboPeriodo_MesFin.addItem(c);
         }
         //AutoCompleteDecorator.decorate(cboPeriodoFiltro_Constancia);
+    }
+    private void gettabla_periodo_all(String palabra,int indice) {
+        DefaultTableModel temp = (DefaultTableModel) jtPeriodo_All.getModel();        
+        temp.setRowCount(0);       
+        for (PeriodoCampania p : new BLPeriodo().get_periodo_all(palabra,indice)) {
+            Object[] datos = {p.getVar_periodo(),p.getNom_mesInicio(),p.getNom_mesFin()};
+            temp.addRow(datos);
+            
+        }
     }
     /*FIN PERIODO*/
 
@@ -726,12 +738,12 @@ public class Inicio extends javax.swing.JFrame {
         jScrollPane5 = new javax.swing.JScrollPane();
         jtDetalleLaterales_Agricultor = new javax.swing.JTable();
         jLabel37 = new javax.swing.JLabel();
-        cboLateral_Agricultor = new org.jdesktop.swingx.JXComboBox();
-        cboSubLateral_Agricultor = new org.jdesktop.swingx.JXComboBox();
         txtSinMedida_Agricultor = new javax.swing.JTextField();
         txtConMedida_Agricultor = new javax.swing.JTextField();
         jLabel56 = new javax.swing.JLabel();
         txtNumHectareas_Agricultor = new javax.swing.JTextField();
+        cboSubLateral_Agricultor = new org.jdesktop.swingx.JXComboBox();
+        cboLateral_Agricultor = new org.jdesktop.swingx.JXComboBox();
         btnGuardar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         jifPeriodos = new javax.swing.JInternalFrame();
@@ -739,9 +751,9 @@ public class Inicio extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jScrollPane8 = new javax.swing.JScrollPane();
-        jTable8 = new javax.swing.JTable();
-        jComboBox6 = new javax.swing.JComboBox();
-        jXSearchField5 = new org.jdesktop.swingx.JXSearchField();
+        jtPeriodo_All = new javax.swing.JTable();
+        cboFiltro_Periodo = new javax.swing.JComboBox();
+        txtFiltro_Periodo = new org.jdesktop.swingx.JXSearchField();
         jLabel78 = new javax.swing.JLabel();
         jPanel16 = new javax.swing.JPanel();
         txtNombre_Periodo = new javax.swing.JTextField();
@@ -861,7 +873,7 @@ public class Inicio extends javax.swing.JFrame {
         btnCancelar5 = new javax.swing.JButton();
         jLabel98 = new javax.swing.JLabel();
         txtFiltroNombre_Cuenta2 = new org.jdesktop.swingx.JXSearchField();
-        jComboBox8 = new javax.swing.JComboBox();
+        cboFiltro_Cuenta = new javax.swing.JComboBox();
         jScrollPane23 = new javax.swing.JScrollPane();
         jtCuentas = new javax.swing.JTable();
         jLabel99 = new javax.swing.JLabel();
@@ -936,6 +948,14 @@ public class Inicio extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         jScrollPane26 = new javax.swing.JScrollPane();
         txtListaAsistenciaUsuario_Sufragio = new javax.swing.JTextArea();
+        jdValidacion_Constancia = new javax.swing.JDialog();
+        jPanel15 = new javax.swing.JPanel();
+        jdValidacion_Movimiento = new javax.swing.JDialog();
+        jPanel20 = new javax.swing.JPanel();
+        jdValidacion_Pago = new javax.swing.JDialog();
+        jPanel21 = new javax.swing.JPanel();
+        jdValidacion_Alquiler = new javax.swing.JDialog();
+        jPanel22 = new javax.swing.JPanel();
         jpInicio = new javax.swing.JPanel();
         jdeskpanInicio = new javax.swing.JDesktopPane();
         jmbPrincipal = new javax.swing.JMenuBar();
@@ -1084,7 +1104,7 @@ public class Inicio extends javax.swing.JFrame {
         rbBoleo_Constancia.setBackground(new java.awt.Color(225, 253, 203));
         btnTipodeSembrio.add(rbBoleo_Constancia);
         rbBoleo_Constancia.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        rbBoleo_Constancia.setText("Boleto");
+        rbBoleo_Constancia.setText("Boleo");
         rbBoleo_Constancia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbBoleo_ConstanciaActionPerformed(evt);
@@ -1141,12 +1161,6 @@ public class Inicio extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jpConstancia_RegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(jpConstancia_RegistroLayout.createSequentialGroup()
-                                        .addComponent(rbAlmacigo_Constancia, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(txtFechaAlmacigo_constancia, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(rbBoleo_Constancia, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jpConstancia_RegistroLayout.createSequentialGroup()
                                         .addGroup(jpConstancia_RegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(txtLateral_Constancia, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addGroup(jpConstancia_RegistroLayout.createSequentialGroup()
@@ -1162,9 +1176,15 @@ public class Inicio extends javax.swing.JFrame {
                                                     .addComponent(btn_ModalComite_Constancia, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                     .addComponent(btn_ModalCliente_Constancia)))
                                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpConstancia_RegistroLayout.createSequentialGroup()
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addGap(15, 15, 15)
                                                 .addComponent(btn_ModalLateral_Constancia, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                    .addComponent(txtMontoComision_Constancia, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(txtMontoComision_Constancia, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jpConstancia_RegistroLayout.createSequentialGroup()
+                                        .addComponent(rbAlmacigo_Constancia, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(rbBoleo_Constancia, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtFechaAlmacigo_constancia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                             .addComponent(jLabel5))
                         .addGap(40, 40, 40)
                         .addGroup(jpConstancia_RegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1213,19 +1233,19 @@ public class Inicio extends javax.swing.JFrame {
                 .addGroup(jpConstancia_RegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpConstancia_RegistroLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addGroup(jpConstancia_RegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(rbBoleo_Constancia)
-                            .addGroup(jpConstancia_RegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel89)
-                                .addComponent(cboTipoCultivo_Constancia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(jpConstancia_RegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel89)
+                            .addComponent(cboTipoCultivo_Constancia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jpConstancia_RegistroLayout.createSequentialGroup()
                         .addGap(14, 14, 14)
-                        .addGroup(jpConstancia_RegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtFechaAlmacigo_constancia, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jpConstancia_RegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel48)
-                                .addComponent(rbAlmacigo_Constancia)))))
-                .addGap(14, 14, 14)
+                        .addGroup(jpConstancia_RegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel48)
+                            .addComponent(rbAlmacigo_Constancia)
+                            .addComponent(rbBoleo_Constancia)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpConstancia_RegistroLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtFechaAlmacigo_constancia, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(17, 17, 17)
                 .addGroup(jpConstancia_RegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpConstancia_RegistroLayout.createSequentialGroup()
                         .addGroup(jpConstancia_RegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1241,7 +1261,7 @@ public class Inicio extends javax.swing.JFrame {
                             .addComponent(jLabel61)
                             .addComponent(txtMontoJunta_Constancia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(txtHectareas_Constancia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         btn_Cancelar_Constancia.setBackground(new java.awt.Color(255, 102, 0));
@@ -2969,12 +2989,6 @@ public class Inicio extends javax.swing.JFrame {
         jLabel37.setText("LISTA DE LATERALES");
         jLabel37.setOpaque(true);
 
-        cboLateral_Agricultor.setEditable(true);
-        cboLateral_Agricultor.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-
-        cboSubLateral_Agricultor.setEditable(true);
-        cboSubLateral_Agricultor.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-
         txtSinMedida_Agricultor.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtSinMedida_Agricultor.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSinMedida_Agricultor.setText("0.0");
@@ -3052,24 +3066,32 @@ public class Inicio extends javax.swing.JFrame {
         jpLateralesLayout.setVerticalGroup(
             jpLateralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpLateralesLayout.createSequentialGroup()
-                .addGap(31, 31, 31)
                 .addGroup(jpLateralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpLateralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel56)
-                        .addComponent(txtNumHectareas_Agricultor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jpLateralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel40)
-                        .addComponent(cboLateral_Agricultor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel49)
-                        .addComponent(txtSinMedida_Agricultor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(12, 12, 12)
-                .addGroup(jpLateralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel39)
-                    .addComponent(cboSubLateral_Agricultor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel38)
-                    .addComponent(btnEliminar_DetLateales)
-                    .addComponent(txtConMedida_Agricultor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton17))
+                    .addGroup(jpLateralesLayout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addGroup(jpLateralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jpLateralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel56)
+                                .addComponent(txtNumHectareas_Agricultor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jpLateralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel40)
+                                .addComponent(jLabel49)
+                                .addComponent(txtSinMedida_Agricultor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpLateralesLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(cboLateral_Agricultor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jpLateralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpLateralesLayout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addGroup(jpLateralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel39)
+                            .addComponent(jLabel38)
+                            .addComponent(btnEliminar_DetLateales)
+                            .addComponent(txtConMedida_Agricultor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton17)))
+                    .addGroup(jpLateralesLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(cboSubLateral_Agricultor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel37, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -3155,7 +3177,7 @@ public class Inicio extends javax.swing.JFrame {
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/cancelar.png"))); // NOI18N
         jButton1.setText("CANCELAR");
 
-        jTable8.setModel(new javax.swing.table.DefaultTableModel(
+        jtPeriodo_All.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -3171,12 +3193,18 @@ public class Inicio extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane8.setViewportView(jTable8);
+        jScrollPane8.setViewportView(jtPeriodo_All);
 
-        jComboBox6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        cboFiltro_Periodo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        cboFiltro_Periodo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Nombre", "Mes Inicio", "Mes Fin" }));
 
-        jXSearchField5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jXSearchField5.setPrompt("Buscar Campañas");
+        txtFiltro_Periodo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtFiltro_Periodo.setPrompt("Buscar Campañas");
+        txtFiltro_Periodo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtFiltro_PeriodoKeyReleased(evt);
+            }
+        });
 
         jLabel78.setBackground(new java.awt.Color(0, 153, 153));
         jLabel78.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -3268,9 +3296,9 @@ public class Inicio extends javax.swing.JFrame {
                             .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)))
                     .addGroup(jPanel26Layout.createSequentialGroup()
-                        .addComponent(jXSearchField5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtFiltro_Periodo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox6, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cboFiltro_Periodo, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel78, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -3290,8 +3318,8 @@ public class Inicio extends javax.swing.JFrame {
                 .addComponent(jLabel78, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jXSearchField5, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox6, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtFiltro_Periodo, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboFiltro_Periodo, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -4459,8 +4487,8 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
 
-        jComboBox8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jComboBox8.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Nombre", "N° Cuenta" }));
+        cboFiltro_Cuenta.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        cboFiltro_Cuenta.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Nombre", "N° Cuenta" }));
 
         jtCuentas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -4580,7 +4608,7 @@ public class Inicio extends javax.swing.JFrame {
                             .addGroup(jPanel41Layout.createSequentialGroup()
                                 .addComponent(txtFiltroNombre_Cuenta2, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
-                                .addComponent(jComboBox8, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(cboFiltro_Cuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane23, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel99, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
@@ -4602,7 +4630,7 @@ public class Inicio extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtFiltroNombre_Cuenta2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox8, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cboFiltro_Cuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane23, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(12, Short.MAX_VALUE))
@@ -5324,6 +5352,94 @@ public class Inicio extends javax.swing.JFrame {
             .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
+        jPanel15.setLayout(jPanel15Layout);
+        jPanel15Layout.setHorizontalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 426, Short.MAX_VALUE)
+        );
+        jPanel15Layout.setVerticalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 314, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jdValidacion_ConstanciaLayout = new javax.swing.GroupLayout(jdValidacion_Constancia.getContentPane());
+        jdValidacion_Constancia.getContentPane().setLayout(jdValidacion_ConstanciaLayout);
+        jdValidacion_ConstanciaLayout.setHorizontalGroup(
+            jdValidacion_ConstanciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jdValidacion_ConstanciaLayout.setVerticalGroup(
+            jdValidacion_ConstanciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanel20Layout = new javax.swing.GroupLayout(jPanel20);
+        jPanel20.setLayout(jPanel20Layout);
+        jPanel20Layout.setHorizontalGroup(
+            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        jPanel20Layout.setVerticalGroup(
+            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jdValidacion_MovimientoLayout = new javax.swing.GroupLayout(jdValidacion_Movimiento.getContentPane());
+        jdValidacion_Movimiento.getContentPane().setLayout(jdValidacion_MovimientoLayout);
+        jdValidacion_MovimientoLayout.setHorizontalGroup(
+            jdValidacion_MovimientoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jdValidacion_MovimientoLayout.setVerticalGroup(
+            jdValidacion_MovimientoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
+        jPanel21.setLayout(jPanel21Layout);
+        jPanel21Layout.setHorizontalGroup(
+            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        jPanel21Layout.setVerticalGroup(
+            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jdValidacion_PagoLayout = new javax.swing.GroupLayout(jdValidacion_Pago.getContentPane());
+        jdValidacion_Pago.getContentPane().setLayout(jdValidacion_PagoLayout);
+        jdValidacion_PagoLayout.setHorizontalGroup(
+            jdValidacion_PagoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jdValidacion_PagoLayout.setVerticalGroup(
+            jdValidacion_PagoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanel22Layout = new javax.swing.GroupLayout(jPanel22);
+        jPanel22.setLayout(jPanel22Layout);
+        jPanel22Layout.setHorizontalGroup(
+            jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        jPanel22Layout.setVerticalGroup(
+            jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jdValidacion_AlquilerLayout = new javax.swing.GroupLayout(jdValidacion_Alquiler.getContentPane());
+        jdValidacion_Alquiler.getContentPane().setLayout(jdValidacion_AlquilerLayout);
+        jdValidacion_AlquilerLayout.setHorizontalGroup(
+            jdValidacion_AlquilerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jdValidacion_AlquilerLayout.setVerticalGroup(
+            jdValidacion_AlquilerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Sistema de Cobranza Comisión de Usuarios Perla del Huallaga");
         setIconImage(new ImageIcon(getClass().getResource("/recurso/comision_logo.jpg")).getImage());
@@ -5609,7 +5725,7 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_jmiAgricultorActionPerformed
 
     private void jmiCuentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCuentasActionPerformed
-        gettabla_cuenta_all("");
+        gettabla_cuenta_all("",0);
         gettabla_asignacioncosto_cuenta_all();
         limpiarFomulario_Cuenta();
         limpiarFomulario_AsignacionCosto_Cuenta();
@@ -5618,6 +5734,7 @@ public class Inicio extends javax.swing.JFrame {
 
     private void jmiPeriodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiPeriodoActionPerformed
         getcombo_periodo_mesiniciofin();
+        gettabla_periodo_all("",0);
         iniciarFomrulario_Periodo(jifPeriodos);
     }//GEN-LAST:event_jmiPeriodoActionPerformed
 
@@ -5764,10 +5881,12 @@ public class Inicio extends javax.swing.JFrame {
                     c.setDat_fechRealizacion(new java.sql.Timestamp(txtFechaAlmacigo_constancia.getDate().getTime()));
                 } else {
                     c.setVar_tipoconstancia("B"); // Boleo
-                    c.setDat_fechRealizacion(null);
+                    c.setDat_fechRealizacion(new java.sql.Timestamp(txtFechaAlmacigo_constancia.getDate().getTime()));
                 }
                 c.setDat_fechRegistro(new java.sql.Timestamp(txtFecha_Constancia.getDate().getTime()));
                 c.setInt_tipocultivo(((Constante) cboTipoCultivo_Constancia.getSelectedItem()).getInt_valor());
+                c.setDec_montoComision(Double.parseDouble(txtMontoComision_Constancia.getText()));
+                c.setDec_montoJunta(Double.parseDouble(txtMontoJunta_Constancia.getText()));
                 BLConstancia co = new BLConstancia();
                 if (co.insertarConstancia(c)) {
                     limpiarFomulario_Constancia();
@@ -5825,7 +5944,7 @@ public class Inicio extends javax.swing.JFrame {
 
     private void rbBoleo_ConstanciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbBoleo_ConstanciaActionPerformed
         if (rbBoleo_Constancia.isSelected()) {
-            txtFechaAlmacigo_constancia.setEnabled(false);
+            txtFechaAlmacigo_constancia.setEnabled(true);
         }
     }//GEN-LAST:event_rbBoleo_ConstanciaActionPerformed
 
@@ -6173,7 +6292,7 @@ public class Inicio extends javax.swing.JFrame {
             if (txtCodigo_Cuenta.getText().compareTo("") != 0 && txtNombre_Cuentas.getText().compareTo("") != 0
                     && txtNumCuenta_Registrar.getText().compareTo("") != 0) {
                 if (new BLCuenta().Registrar(txtCodigo_Cuenta.getText(), txtNombre_Cuentas.getText(), txtNumCuenta_Registrar.getText())) {
-                    gettabla_cuenta_all("");
+                    gettabla_cuenta_all("",0);
                     JOptionPane.showMessageDialog(null, "Registro Exitoso", "MENSAJE", JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(null, "Error al Registrar", "MENSAJE", JOptionPane.ERROR_MESSAGE);
@@ -6187,7 +6306,7 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGuardar5ActionPerformed
 
     private void txtFiltroNombre_Cuenta2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroNombre_Cuenta2KeyReleased
-        // TODO add your handling code here:
+        gettabla_cuenta_all(txtFiltroNombre_Cuenta2.getText(),cboFiltro_Cuenta.getSelectedIndex());
     }//GEN-LAST:event_txtFiltroNombre_Cuenta2KeyReleased
 
     private void btnGuardar6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardar6ActionPerformed
@@ -6298,6 +6417,8 @@ public class Inicio extends javax.swing.JFrame {
                 resultado=new BLPeriodo().Registrar(txtNombre_Periodo.getText(),((Constante)cboPeriodo_MesInicio.getSelectedItem()).getInt_valor(),
                         ((Constante)cboPeriodo_MesFin.getSelectedItem()).getInt_valor());
                 if(resultado==true){
+                    limpiarTabla(jtPeriodo_All);
+                    gettabla_periodo_all("", 0);
                     JOptionPane.showMessageDialog(null, "Se Registro Correctamente");
                 }else{
                     JOptionPane.showMessageDialog(null,"No se Pudo Registrar","Alerta",JOptionPane.ERROR_MESSAGE);
@@ -6959,6 +7080,10 @@ public class Inicio extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btn_cargar_asistencia_asamblea1ActionPerformed
 
+    private void txtFiltro_PeriodoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltro_PeriodoKeyReleased
+        gettabla_periodo_all(txtFiltro_Periodo.getText(),cboFiltro_Periodo.getSelectedIndex());
+    }//GEN-LAST:event_txtFiltro_PeriodoKeyReleased
+
     /*METODOS PARA MOSTRAR EL FORMULARIO*/
     public void iniciarFomrulario(JInternalFrame jif) {
         try {
@@ -7245,6 +7370,8 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JComboBox cboEstado_VerPagos;
     private javax.swing.JComboBox cboFiltroAgricultor;
     private org.jdesktop.swingx.JXComboBox cboFiltroAgricultor_VerPagos;
+    private javax.swing.JComboBox cboFiltro_Cuenta;
+    private javax.swing.JComboBox cboFiltro_Periodo;
     private org.jdesktop.swingx.JXComboBox cboLateral_Agricultor;
     private org.jdesktop.swingx.JXComboBox cboNuevoAgricultor_Traspaso;
     private org.jdesktop.swingx.JXComboBox cboPeriodoFiltro_Constancia;
@@ -7270,8 +7397,6 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JComboBox jComboBox6;
-    private javax.swing.JComboBox jComboBox8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel100;
@@ -7385,11 +7510,15 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
+    private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel20;
+    private javax.swing.JPanel jPanel21;
+    private javax.swing.JPanel jPanel22;
     private javax.swing.JPanel jPanel26;
     private javax.swing.JPanel jPanel28;
     private javax.swing.JPanel jPanel29;
@@ -7440,9 +7569,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTabbedPane jTabbedPane4;
     private javax.swing.JTabbedPane jTabbedPane7;
-    private javax.swing.JTable jTable8;
     private org.jdesktop.swingx.JXComboBox jXComboBox1;
-    private org.jdesktop.swingx.JXSearchField jXSearchField5;
     private javax.swing.JDialog jdAlquilerAgricultor;
     private javax.swing.JDialog jdConstanciaAgricultor;
     private javax.swing.JDialog jdConstanciaComite;
@@ -7451,6 +7578,10 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JDialog jdTraspasoAgricultor;
     private javax.swing.JDialog jdTraspasoLateral;
     private javax.swing.JDialog jdTraspasoNuevoAgricultor;
+    private javax.swing.JDialog jdValidacion_Alquiler;
+    private javax.swing.JDialog jdValidacion_Constancia;
+    private javax.swing.JDialog jdValidacion_Movimiento;
+    private javax.swing.JDialog jdValidacion_Pago;
     private javax.swing.JDesktopPane jdeskpanInicio;
     private javax.swing.JInternalFrame jifAgricultores;
     private javax.swing.JInternalFrame jifCargos;
@@ -7531,6 +7662,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JTable jtModalComite_Constancia;
     private javax.swing.JTable jtModalLateral_Constancia;
     private javax.swing.JTable jtModalLateral_Traspaso;
+    private javax.swing.JTable jtPeriodo_All;
     private javax.swing.JTable jtTraspaso;
     private javax.swing.JTable jtVerPagos;
     private javax.swing.JTabbedPane jtbAlquiler;
@@ -7578,6 +7710,7 @@ public class Inicio extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser txtFiltroFin_Constancia;
     private com.toedter.calendar.JDateChooser txtFiltroInicio_Constancia;
     private org.jdesktop.swingx.JXSearchField txtFiltroNombre_Cuenta2;
+    private org.jdesktop.swingx.JXSearchField txtFiltro_Periodo;
     private org.jdesktop.swingx.JXSearchField txtFiltro_Usuario;
     private javax.swing.JTextField txtHectareas_Constancia;
     private com.toedter.components.JSpinField txtHoras_Alquiler;

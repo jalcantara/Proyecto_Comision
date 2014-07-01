@@ -46,11 +46,16 @@ public class BLCuenta {
         return resultado;
     }
 
-    public ArrayList<Cuenta> get_cuenta_all(String condicion) {
+    public ArrayList<Cuenta> get_cuenta_all(String condicion, int indice) {
         ArrayList<Cuenta> listCuenta = null;
         try {
             BDCuenta cu = new BDCuenta();
-            listCuenta = cu.get_cuenta_all(" var_nombre like '%" + condicion + "%'");
+            if (indice==0) {
+                listCuenta = cu.get_cuenta_all(" var_nombre like '%" + condicion + "%'");
+            }
+            if(indice==1){
+                listCuenta = cu.get_cuenta_all(" var_numcuenta like '%" + condicion + "%'");
+            }
         } catch (Exception e) {
             System.out.println("error en controlador al consultar cuenta " + e.toString());
         }
@@ -67,14 +72,14 @@ public class BLCuenta {
         }
         return listCuenta;
     }
+
     public ListaCuentaMonto get_cuentamonto_all(double numhectareas) {
-        ListaCuentaMonto objcuentamonto=new ListaCuentaMonto();
+        ListaCuentaMonto objcuentamonto = new ListaCuentaMonto();
         try {
-            BDCuenta c=new BDCuenta();
-            objcuentamonto=c.get_cuentamonto_all(numhectareas);
-        } 
-        catch (Exception e) {
-            System.out.println("Error de Listado"+e.getMessage());
+            BDCuenta c = new BDCuenta();
+            objcuentamonto = c.get_cuentamonto_all(numhectareas);
+        } catch (Exception e) {
+            System.out.println("Error de Listado" + e.getMessage());
             e.printStackTrace();
         }
         return objcuentamonto;

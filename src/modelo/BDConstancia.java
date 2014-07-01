@@ -32,7 +32,7 @@ public class BDConstancia {
         try {
             cnn = BD.getConnection();
             cnn.setAutoCommit(false);
-            String sql = "call spI_Constancia(?,?,?,?,?,?,?,?,?,?);";
+            String sql = "call spI_Constancia(?,?,?,?,?,?,?,?,?,?,?,?);";
             cstmt = cnn.prepareCall(sql);
             cstmt.setInt(1, c.getComite_id());
             cstmt.setInt(2, c.getLateral_id());
@@ -43,7 +43,9 @@ public class BDConstancia {
             cstmt.setDouble(7, c.getDec_nrohectaria());
             cstmt.setTimestamp(8, c.getDat_fechRegistro());
             cstmt.setInt(9, c.getInt_tipocultivo());
-            cstmt.setInt(10, 0);
+            cstmt.setDouble(10, c.getDec_montoJunta());
+            cstmt.setDouble(11, c.getDec_montoComision());            
+            cstmt.setInt(12, 0);
             cstmt.registerOutParameter("idconstancia", Types.INTEGER);
             cstmt.execute();
             idConstancia = cstmt.getInt("idconstancia");
