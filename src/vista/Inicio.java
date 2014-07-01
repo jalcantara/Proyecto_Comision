@@ -7395,11 +7395,11 @@ public class Inicio extends javax.swing.JFrame {
                 jdValidacion_Anular.dispose();
                 Anular_Pagos();
                  if (jrbDni_VerPagos.isSelected()) {
-                    gettabla_verpagos_byAgricultor(txtFiltroDni_VerPagos.getText(), 0, 2);
+                    gettabla_verpagos_byAgricultor(txtFiltroDni_VerPagos.getText(), 0, cboEstado_VerPagos.getSelectedIndex());
                 }
                 if (jrbAgricultor_VerPagos.isSelected()) {
                     int id = ((Agricultor) cboFiltroAgricultor_VerPagos.getSelectedItem()).getInt_id();
-                    gettabla_verpagos_byAgricultor("", id, 2);
+                    gettabla_verpagos_byAgricultor("", id, cboEstado_VerPagos.getSelectedIndex());
                 }
                 txtValidacionPass_Anular.setText("");
             } else {
