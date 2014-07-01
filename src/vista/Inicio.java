@@ -223,12 +223,12 @@ public class Inicio extends javax.swing.JFrame {
         c.setDec_montoJunta(Double.parseDouble(txtMontoJunta_Constancia.getText()));
         //modalvalidacion_constancia();
         BLConstancia co = new BLConstancia();
-         if (co.insertarConstancia(c)) {
-         limpiarFomulario_Constancia();
-         JOptionPane.showMessageDialog(null, "Registro Exitoso", "MENSAJE", JOptionPane.INFORMATION_MESSAGE);
-         } else {
-         JOptionPane.showMessageDialog(null, "Error al Registrar", "MENSAJE", JOptionPane.ERROR_MESSAGE);
-         }
+        if (co.insertarConstancia(c)) {
+            limpiarFomulario_Constancia();
+            JOptionPane.showMessageDialog(null, "Registro Exitoso", "MENSAJE", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "Error al Registrar", "MENSAJE", JOptionPane.ERROR_MESSAGE);
+        }
     }
     /*FIN CONSTANCIA*/
 
@@ -278,6 +278,40 @@ public class Inicio extends javax.swing.JFrame {
             temp.addRow(datos);
         }
     }
+
+    private void Anular_Pagos() {
+        try {
+            idPago = Integer.parseInt(jtVerPagos.getValueAt(jtVerPagos.getSelectedRow(), 0).toString());
+            if (new BLPagos().AnularPago(idPago)) {
+                JOptionPane.showMessageDialog(null, "Se Anulo Correctamente", "MENSAJE", JOptionPane.INFORMATION_MESSAGE);
+               
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al Anular", "MENSAJE", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
+            System.out.println("Error de aNULACION");
+            e.printStackTrace();
+        }
+    }
+
+    private void Pagar() {
+        Pago p = new Pago();
+        p.setInt_id(idPago);
+        p.setVar_boucherpago(txtVoucher_RegistrarPago.getText());
+        p.setVar_observacion(txtObservacion_RegistrarPagos.getText());
+        if (new BLPagos().RegistrarPagos(p)) {
+            JOptionPane.showMessageDialog(null, "Registro Exitoso", "MENSAJE", JOptionPane.INFORMATION_MESSAGE);
+            if (jrbDni_VerPagos.isSelected()) {
+                gettabla_verpagos_byAgricultor(txtFiltroDni_VerPagos.getText(), 0, 1);
+            }
+            if (jrbAgricultor_VerPagos.isSelected()) {
+                int id = ((Agricultor) cboFiltroAgricultor_VerPagos.getSelectedItem()).getInt_id();
+                gettabla_verpagos_byAgricultor("", id, 1);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Error al Registrar", "MENSAJE", JOptionPane.ERROR_MESSAGE);
+        }
+    }
     /*FIN PAGOS*/
 
     /*TRASPASO*/
@@ -312,6 +346,32 @@ public class Inicio extends javax.swing.JFrame {
         txtFechaHasta_Alquiler.setDate(new Date());
         txtCantidad_Alquiler.setValue(1);
         //cboTipoMaterial_Alquiler.setSelectedIndex(0);
+    }
+
+    private void RegistrarAlquiler() {
+        boolean resultado = false;
+        BLAlquiler a = new BLAlquiler();
+        ArrayList<Detalle_Alquiler> lista_detalle = new ArrayList<Detalle_Alquiler>();
+        int nroFilas = ((DefaultTableModel) jtbDetalle_Alquiler.getModel()).getRowCount();
+        for (int f = 0; f < nroFilas; f++) {
+            Detalle_Alquiler l = new Detalle_Alquiler();
+            l.setMaterial_id(Integer.parseInt(jtbDetalle_Alquiler.getModel().getValueAt(f, 0).toString()));
+            l.setInt_cantidad(Integer.parseInt(jtbDetalle_Alquiler.getModel().getValueAt(f, 2).toString()));
+            l.setDec_monto(Double.parseDouble(jtbDetalle_Alquiler.getModel().getValueAt(f, 6).toString()));
+            l.setDat_fechinicio(Timestamp.valueOf(jtbDetalle_Alquiler.getModel().getValueAt(f, 3).toString()));
+            l.setDat_fechfin(Timestamp.valueOf(jtbDetalle_Alquiler.getModel().getValueAt(f, 4).toString()));
+            l.setInt_horas(Integer.parseInt(jtbDetalle_Alquiler.getModel().getValueAt(f, 5).toString()));
+            lista_detalle.add(l);
+        }
+
+        resultado = a.insertarAlquiler(idAgricultor_Alquiler, lista_detalle);
+        if (resultado == true) {
+            JOptionPane.showMessageDialog(null, "Se registro Correctamente");
+            limpiarFomulario_Alquiler();
+            limpiarTabla(jtbDetalle_Alquiler);
+        } else {
+            JOptionPane.showMessageDialog(null, "No se pudo Registrar");
+        }
     }
 
     private void gettabla_agricultor_alquiler_byActivos(String palabra) {
@@ -504,6 +564,23 @@ public class Inicio extends javax.swing.JFrame {
         txtCantidad_Movimientos.setValue(1);
         txtMonto_Movimiento.setText("");
         txtConcepto_Movimiento.setText("");
+    }
+
+    private void RegistrarMovimiento() {
+        Date fecha = txtFecha_Movimiento.getDate();
+        int tipo_comprobante = ((Constante) cboTipoComprobante_Movimiento.getSelectedItem()).getInt_valor();
+        int proveedor = 1;
+        int tipo_operacion = ((Constante) cboTipoOperacion_Movimiento.getSelectedItem()).getInt_valor();
+        double monto = Double.parseDouble(txtRucProveedor_Movimiento.getText());
+        String nro_comprobante = txtNroComprobante_Movimiento.getText();
+        double cantidad = txtCantidad_Movimientos.getValue();
+        String concepto = txtConcepto_Movimiento.getText();
+        if (new BLMovimiento().insertarMovimiento(1, monto, tipo_operacion, tipo_comprobante, nro_comprobante,
+                cantidad, proveedor, concepto, new java.sql.Timestamp(fecha.getTime()))) {
+            JOptionPane.showMessageDialog(null, "Registro Exitoso", "MENSAJE", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "Error al Registrar", "MENSAJE", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private void getcombo_tipodocumento_all() {
@@ -986,16 +1063,23 @@ public class Inicio extends javax.swing.JFrame {
         jButton7 = new javax.swing.JButton();
         jdValidacion_Movimiento = new javax.swing.JDialog();
         jPanel20 = new javax.swing.JPanel();
+        jLabel76 = new javax.swing.JLabel();
+        txtValidacionPass_Movimiento = new javax.swing.JPasswordField();
+        jButton8 = new javax.swing.JButton();
         jdValidacion_Pago = new javax.swing.JDialog();
         jPanel21 = new javax.swing.JPanel();
         jLabel64 = new javax.swing.JLabel();
-        jPasswordField2 = new javax.swing.JPasswordField();
+        txtValidacionPass_Pagos = new javax.swing.JPasswordField();
         jButton6 = new javax.swing.JButton();
         jdValidacion_Alquiler = new javax.swing.JDialog();
         jPanel22 = new javax.swing.JPanel();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        txtValidacionPass_Alquiler = new javax.swing.JPasswordField();
         jButton3 = new javax.swing.JButton();
         jLabel62 = new javax.swing.JLabel();
+        jdValidacion_Anular = new javax.swing.JDialog();
+        jLabel92 = new javax.swing.JLabel();
+        txtValidacionPass_Anular = new javax.swing.JPasswordField();
+        jButton9 = new javax.swing.JButton();
         jpInicio = new javax.swing.JPanel();
         jdeskpanInicio = new javax.swing.JDesktopPane();
         jmbPrincipal = new javax.swing.JMenuBar();
@@ -5456,15 +5540,44 @@ public class Inicio extends javax.swing.JFrame {
             .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        jdValidacion_Movimiento.setResizable(false);
+
+        jLabel76.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel76.setText("Ingrese Clave:");
+
+        jButton8.setText("OK");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel20Layout = new javax.swing.GroupLayout(jPanel20);
         jPanel20.setLayout(jPanel20Layout);
         jPanel20Layout.setHorizontalGroup(
             jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(jPanel20Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel20Layout.createSequentialGroup()
+                        .addComponent(txtValidacionPass_Movimiento)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel20Layout.createSequentialGroup()
+                        .addComponent(jLabel76)
+                        .addGap(0, 185, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel20Layout.setVerticalGroup(
             jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(jPanel20Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jLabel76)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtValidacionPass_Movimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton8))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jdValidacion_MovimientoLayout = new javax.swing.GroupLayout(jdValidacion_Movimiento.getContentPane());
@@ -5479,11 +5592,14 @@ public class Inicio extends javax.swing.JFrame {
         );
 
         jLabel64.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel64.setText("Contraseña:");
-
-        jPasswordField2.setText("jPasswordField2");
+        jLabel64.setText("Ingrese Clave:");
 
         jButton6.setText("OK");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
         jPanel21.setLayout(jPanel21Layout);
@@ -5491,24 +5607,24 @@ public class Inicio extends javax.swing.JFrame {
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel21Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel64)
                     .addGroup(jPanel21Layout.createSequentialGroup()
-                        .addComponent(jLabel64)
+                        .addComponent(txtValidacionPass_Pagos, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(53, Short.MAX_VALUE))
+                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel21Layout.setVerticalGroup(
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel21Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
+                .addContainerGap()
+                .addComponent(jLabel64)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel64)
-                    .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jButton6)
-                .addContainerGap(40, Short.MAX_VALUE))
+                    .addComponent(txtValidacionPass_Pagos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton6))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jdValidacion_PagoLayout = new javax.swing.GroupLayout(jdValidacion_Pago.getContentPane());
@@ -5522,12 +5638,17 @@ public class Inicio extends javax.swing.JFrame {
             .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        jPasswordField1.setText("jPasswordField1");
+        jdValidacion_Alquiler.setResizable(false);
 
         jButton3.setText("OK");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jLabel62.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel62.setText("Contraseña:");
+        jLabel62.setText("Ingrese Clave:");
 
         javax.swing.GroupLayout jPanel22Layout = new javax.swing.GroupLayout(jPanel22);
         jPanel22.setLayout(jPanel22Layout);
@@ -5535,37 +5656,77 @@ public class Inicio extends javax.swing.JFrame {
             jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel22Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel22Layout.createSequentialGroup()
                         .addComponent(jLabel62)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(36, Short.MAX_VALUE))
+                        .addGap(0, 178, Short.MAX_VALUE))
+                    .addGroup(jPanel22Layout.createSequentialGroup()
+                        .addComponent(txtValidacionPass_Alquiler)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         jPanel22Layout.setVerticalGroup(
             jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel22Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addContainerGap()
+                .addComponent(jLabel62)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel62)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jButton3)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(txtValidacionPass_Alquiler, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jdValidacion_AlquilerLayout = new javax.swing.GroupLayout(jdValidacion_Alquiler.getContentPane());
         jdValidacion_Alquiler.getContentPane().setLayout(jdValidacion_AlquilerLayout);
         jdValidacion_AlquilerLayout.setHorizontalGroup(
             jdValidacion_AlquilerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jdValidacion_AlquilerLayout.createSequentialGroup()
-                .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jdValidacion_AlquilerLayout.setVerticalGroup(
             jdValidacion_AlquilerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        jdValidacion_Anular.setResizable(false);
+
+        jLabel92.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel92.setText("Ingrese Clave:");
+
+        jButton9.setText("OK");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jdValidacion_AnularLayout = new javax.swing.GroupLayout(jdValidacion_Anular.getContentPane());
+        jdValidacion_Anular.getContentPane().setLayout(jdValidacion_AnularLayout);
+        jdValidacion_AnularLayout.setHorizontalGroup(
+            jdValidacion_AnularLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jdValidacion_AnularLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jdValidacion_AnularLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jdValidacion_AnularLayout.createSequentialGroup()
+                        .addComponent(jLabel92)
+                        .addGap(0, 176, Short.MAX_VALUE))
+                    .addGroup(jdValidacion_AnularLayout.createSequentialGroup()
+                        .addComponent(txtValidacionPass_Anular)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        jdValidacion_AnularLayout.setVerticalGroup(
+            jdValidacion_AnularLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jdValidacion_AnularLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel92)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jdValidacion_AnularLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtValidacionPass_Anular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton9))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -5998,8 +6159,8 @@ public class Inicio extends javax.swing.JFrame {
             if (txtFecha_Constancia.getDate() != null && txtComite_Constancia.getText().compareTo("") != 0
                     && txtCliente_Constancia.getText().compareTo("") != 0 && txtPeriodoRango_Constancia.getText().compareTo("") != 0
                     && txtLateral_Constancia.getText().compareTo("") != 0 && txtHectareas_Constancia.getText().compareTo("") != 0) {
-                    modalvalidacion_constancia();
-                    
+                modalvalidacion_constancia();
+
             } else {
                 JOptionPane.showMessageDialog(null, "No se admite campos vacios", "ALERTA", JOptionPane.ERROR_MESSAGE);
             }
@@ -6254,32 +6415,9 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_Cancelar1ActionPerformed
 
     private void btn_Registrar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Registrar1ActionPerformed
-
-        boolean resultado = false;
         try {
             if (txtAgricultor_Alquiler.getText().compareTo("") != 0) {
-                BLAlquiler a = new BLAlquiler();
-                ArrayList<Detalle_Alquiler> lista_detalle = new ArrayList<Detalle_Alquiler>();
-                int nroFilas = ((DefaultTableModel) jtbDetalle_Alquiler.getModel()).getRowCount();
-                for (int f = 0; f < nroFilas; f++) {
-                    Detalle_Alquiler l = new Detalle_Alquiler();
-                    l.setMaterial_id(Integer.parseInt(jtbDetalle_Alquiler.getModel().getValueAt(f, 0).toString()));
-                    l.setInt_cantidad(Integer.parseInt(jtbDetalle_Alquiler.getModel().getValueAt(f, 2).toString()));
-                    l.setDec_monto(Double.parseDouble(jtbDetalle_Alquiler.getModel().getValueAt(f, 6).toString()));
-                    l.setDat_fechinicio(Timestamp.valueOf(jtbDetalle_Alquiler.getModel().getValueAt(f, 3).toString()));
-                    l.setDat_fechfin(Timestamp.valueOf(jtbDetalle_Alquiler.getModel().getValueAt(f, 4).toString()));
-                    l.setInt_horas(Integer.parseInt(jtbDetalle_Alquiler.getModel().getValueAt(f, 5).toString()));
-                    lista_detalle.add(l);
-                }
-
-                resultado = a.insertarAlquiler(idAgricultor_Alquiler, lista_detalle);
-                if (resultado == true) {
-                    JOptionPane.showMessageDialog(null, "Se registro Correctamente");
-                    limpiarFomulario_Alquiler();
-                    limpiarTabla(jtbDetalle_Alquiler);
-                } else {
-                    JOptionPane.showMessageDialog(null, "No se pudo Registrar");
-                }
+                modalvalidacion_alquiler();
             } else {
                 JOptionPane.showMessageDialog(null, "No se Admiten Campos Vacios", "ALERTA", JOptionPane.ERROR_MESSAGE);
             }
@@ -6340,19 +6478,7 @@ public class Inicio extends javax.swing.JFrame {
 
     private void jmip_AnularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmip_AnularActionPerformed
         try {
-            idPago = Integer.parseInt(jtVerPagos.getValueAt(jtVerPagos.getSelectedRow(), 0).toString());
-            if (new BLPagos().AnularPago(idPago)) {
-                JOptionPane.showMessageDialog(null, "Se Anulo Correctamente", "MENSAJE", JOptionPane.INFORMATION_MESSAGE);
-                if (jrbDni_VerPagos.isSelected()) {
-                    gettabla_verpagos_byAgricultor(txtFiltroDni_VerPagos.getText(), 0, 2);
-                }
-                if (jrbAgricultor_VerPagos.isSelected()) {
-                    int id = ((Agricultor) cboFiltroAgricultor_VerPagos.getSelectedItem()).getInt_id();
-                    gettabla_verpagos_byAgricultor("", id, 2);
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "Error al Anular", "MENSAJE", JOptionPane.ERROR_MESSAGE);
-            }
+            modalvalidacion_anular();
         } catch (Exception e) {
             System.out.println("" + e.getMessage());
         }
@@ -6645,23 +6771,8 @@ public class Inicio extends javax.swing.JFrame {
 
     private void btn_Guardar_pagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Guardar_pagoActionPerformed
         try {
-            if (txtVoucher_RegistrarPago.getText().compareTo("") != 0) {
-                Pago p = new Pago();
-                p.setInt_id(idPago);
-                p.setVar_boucherpago(txtVoucher_RegistrarPago.getText());
-                p.setVar_observacion(txtObservacion_RegistrarPagos.getText());
-                if (new BLPagos().RegistrarPagos(p)) {
-                    JOptionPane.showMessageDialog(null, "Registro Exitoso", "MENSAJE", JOptionPane.INFORMATION_MESSAGE);
-                    if (jrbDni_VerPagos.isSelected()) {
-                        gettabla_verpagos_byAgricultor(txtFiltroDni_VerPagos.getText(), 0, 1);
-                    }
-                    if (jrbAgricultor_VerPagos.isSelected()) {
-                        int id = ((Agricultor) cboFiltroAgricultor_VerPagos.getSelectedItem()).getInt_id();
-                        gettabla_verpagos_byAgricultor("", id, 1);
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(null, "Error al Registrar", "MENSAJE", JOptionPane.ERROR_MESSAGE);
-                }
+            if (txtVoucher_RegistrarPago.getText().compareTo("") != 0 && txtObservacion_RegistrarPagos.getText().compareTo("")!=0) {
+                modalvalidacion_pagos();
             } else {
                 JOptionPane.showMessageDialog(null, "No se admite campos vacios", "ALERTA", JOptionPane.ERROR_MESSAGE);
             }
@@ -6810,20 +6921,7 @@ public class Inicio extends javax.swing.JFrame {
         try {
             if (txtFecha_Movimiento.getDate() != null && txtMonto_Movimiento.getText().compareTo("") != 0
                     && txtConcepto_Movimiento.getText().compareTo("") != 0) {
-                Date fecha = txtFecha_Movimiento.getDate();
-                int tipo_comprobante = ((Constante) cboTipoComprobante_Movimiento.getSelectedItem()).getInt_valor();
-                int proveedor = 1;
-                int tipo_operacion = ((Constante) cboTipoOperacion_Movimiento.getSelectedItem()).getInt_valor();
-                double monto = Double.parseDouble(txtRucProveedor_Movimiento.getText());
-                String nro_comprobante = txtNroComprobante_Movimiento.getText();
-                double cantidad = txtCantidad_Movimientos.getValue();
-                String concepto = txtConcepto_Movimiento.getText();
-                if (new BLMovimiento().insertarMovimiento(1, monto, tipo_operacion, tipo_comprobante, nro_comprobante,
-                        cantidad, proveedor, concepto, new java.sql.Timestamp(fecha.getTime()))) {
-                    JOptionPane.showMessageDialog(null, "Registro Exitoso", "MENSAJE", JOptionPane.INFORMATION_MESSAGE);
-                } else {
-                    JOptionPane.showMessageDialog(null, "Error al Registrar", "MENSAJE", JOptionPane.ERROR_MESSAGE);
-                }
+                modalvalidacion_movimiento();
             } else {
                 JOptionPane.showMessageDialog(null, "No se admite campos vacios", "ALERTA", JOptionPane.ERROR_MESSAGE);
             }
@@ -7195,24 +7293,126 @@ public class Inicio extends javax.swing.JFrame {
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         try {
-          Usuario u=new Usuario();
-          BLUsuario us=new BLUsuario();
-          char passArray[]=txtValidacionPass_Constancia.getPassword();
-          String pass=new String(passArray);
-          u=us.get_usuario_bypassword(pass);
-          if(u.getVar_user() != null){
-              jdValidacion_Constancia.dispose();
-              RegistrarConstancia();
-          }else{
-              JOptionPane.showMessageDialog(null, "[Clave Incorrecta]","Alerta",JOptionPane.ERROR_MESSAGE);
-              txtValidacionPass_Constancia.requestFocus();
-          }
-        } 
-        catch (Exception e) {
+            Usuario u = new Usuario();
+            BLUsuario us = new BLUsuario();
+            char passArray[] = txtValidacionPass_Constancia.getPassword();
+            String pass = new String(passArray);
+            u = us.get_usuario_bypassword(pass);
+            if (u.getVar_user() != null) {
+                jdValidacion_Constancia.dispose();
+                RegistrarConstancia();
+                txtValidacionPass_Constancia.setText("");
+            } else {
+                JOptionPane.showMessageDialog(null, "[Clave Incorrecta]", "Alerta", JOptionPane.ERROR_MESSAGE);
+                txtValidacionPass_Constancia.requestFocus();
+                txtValidacionPass_Constancia.setText("");
+            }
+            
+        } catch (Exception e) {
             System.out.println("Error de Validacion ");
             e.printStackTrace();
         }
     }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        try {
+            Usuario u = new Usuario();
+            BLUsuario us = new BLUsuario();
+            char passArray[] = txtValidacionPass_Movimiento.getPassword();
+            String pass = new String(passArray);
+            u = us.get_usuario_bypassword(pass);
+            if (u.getVar_user() != null) {
+                jdValidacion_Movimiento.dispose();
+                RegistrarMovimiento();
+                txtValidacionPass_Movimiento.setText("");
+            } else {
+                JOptionPane.showMessageDialog(null, "[Clave Incorrecta]", "Alerta", JOptionPane.ERROR_MESSAGE);
+                txtValidacionPass_Movimiento.requestFocus();
+                txtValidacionPass_Movimiento.setText("");
+            }
+            
+        } catch (Exception e) {
+            System.out.println("Error de Validacion ");
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        try {
+            Usuario u = new Usuario();
+            BLUsuario us = new BLUsuario();
+            char passArray[] = txtValidacionPass_Alquiler.getPassword();
+            String pass = new String(passArray);
+            u = us.get_usuario_bypassword(pass);
+            if (u.getVar_user() != null) {
+                jdValidacion_Alquiler.dispose();
+                RegistrarAlquiler();
+                txtValidacionPass_Alquiler.setText("");
+            } else {
+                JOptionPane.showMessageDialog(null, "[Clave Incorrecta]", "Alerta", JOptionPane.ERROR_MESSAGE);
+                txtValidacionPass_Alquiler.requestFocus();
+                txtValidacionPass_Alquiler.setText("");
+            }
+            
+        } catch (Exception e) {
+            System.out.println("Error de Validacion ");
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        try {
+            Usuario u = new Usuario();
+            BLUsuario us = new BLUsuario();
+            char passArray[] = txtValidacionPass_Pagos.getPassword();
+            String pass = new String(passArray);
+            u = us.get_usuario_bypassword(pass);
+            if (u.getVar_user() != null) {
+                jdValidacion_Pago.dispose();
+                Pagar();
+                txtValidacionPass_Pagos.setText("");
+            } else {
+                JOptionPane.showMessageDialog(null, "[Clave Incorrecta]", "Alerta", JOptionPane.ERROR_MESSAGE);
+                txtValidacionPass_Pagos.requestFocus();
+                txtValidacionPass_Pagos.setText("");
+            }
+            
+
+        } catch (Exception e) {
+            System.out.println("Error de Validacion ");
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        try {
+            Usuario u = new Usuario();
+            BLUsuario us = new BLUsuario();
+            char passArray[] = txtValidacionPass_Anular.getPassword();
+            String pass = new String(passArray);
+            u = us.get_usuario_bypassword(pass);
+            if (u.getVar_user() != null) {
+                jdValidacion_Anular.dispose();
+                Anular_Pagos();
+                 if (jrbDni_VerPagos.isSelected()) {
+                    gettabla_verpagos_byAgricultor(txtFiltroDni_VerPagos.getText(), 0, 2);
+                }
+                if (jrbAgricultor_VerPagos.isSelected()) {
+                    int id = ((Agricultor) cboFiltroAgricultor_VerPagos.getSelectedItem()).getInt_id();
+                    gettabla_verpagos_byAgricultor("", id, 2);
+                }
+                txtValidacionPass_Anular.setText("");
+            } else {
+                JOptionPane.showMessageDialog(null, "[Clave Incorrecta]", "Alerta", JOptionPane.ERROR_MESSAGE);
+                txtValidacionPass_Anular.requestFocus();
+                txtValidacionPass_Anular.setText("");
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error de Validacion ");
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jButton9ActionPerformed
 
     /*METODOS PARA MOSTRAR EL FORMULARIO*/
     public void modalvalidacion_constancia() {
@@ -7222,6 +7422,42 @@ public class Inicio extends javax.swing.JFrame {
                 KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_IN_FOCUSED_WINDOW);
         jdValidacion_Constancia.setModal(true);
         jdValidacion_Constancia.setVisible(true);
+    }
+
+    public void modalvalidacion_anular() {
+        jdValidacion_Anular.pack();
+        jdValidacion_Anular.setLocationRelativeTo(null);
+        jdValidacion_Anular.getRootPane().registerKeyboardAction(new CloseDialogEscape(jdValidacion_Anular),
+                KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_IN_FOCUSED_WINDOW);
+        jdValidacion_Anular.setModal(true);
+        jdValidacion_Anular.setVisible(true);
+    }
+
+    public void modalvalidacion_pagos() {
+        jdValidacion_Pago.pack();
+        jdValidacion_Pago.setLocationRelativeTo(null);
+        jdValidacion_Pago.getRootPane().registerKeyboardAction(new CloseDialogEscape(jdValidacion_Pago),
+                KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_IN_FOCUSED_WINDOW);
+        jdValidacion_Pago.setModal(true);
+        jdValidacion_Pago.setVisible(true);
+    }
+
+    public void modalvalidacion_alquiler() {
+        jdValidacion_Alquiler.pack();
+        jdValidacion_Alquiler.setLocationRelativeTo(null);
+        jdValidacion_Alquiler.getRootPane().registerKeyboardAction(new CloseDialogEscape(jdValidacion_Alquiler),
+                KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_IN_FOCUSED_WINDOW);
+        jdValidacion_Alquiler.setModal(true);
+        jdValidacion_Alquiler.setVisible(true);
+    }
+
+    public void modalvalidacion_movimiento() {
+        jdValidacion_Movimiento.pack();
+        jdValidacion_Movimiento.setLocationRelativeTo(null);
+        jdValidacion_Movimiento.getRootPane().registerKeyboardAction(new CloseDialogEscape(jdValidacion_Movimiento),
+                KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_IN_FOCUSED_WINDOW);
+        jdValidacion_Movimiento.setModal(true);
+        jdValidacion_Movimiento.setVisible(true);
     }
 
     public void iniciarFomrulario(JInternalFrame jif) {
@@ -7540,6 +7776,8 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel100;
@@ -7625,6 +7863,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel73;
     private javax.swing.JLabel jLabel74;
     private javax.swing.JLabel jLabel75;
+    private javax.swing.JLabel jLabel76;
     private javax.swing.JLabel jLabel77;
     private javax.swing.JLabel jLabel78;
     private javax.swing.JLabel jLabel79;
@@ -7642,6 +7881,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabel90;
     private javax.swing.JLabel jLabel91;
+    private javax.swing.JLabel jLabel92;
     private javax.swing.JLabel jLabel94;
     private javax.swing.JLabel jLabel95;
     private javax.swing.JLabel jLabel96;
@@ -7684,8 +7924,6 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JPasswordField jPasswordField2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane11;
@@ -7728,6 +7966,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JDialog jdTraspasoLateral;
     private javax.swing.JDialog jdTraspasoNuevoAgricultor;
     private javax.swing.JDialog jdValidacion_Alquiler;
+    private javax.swing.JDialog jdValidacion_Anular;
     private javax.swing.JDialog jdValidacion_Constancia;
     private javax.swing.JDialog jdValidacion_Movimiento;
     private javax.swing.JDialog jdValidacion_Pago;
@@ -7905,7 +8144,11 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JTextField txtSubLateralAgricultor_Traspo;
     private javax.swing.JTextField txtTeleCelular_Usuario;
     private javax.swing.JTextField txtTelefono_Agricultor;
+    private javax.swing.JPasswordField txtValidacionPass_Alquiler;
+    private javax.swing.JPasswordField txtValidacionPass_Anular;
     private javax.swing.JPasswordField txtValidacionPass_Constancia;
+    private javax.swing.JPasswordField txtValidacionPass_Movimiento;
+    private javax.swing.JPasswordField txtValidacionPass_Pagos;
     private javax.swing.JTextField txtVoucher_RegistrarPago;
     private javax.swing.JTextField txtapellidos_usuario;
     private javax.swing.JTextField txtdni_usuario;
