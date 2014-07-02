@@ -7,6 +7,7 @@
 package modelo;
 
 import entidad.Lateral;
+import entidad.ListaLateral;
 import entidad.ListaTraspasos;
 import entidad.Traspaso;
 import java.sql.CallableStatement;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
  * @author joseph
  */
 public class BDTraspaso {
-    public boolean RegistrarTraspaso(Traspaso t,int idClienteAntiguo,Lateral l){
+    public boolean RegistrarTraspaso(Traspaso t,int idClienteAntiguo,ListaLateral l){
         Connection cn=null;
         CallableStatement cstm=null;
 //        CallableStatement cstm1=null;
@@ -49,10 +50,11 @@ public class BDTraspaso {
             String sql2="call spI_ListaLateral_Traspaso(?,?,?,?,?);";
             cstm=cn.prepareCall(sql2);
             cstm.setInt(1, l.getCliente_id());
-            cstm.setString(2, l.getVar_lateral());
-            cstm.setString(3, l.getVar_sublateral());
+            cstm.setInt(2, l.getIdlateral());
+            cstm.setInt(3, l.getIdsublateral());
             cstm.setDouble(4, l.getDec_conmedida());
             cstm.setDouble(5, l.getDec_sinmedida()); 
+            cstm.setInt(6, l.getInt_numhectareas());
             cstm.execute();
             resultado=true;
             System.out.println("Exito de Registro");
@@ -106,6 +108,7 @@ public class BDTraspaso {
                 t.setVar_sublateral(rs.getString("var_sublateral"));
                 t.setDec_conmedida(rs.getDouble("dec_conmedida"));
                 t.setDec_sinmedida(rs.getDouble("dec_sinmedida"));
+                t.setVar_numdocumento(rs.getString("var_numdocumento"));
                 listTraspasos.add(t);
             }
             cstmt.close();

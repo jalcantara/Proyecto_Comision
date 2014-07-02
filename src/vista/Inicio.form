@@ -46,21 +46,25 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="jpConstancia_Registro" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="134" max="-2" attributes="0"/>
                           <Component id="btn_Guardar_Constancia" min="-2" pref="68" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="btn_Cancelar_Constancia" min="-2" pref="67" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jpConstancia_Registro" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
                   <Component id="jLabel81" min="-2" pref="32" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" min="-2" pref="201" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jScrollPane1" min="-2" pref="194" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -107,10 +111,15 @@
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jLabel60" min="-2" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jLabel60" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel93" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="txtTotal_Constancia" min="-2" pref="217" max="-2" attributes="0"/>
                                           <Group type="102" attributes="0">
                                               <Group type="103" groupAlignment="0" attributes="0">
                                                   <Component id="txtLateral_Constancia" min="-2" pref="217" max="-2" attributes="0"/>
@@ -147,7 +156,6 @@
                                           </Group>
                                       </Group>
                                   </Group>
-                                  <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -253,7 +261,12 @@
                           </Group>
                           <Component id="txtHectareas_Constancia" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="34" max="32767" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="txtTotal_Constancia" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel93" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -354,6 +367,7 @@
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="text" type="java.lang.String" value="0"/>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtHectareas_ConstanciaKeyReleased"/>
@@ -442,6 +456,7 @@
                 </Property>
                 <Property name="selected" type="boolean" value="true"/>
                 <Property name="text" type="java.lang.String" value="Almacigo"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rbAlmacigo_ConstanciaActionPerformed"/>
@@ -450,6 +465,7 @@
             <Component class="com.toedter.calendar.JDateChooser" name="txtFechaAlmacigo_constancia">
               <Properties>
                 <Property name="dateFormatString" type="java.lang.String" value="dd &apos;de&apos; MMMM &apos;de&apos; yyyy"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JRadioButton" name="rbBoleo_Constancia">
@@ -464,6 +480,7 @@
                   <Font name="Tahoma" size="12" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Boleo"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rbBoleo_ConstanciaActionPerformed"/>
@@ -486,6 +503,9 @@
               </Properties>
             </Component>
             <Component class="org.jdesktop.swingx.JXComboBox" name="cboTipoCultivo_Constancia">
+              <Properties>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel60">
               <Properties>
@@ -513,6 +533,23 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtMontoJunta_Constancia">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="14" style="0"/>
+                </Property>
+                <Property name="horizontalAlignment" type="int" value="0"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel93">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="12" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Total:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="txtTotal_Constancia">
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -930,13 +967,16 @@
                         <Component class="javax.swing.JTable" name="jtTraspaso">
                           <Properties>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="6" rowCount="4">
+                              <Table columnCount="9" rowCount="4">
                                 <Column editable="false" title="#" type="java.lang.Object"/>
+                                <Column editable="false" title="N&#xb0; Documento" type="java.lang.Object"/>
                                 <Column editable="false" title="Antiguo Due&#xf1;o" type="java.lang.Object"/>
                                 <Column editable="false" title="Nuevo Due&#xf1;o " type="java.lang.Object"/>
                                 <Column editable="false" title="Cantidad Traspaso" type="java.lang.Object"/>
                                 <Column editable="false" title="Lateral" type="java.lang.Object"/>
                                 <Column editable="false" title="Sub Lateral" type="java.lang.Object"/>
+                                <Column editable="false" title="Con Medida" type="java.lang.Object"/>
+                                <Column editable="false" title="Sin Medida" type="java.lang.Object"/>
                               </Table>
                             </Property>
                             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -946,7 +986,7 @@
                                   <Editor/>
                                   <Renderer/>
                                 </Column>
-                                <Column maxWidth="-1" minWidth="-1" prefWidth="100" resizable="true">
+                                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                                   <Title/>
                                   <Editor/>
                                   <Renderer/>
@@ -956,7 +996,7 @@
                                   <Editor/>
                                   <Renderer/>
                                 </Column>
-                                <Column maxWidth="-1" minWidth="-1" prefWidth="30" resizable="true">
+                                <Column maxWidth="-1" minWidth="-1" prefWidth="100" resizable="true">
                                   <Title/>
                                   <Editor/>
                                   <Renderer/>
@@ -967,6 +1007,21 @@
                                   <Renderer/>
                                 </Column>
                                 <Column maxWidth="-1" minWidth="-1" prefWidth="30" resizable="true">
+                                  <Title/>
+                                  <Editor/>
+                                  <Renderer/>
+                                </Column>
+                                <Column maxWidth="-1" minWidth="-1" prefWidth="30" resizable="true">
+                                  <Title/>
+                                  <Editor/>
+                                  <Renderer/>
+                                </Column>
+                                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                  <Title/>
+                                  <Editor/>
+                                  <Renderer/>
+                                </Column>
+                                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                                   <Title/>
                                   <Editor/>
                                   <Renderer/>
@@ -1082,6 +1137,9 @@
                               <Font name="Tahoma" size="14" style="0"/>
                             </Property>
                           </Properties>
+                          <Events>
+                            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cboAntiguoAgricultor_TraspasoKeyTyped"/>
+                          </Events>
                         </Component>
                         <Component class="org.jdesktop.swingx.JXComboBox" name="cboNuevoAgricultor_Traspaso">
                           <Properties>
@@ -1394,14 +1452,15 @@
                                                       <Component id="txtCantidadHectaria_Traspaso" pref="118" max="32767" attributes="0"/>
                                                   </Group>
                                                   <Group type="102" alignment="0" attributes="0">
-                                                      <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
+                                                      <Group type="103" groupAlignment="0" attributes="0">
+                                                          <Component id="jLabel17" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="jLabel15" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
                                                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                      <Component id="txtNuevoConMedida_Traspaso" max="32767" attributes="0"/>
-                                                  </Group>
-                                                  <Group type="102" alignment="0" attributes="0">
-                                                      <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
-                                                      <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
-                                                      <Component id="txtNuevoLateral_Traspaso" max="32767" attributes="0"/>
+                                                      <Group type="103" groupAlignment="0" attributes="0">
+                                                          <Component id="txtNuevoConMedida_Traspaso" max="32767" attributes="0"/>
+                                                          <Component id="cboLateral_Traspaso" max="32767" attributes="0"/>
+                                                      </Group>
                                                   </Group>
                                               </Group>
                                               <Group type="102" alignment="0" attributes="0">
@@ -1418,9 +1477,9 @@
                                                       <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
                                                   </Group>
                                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="txtNuevoSinMedida_Traspaso" min="-2" pref="169" max="-2" attributes="0"/>
-                                                      <Component id="txtNuevoSubLateral_Traspaso" min="-2" pref="169" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                      <Component id="txtNuevoSinMedida_Traspaso" pref="169" max="32767" attributes="0"/>
+                                                      <Component id="cboSubLateral_Traspaso" max="32767" attributes="0"/>
                                                   </Group>
                                               </Group>
                                               <Component id="btn_Traspaso_ModalNuevoAgricultor" alignment="0" min="-2" pref="161" max="-2" attributes="0"/>
@@ -1437,7 +1496,7 @@
                                           <Component id="txtNumDocumento_Traspaso" min="-2" pref="219" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <EmptySpace max="32767" attributes="0"/>
+                                  <EmptySpace pref="55" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -1462,10 +1521,10 @@
                                   </Group>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="txtNuevoLateral_Traspaso" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtNuevoSubLateral_Traspaso" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="cboLateral_Traspaso" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="cboSubLateral_Traspaso" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
@@ -1508,6 +1567,9 @@
                             </Property>
                             <Property name="enabled" type="boolean" value="false"/>
                           </Properties>
+                          <Events>
+                            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtNuevoAgricultor_TraspasoKeyTyped"/>
+                          </Events>
                         </Component>
                         <Component class="javax.swing.JTextField" name="txtCantidadHectaria_Traspaso">
                           <Properties>
@@ -1515,6 +1577,7 @@
                               <Font name="Tahoma" size="14" style="0"/>
                             </Property>
                             <Property name="horizontalAlignment" type="int" value="0"/>
+                            <Property name="enabled" type="boolean" value="false"/>
                           </Properties>
                           <Events>
                             <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtCantidadHectaria_TraspasoKeyTyped"/>
@@ -1550,17 +1613,6 @@
                             <Property name="text" type="java.lang.String" value="Sub Lateral:"/>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JTextField" name="txtNuevoLateral_Traspaso">
-                          <Properties>
-                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Tahoma" size="14" style="0"/>
-                            </Property>
-                            <Property name="horizontalAlignment" type="int" value="0"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtNuevoLateral_TraspasoKeyTyped"/>
-                          </Events>
-                        </Component>
                         <Component class="javax.swing.JLabel" name="jLabel17">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -1583,6 +1635,7 @@
                               <Font name="Tahoma" size="14" style="0"/>
                             </Property>
                             <Property name="horizontalAlignment" type="int" value="0"/>
+                            <Property name="enabled" type="boolean" value="false"/>
                           </Properties>
                           <Events>
                             <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtNuevoConMedida_TraspasoKeyPressed"/>
@@ -1596,20 +1649,10 @@
                               <Font name="Tahoma" size="14" style="0"/>
                             </Property>
                             <Property name="horizontalAlignment" type="int" value="0"/>
+                            <Property name="enabled" type="boolean" value="false"/>
                           </Properties>
                           <Events>
                             <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtNuevoSinMedida_TraspasoKeyTyped"/>
-                          </Events>
-                        </Component>
-                        <Component class="javax.swing.JTextField" name="txtNuevoSubLateral_Traspaso">
-                          <Properties>
-                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Tahoma" size="14" style="0"/>
-                            </Property>
-                            <Property name="horizontalAlignment" type="int" value="0"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtNuevoSubLateral_TraspasoKeyTyped"/>
                           </Events>
                         </Component>
                         <Component class="javax.swing.JLabel" name="jLabel54">
@@ -1631,7 +1674,11 @@
                               <Properties>
                                 <Property name="columns" type="int" value="20"/>
                                 <Property name="rows" type="int" value="5"/>
+                                <Property name="enabled" type="boolean" value="false"/>
                               </Properties>
+                              <Events>
+                                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtObservacion_TraspasoKeyTyped"/>
+                              </Events>
                             </Component>
                           </SubComponents>
                         </Container>
@@ -1649,10 +1696,15 @@
                               <Font name="Tahoma" size="14" style="0"/>
                             </Property>
                             <Property name="horizontalAlignment" type="int" value="0"/>
+                            <Property name="enabled" type="boolean" value="false"/>
                           </Properties>
                           <Events>
                             <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtNumDocumento_TraspasoKeyTyped"/>
                           </Events>
+                        </Component>
+                        <Component class="org.jdesktop.swingx.JXComboBox" name="cboLateral_Traspaso">
+                        </Component>
+                        <Component class="org.jdesktop.swingx.JXComboBox" name="cboSubLateral_Traspaso">
                         </Component>
                       </SubComponents>
                     </Container>
@@ -2227,7 +2279,7 @@
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Component id="txtFechaInicio_Alquiler" pref="212" max="32767" attributes="0"/>
+                                          <Component id="txtFechaInicio_Alquiler" pref="250" max="32767" attributes="0"/>
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
                                           <Component id="jLabel29" min="-2" pref="22" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
@@ -2495,7 +2547,7 @@
                                       </Group>
                                       <Component id="btnEliminarDet_Alquiler" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace pref="19" max="32767" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -2537,11 +2589,12 @@
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Tahoma" size="12" style="1"/>
                             </Property>
-                            <Property name="text" type="java.lang.String" value="Material :"/>
+                            <Property name="text" type="java.lang.String" value="Activo Alquilado:"/>
                           </Properties>
                         </Component>
                         <Component class="org.jdesktop.swingx.JXComboBox" name="cboTipoMaterial_Alquiler">
                           <Properties>
+                            <Property name="enabled" type="boolean" value="false"/>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Tahoma" size="14" style="0"/>
                             </Property>
@@ -2564,6 +2617,7 @@
                             <Property name="disabledTextColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                               <Color blue="ff" green="99" red="33" type="rgb"/>
                             </Property>
+                            <Property name="enabled" type="boolean" value="false"/>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Tahoma" size="14" style="0"/>
                             </Property>
@@ -2583,6 +2637,7 @@
                         </Component>
                         <Component class="com.toedter.components.JSpinField" name="txtCantidad_Alquiler">
                           <Properties>
+                            <Property name="enabled" type="boolean" value="false"/>
                             <Property name="maximum" type="int" value="100"/>
                             <Property name="minimum" type="int" value="1"/>
                             <Property name="value" type="int" value="1"/>
@@ -2598,6 +2653,7 @@
                         </Component>
                         <Component class="com.toedter.calendar.JDateChooser" name="txtFechaDesde_Alquiler">
                           <Properties>
+                            <Property name="enabled" type="boolean" value="false"/>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Tahoma" size="14" style="0"/>
                             </Property>
@@ -2613,6 +2669,7 @@
                         </Component>
                         <Component class="com.toedter.calendar.JDateChooser" name="txtFechaHasta_Alquiler">
                           <Properties>
+                            <Property name="enabled" type="boolean" value="false"/>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Tahoma" size="14" style="0"/>
                             </Property>
@@ -2627,6 +2684,7 @@
                               <Image iconType="3" name="/recurso/Create.png"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Agregar"/>
+                            <Property name="enabled" type="boolean" value="false"/>
                             <Property name="iconTextGap" type="int" value="8"/>
                           </Properties>
                           <Events>
@@ -2651,6 +2709,7 @@
                         </Component>
                         <Component class="com.toedter.components.JSpinField" name="txtHoras_Alquiler">
                           <Properties>
+                            <Property name="enabled" type="boolean" value="false"/>
                             <Property name="maximum" type="int" value="100"/>
                             <Property name="minimum" type="int" value="1"/>
                             <Property name="value" type="int" value="1"/>
@@ -3107,6 +3166,7 @@
                   </Properties>
                   <Events>
                     <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtFiltroAgricultorKeyReleased"/>
+                    <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtFiltroAgricultorKeyTyped"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="cboFiltroAgricultor">
@@ -4017,6 +4077,7 @@
               </Properties>
               <Events>
                 <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtFiltro_PeriodoKeyReleased"/>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtFiltro_PeriodoKeyTyped"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel78">
@@ -4110,6 +4171,9 @@
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="0"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtNombre_PeriodoKeyTyped"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel44">
                   <Properties>
@@ -4317,6 +4381,7 @@
             <Component class="org.jdesktop.swingx.JXSearchField" name="txtBuscarCargo">
               <Events>
                 <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtBuscarCargoKeyReleased"/>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtBuscarCargoKeyTyped"/>
               </Events>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane9">
@@ -4724,6 +4789,7 @@
                   </Properties>
                   <Events>
                     <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtConcepto_MovimientoKeyPressed"/>
+                    <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtConcepto_MovimientoKeyTyped"/>
                   </Events>
                 </Component>
               </SubComponents>
@@ -4806,6 +4872,9 @@
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
               </Properties>
+              <Events>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtNroComprobante_MovimientoKeyTyped"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel63">
               <Properties>
@@ -4919,6 +4988,7 @@
               </Properties>
               <Events>
                 <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtModalComite_ConstanciaKeyReleased"/>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtModalComite_ConstanciaKeyTyped"/>
               </Events>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane13">
@@ -5025,6 +5095,7 @@
               </Properties>
               <Events>
                 <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtModalCliente_ConstanciaKeyReleased"/>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtModalCliente_ConstanciaKeyTyped"/>
               </Events>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane14">
@@ -5075,6 +5146,9 @@
       <Properties>
         <Property name="title" type="java.lang.String" value="Lateral"/>
       </Properties>
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jdConstanciaLateralKeyTyped"/>
+      </Events>
 
       <Layout>
         <DimensionLayout dim="0">
@@ -5145,6 +5219,7 @@
               </Properties>
               <Events>
                 <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtModalLateral_ConstanciaKeyReleased"/>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtModalLateral_ConstanciaKeyTyped"/>
               </Events>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane15">
@@ -5285,6 +5360,7 @@
               </Properties>
               <Events>
                 <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtModalAgricultor_TraspasoKeyReleased"/>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtModalAgricultor_TraspasoKeyTyped"/>
               </Events>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane16">
@@ -5403,6 +5479,7 @@
               </Properties>
               <Events>
                 <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtModalAgricultorNuevo_TraspasoKeyReleased"/>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtModalAgricultorNuevo_TraspasoKeyTyped"/>
               </Events>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane17">
@@ -5522,6 +5599,7 @@
               </Properties>
               <Events>
                 <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtModalAgricultor_AlquilerKeyReleased"/>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtModalAgricultor_AlquilerKeyTyped"/>
               </Events>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane18">
@@ -5766,6 +5844,7 @@
                   </Properties>
                   <Events>
                     <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtObservacion_RegistrarPagosKeyPressed"/>
+                    <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtObservacion_RegistrarPagosKeyTyped"/>
                   </Events>
                 </Component>
               </SubComponents>
@@ -5908,6 +5987,7 @@
               </Properties>
               <Events>
                 <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtModalLateral_TraspasoKeyReleased"/>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtModalLateral_TraspasoKeyTyped"/>
               </Events>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane20">
@@ -6163,6 +6243,7 @@
                       </Properties>
                       <Events>
                         <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtFiltroNombre_Cuenta2KeyReleased"/>
+                        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtFiltroNombre_Cuenta2KeyTyped"/>
                       </Events>
                     </Component>
                     <Component class="javax.swing.JComboBox" name="cboFiltro_Cuenta">
@@ -6322,6 +6403,7 @@
                             <Property name="horizontalAlignment" type="int" value="0"/>
                           </Properties>
                           <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNombre_CuentasActionPerformed"/>
                             <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtNombre_CuentasKeyTyped"/>
                           </Events>
                         </Component>
@@ -6813,6 +6895,7 @@
                       </Properties>
                       <Events>
                         <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtFiltro_UsuarioKeyReleased"/>
+                        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtFiltro_UsuarioKeyTyped"/>
                       </Events>
                     </Component>
                     <Component class="javax.swing.JComboBox" name="cboTipoFiltro_Usuario">
@@ -7431,6 +7514,7 @@
               </Properties>
               <Events>
                 <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtFiltroComite_AdministracionKeyReleased"/>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtFiltroComite_AdministracionKeyTyped"/>
               </Events>
             </Component>
           </SubComponents>
@@ -8115,7 +8199,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jmiClientes">
               <Properties>
-                <Property name="text" type="java.lang.String" value="CLIENTES"/>
+                <Property name="text" type="java.lang.String" value="USUARIOS"/>
               </Properties>
             </MenuItem>
           </SubComponents>

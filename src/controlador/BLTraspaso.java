@@ -6,6 +6,7 @@
 package controlador;
 
 import entidad.Lateral;
+import entidad.ListaLateral;
 import entidad.ListaTraspasos;
 import entidad.Traspaso;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ import modelo.BDTraspaso;
 public class BLTraspaso {
 
     public boolean RegistrarTraspaso(int idCliente_Nuevo, int idUsuario, int numhectareas, int idClienteAntiguo,
-            int idLateral, String lateral, String sublateral, double conmedida, double sinmedida,String observacion,String numdoc) {
+            int idLateral, int idlateral, int sublateral, double conmedida, double sinmedida,String observacion,String numdoc) {
 
         boolean resultado = false;
         try {
@@ -31,11 +32,11 @@ public class BLTraspaso {
             t.setVar_observacion(observacion);
             t.setVar_numdocumento(numdoc);
             //OBJETO LATERAL
-            Lateral l = new Lateral();
+            ListaLateral l = new ListaLateral();
             l.setInt_id(idLateral);
             l.setCliente_id(idCliente_Nuevo);
-            l.setVar_lateral(lateral);
-            l.setVar_sublateral(sublateral);
+            l.setIdlateral(idlateral);
+            l.setIdsublateral(sublateral);
             l.setDec_conmedida(conmedida);
             l.setDec_sinmedida(sinmedida);
             

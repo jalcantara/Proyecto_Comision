@@ -8,6 +8,7 @@ package controlador;
 import entidad.Agricultor;
 import entidad.Lateral;
 import entidad.ListaAgricultorLateral;
+import entidad.ListaLateral;
 import java.util.ArrayList;
 import modelo.*;
 
@@ -87,7 +88,7 @@ public class BLAgricultor {
     }
     public boolean RegistrarAgricultor(int id_agricultor, String nom,
             String apemat, String apepat, String dir, String email, String dni,
-            String sexo, String tel, String cel, ArrayList<Lateral> listaLaterales) {
+            String sexo, String tel, String cel, ArrayList<ListaLateral> listaLaterales) {
         boolean resultado = false;
     
     /*public boolean RegistrarAgricultor(String nom,String apepat,String apemat,String dir,

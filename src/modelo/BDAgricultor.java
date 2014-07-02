@@ -8,6 +8,7 @@ package modelo;
 import entidad.Agricultor;
 import entidad.Lateral;
 import entidad.ListaAgricultorLateral;
+import entidad.ListaLateral;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -249,7 +250,7 @@ public class BDAgricultor {
         return listCliente;
     }
 
-    public boolean RegistrarAgricultor(Agricultor a,ArrayList<Lateral> listaLaterales) {
+    public boolean RegistrarAgricultor(Agricultor a,ArrayList<ListaLateral> listaLaterales) {
 
         Connection cn = null;
         CallableStatement cstm = null;
@@ -278,13 +279,13 @@ public class BDAgricultor {
             }
             
              // Registrar Lista Laterales
-            for (Lateral l : listaLaterales) {
+            for (ListaLateral l : listaLaterales) {
                 String sql1 = "call spI_ListaLateral(?,?,?,?,?,?,?);";
                 cstm1 = cn.prepareCall(sql1);
                 cstm1.setInt(1, l.getInt_id());
                 cstm1.setInt(2, id_agricultor);
-                cstm1.setString(3, l.getVar_lateral());
-                cstm1.setString(4, l.getVar_sublateral());
+                cstm1.setInt(3, l.getIdlateral());
+                cstm1.setInt(4, l.getIdsublateral());
                 cstm1.setDouble(5, l.getDec_conmedida());
                 cstm1.setDouble(6, l.getDec_sinmedida());
                 cstm1.setInt(7, l.getInt_numhectareas());

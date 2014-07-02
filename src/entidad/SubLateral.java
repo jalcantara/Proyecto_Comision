@@ -10,14 +10,11 @@ package entidad;
  *
  * @author joseph
  */
-public class Lateral {
+public class SubLateral {
     private int int_id;
-   private String var_descripcion;
-   private String var_estado;
-   
-   
-    
-    
+    private String var_descripcion;
+    private String var_estado;
+
     public int getInt_id() {
         return int_id;
     }
@@ -44,11 +41,6 @@ public class Lateral {
     public String toString(){
         return this.var_descripcion;
     } 
-
-    
-
-    
-    
     
     
 }

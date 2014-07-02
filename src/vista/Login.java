@@ -74,9 +74,8 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setBackground(new java.awt.Color(0, 116, 63));
+        jLabel1.setBackground(new java.awt.Color(143, 183, 68));
         jLabel1.setFont(new java.awt.Font("Trebuchet MS", 1, 27)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("SISTEMA DE COBRANZA COMISION DE USUARIOS PERLA DEL HUALLAGA");
         jLabel1.setOpaque(true);

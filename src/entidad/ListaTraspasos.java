@@ -25,6 +25,9 @@ public class ListaTraspasos {
     private String var_sublateral;
     private double dec_conmedida;
     private double dec_sinmedida;
+    private String var_numdocumento;
+    
+    
     
     
     
@@ -138,6 +141,14 @@ public class ListaTraspasos {
 
     public void setDec_sinmedida(double dec_sinmedida) {
         this.dec_sinmedida = dec_sinmedida;
+    }
+
+    public String getVar_numdocumento() {
+        return var_numdocumento;
+    }
+
+    public void setVar_numdocumento(String var_numdocumento) {
+        this.var_numdocumento = var_numdocumento;
     }
     
     
