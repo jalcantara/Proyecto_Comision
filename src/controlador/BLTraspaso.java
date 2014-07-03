@@ -39,6 +39,7 @@ public class BLTraspaso {
             l.setIdsublateral(sublateral);
             l.setDec_conmedida(conmedida);
             l.setDec_sinmedida(sinmedida);
+            l.setInt_numhectareas(numhectareas);
             
             resultado = new BDTraspaso().RegistrarTraspaso(t, idClienteAntiguo, l);
         } catch (Exception e) {

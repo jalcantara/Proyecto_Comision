@@ -56,7 +56,7 @@ public class BDLateral {
         ArrayList<ListaLateral> listLateral = new ArrayList<ListaLateral>();
         try {
             cnn = BD.getConnection();
-            String sql="select * from get_listalateral_all where "+condicion+" and cliente_id="+idCliente;
+            String sql="select * from get_listalateral_all where "+condicion+" and estadosublateral='1' and var_estado='1' and cliente_id="+idCliente;
             cstmt = cnn.prepareCall(sql);
             ResultSet rs = cstmt.executeQuery();
             while(rs.next()) {
@@ -78,13 +78,13 @@ public class BDLateral {
         }
         return listLateral;
     }
-    public ArrayList<Lateral> get_lateral_all(){
+    public ArrayList<Lateral> get_lateral_all(String condicion){
         Connection cnn = null;
         CallableStatement cstmt = null;
         ArrayList<Lateral> listLateral = new ArrayList<Lateral>();
         try {
             cnn = BD.getConnection();
-            String sql="select * from get_lateral_all;";
+            String sql="select * from get_lateral_all where "+condicion;
             cstmt = cnn.prepareCall(sql);
             ResultSet rs = cstmt.executeQuery();
             while(rs.next()) {
@@ -102,20 +102,25 @@ public class BDLateral {
         }
         return listLateral;
     }
-    public ArrayList<SubLateral> get_sublateral_all(){
+    public ArrayList<Lateral> gettabla_lateral_all(String condicion){
         Connection cnn = null;
         CallableStatement cstmt = null;
-        ArrayList<SubLateral> listLateral = new ArrayList<SubLateral>();
+        ArrayList<Lateral> listLateral = new ArrayList<Lateral>();
         try {
             cnn = BD.getConnection();
-            String sql="select * from get_sublateral_all;";
+            String sql="select * from get_lateral_all where "+condicion;
             cstmt = cnn.prepareCall(sql);
             ResultSet rs = cstmt.executeQuery();
             while(rs.next()) {
-                SubLateral l = new SubLateral();
+                Lateral l = new Lateral();
                 l.setInt_id(rs.getInt(1));
                 l.setVar_descripcion(rs.getString(2));
-                l.setVar_estado(rs.getString(3));
+                if(rs.getString(3).equalsIgnoreCase("1")){
+                    l.setVar_estado("Activo");
+                }else{
+                    l.setVar_estado("Inactivo");
+                }
+                
                 
                 listLateral.add(l);
             }
@@ -125,5 +130,168 @@ public class BDLateral {
             System.out.println("" + a);
         }
         return listLateral;
+    }
+    public ArrayList<SubLateral> get_sublateral_all(String condicion){
+        Connection cnn = null;
+        CallableStatement cstmt = null;
+        ArrayList<SubLateral> listLateral = new ArrayList<SubLateral>();
+        try {
+            cnn = BD.getConnection();
+            String sql="select * from get_sublateral_all where "+condicion;
+            cstmt = cnn.prepareCall(sql);
+            ResultSet rs = cstmt.executeQuery();
+            while(rs.next()) {
+                SubLateral l = new SubLateral();
+                l.setInt_id(rs.getInt(1));
+                l.setVar_descripcion(rs.getString(2));
+                if(rs.getString(3).equalsIgnoreCase("1")){
+                    l.setVar_estado("Activo");
+                }else{
+                    l.setVar_estado("Inactivo");
+                }
+                
+                
+                listLateral.add(l);
+            }
+            cstmt.close();
+            cnn.close();
+        } catch (SQLException a) {
+            System.out.println("" + a);
+        }
+        return listLateral;
+    }
+    public boolean Registrar(Lateral l)throws Exception{
+        boolean resultado=false;
+        Connection cn=null;
+        CallableStatement cstm=null;
+        try {
+            cn = BD.getConnection();
+            cn.setAutoCommit(false);
+            String sql = "call spI_Lateral(?);";
+            cstm = cn.prepareCall(sql);
+            cstm.setString(1, l.getVar_descripcion());
+            
+            cstm.execute();
+            resultado=true;
+            cn.commit();
+        } 
+        catch (Exception e) {
+            try {
+                cn.rollback();
+            } catch (SQLException b) {
+                System.out.println("" + b.toString());
+            } finally {
+                resultado = false;
+            }
+            System.out.println("error al registrar constancia " + e.toString());
+        } finally {
+            try {
+                cstm.close();
+                cn.close();
+            } catch (SQLException ex) {
+                System.out.println("" + ex.getMessage());
+            }
+        }
+        return resultado;
+    }
+    public boolean Registrar_SubLateral(String descripcion)throws Exception{
+        boolean resultado=false;
+        Connection cn=null;
+        CallableStatement cstm=null;
+        try {
+            cn = BD.getConnection();
+            cn.setAutoCommit(false);
+            String sql = "call spI_SubLateral(?);";
+            cstm = cn.prepareCall(sql);
+            cstm.setString(1, descripcion);
+            
+            cstm.execute();
+            resultado=true;
+            cn.commit();
+        } 
+        catch (Exception e) {
+            try {
+                cn.rollback();
+            } catch (SQLException b) {
+                System.out.println("" + b.toString());
+            } finally {
+                resultado = false;
+            }
+            System.out.println("error al registrar constancia " + e.toString());
+        } finally {
+            try {
+                cstm.close();
+                cn.close();
+            } catch (SQLException ex) {
+                System.out.println("" + ex.getMessage());
+            }
+        }
+        return resultado;
+    }
+    public boolean QuitarLateral(int id)throws Exception{
+        boolean resultado=false;
+        Connection cn=null;
+        CallableStatement cstm=null;
+        try {
+            cn = BD.getConnection();
+            cn.setAutoCommit(false);
+            String sql = "call spU_Lateral(?);";
+            cstm = cn.prepareCall(sql);
+            cstm.setInt(1, id);            
+            cstm.execute();
+            resultado=true;
+            cn.commit();
+        } 
+        catch (Exception e) {
+            try {
+                cn.rollback();
+            } catch (SQLException b) {
+                System.out.println("" + b.toString());
+            } finally {
+                resultado = false;
+            }
+            System.out.println("error al registrar constancia " + e.toString());
+        } finally {
+            try {
+                cstm.close();
+                cn.close();
+            } catch (SQLException ex) {
+                System.out.println("" + ex.getMessage());
+            }
+        }
+        return resultado;
+    }
+    public boolean QuitarSubLateral(int id)throws Exception{
+        boolean resultado=false;
+        Connection cn=null;
+        CallableStatement cstm=null;
+        try {
+            cn = BD.getConnection();
+            cn.setAutoCommit(false);
+            String sql = "call spU_SubLateral(?);";
+            cstm = cn.prepareCall(sql);
+            cstm.setInt(1, id);            
+            cstm.execute();
+            resultado=true;
+            cn.commit();
+        } 
+        catch (Exception e) {
+            try {
+                cn.rollback();
+            } catch (SQLException b) {
+                System.out.println("" + b.toString());
+            } finally {
+                resultado = false;
+            }
+            System.out.println("error al registrar constancia " + e.toString());
+        } finally {
+            try {
+                cstm.close();
+                cn.close();
+            } catch (SQLException ex) {
+                System.out.println("" + ex.getMessage());
+            }
+        }
+        return resultado;
     }
 }

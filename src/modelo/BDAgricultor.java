@@ -96,7 +96,7 @@ public class BDAgricultor {
         ArrayList<String> lista_laterales = new ArrayList<>();
         try {
             cnn = BD.getConnection();
-            String sql = "select var_lateral from lista_lateral";
+            String sql = "select var_descripcion from lateral";
             ps = cnn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {

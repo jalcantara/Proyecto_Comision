@@ -247,28 +247,46 @@ public class Inicio extends javax.swing.JFrame {
         //AutoCompleteDecorator.decorate(cboLateral_Agricultor);
     }
 
-    private void get_sublatreles_all() {
+    private void get_sublatreles_all(String condicion) {
         cboSubLateral_Agricultor.removeAllItems();
         cboSubLateral_Traspaso.removeAllItems();
-        ArrayList<SubLateral> lista_lat = new BLLateral().get_sublateral_all();
-        cboSubLateral_Agricultor.addItem("");
+        ArrayList<SubLateral> lista_lat = new BLLateral().get_sublateral_all("");
+        //cboSubLateral_Agricultor.addItem("");
         for (int i = 0; i < lista_lat.size(); i++) {
             cboSubLateral_Agricultor.addItem(lista_lat.get(i));
             cboSubLateral_Traspaso.addItem(lista_lat.get(i));
-            
+
         }
-        cboSubLateral_Agricultor.setSelectedIndex(1);
+        //cboSubLateral_Agricultor.setSelectedIndex(1);
+        DefaultTableModel temp = (DefaultTableModel) jtSubLateral_Adm.getModel();
+        temp.setRowCount(0);
+        for (SubLateral l : new BLLateral().get_sublateral_all(condicion)) {
+            Object[] datos = {l.getInt_id(), l.getVar_descripcion(), l.getVar_estado()};
+            temp.addRow(datos);
+        }
         //AutoCompleteDecorator.decorate(cboSubLateral_Agricultor);
     }
+
     private void get_lateral_all() {
         cboLateral_Traspaso.removeAllItems();
+        cboLateral_Agricultor.removeAllItems();
         ArrayList<Lateral> lista_lat = new BLLateral().get_lateral_all();
         //cboLateral_Traspaso.addItem("");
         for (int i = 0; i < lista_lat.size(); i++) {
             cboLateral_Traspaso.addItem(lista_lat.get(i));
+            cboLateral_Agricultor.addItem(lista_lat.get(i));
         }
         //cboLateral_Traspaso.setSelectedIndex(1);
         //AutoCompleteDecorator.decorate(cboSubLateral_Agricultor);
+    }
+
+    private void gettable_getlateral_all(String palabra) {
+        DefaultTableModel temp = (DefaultTableModel) jtLateral_Adm.getModel();
+        temp.setRowCount(0);
+        for (Lateral l : new BLLateral().gettabla_lateral_all(palabra)) {
+            Object[] datos = {l.getInt_id(), l.getVar_descripcion(), l.getVar_estado()};
+            temp.addRow(datos);
+        }
     }
 
     private void gettabla_lateral_byagricultoractivos(String palabra, int id) {
@@ -563,7 +581,7 @@ public class Inicio extends javax.swing.JFrame {
         DefaultTableModel temp = (DefaultTableModel) jtTraspaso.getModel();
         temp.setRowCount(0);
         for (ListaTraspasos t : new BLTraspaso().get_cliente_all_byclientenuevoantiguo(condicion)) {
-            Object[] datos = {t.getInt_id_traspaso(),t.getVar_numdocumento(),
+            Object[] datos = {t.getInt_id_traspaso(), t.getVar_numdocumento(),
                 t.getVar_nombre_antiguo() + ' ' + t.getVar_apepaterno_antiguo() + ' ' + t.getVar_apematerno_antiguo(),
                 t.getVar_nombre_nuevo() + ' ' + t.getVar_apepaterno_nuevo() + ' ' + t.getVar_apematerno_nuevo(),
                 t.getInt_cantidadtraspaso(), t.getVar_lateral(), t.getVar_sublateral(),
@@ -1098,6 +1116,35 @@ public class Inicio extends javax.swing.JFrame {
         jLabel92 = new javax.swing.JLabel();
         txtValidacionPass_Anular = new javax.swing.JPasswordField();
         jButton9 = new javax.swing.JButton();
+        jifLateral_SubLateral_Adm = new javax.swing.JInternalFrame();
+        jPanel24 = new javax.swing.JPanel();
+        jTabbedPane3 = new javax.swing.JTabbedPane();
+        jPanel25 = new javax.swing.JPanel();
+        txtFiltroNombre_Lateral = new org.jdesktop.swingx.JXSearchField();
+        jLabel112 = new javax.swing.JLabel();
+        jScrollPane28 = new javax.swing.JScrollPane();
+        jtLateral_Adm = new javax.swing.JTable();
+        jPanel33 = new javax.swing.JPanel();
+        jLabel114 = new javax.swing.JLabel();
+        txtNombre_Lateral = new javax.swing.JTextField();
+        jLabel113 = new javax.swing.JLabel();
+        btnGuardar7 = new javax.swing.JButton();
+        btnCancelar7 = new javax.swing.JButton();
+        jPanel27 = new javax.swing.JPanel();
+        jLabel115 = new javax.swing.JLabel();
+        jPanel34 = new javax.swing.JPanel();
+        jLabel116 = new javax.swing.JLabel();
+        txtNombre_SubLateral = new javax.swing.JTextField();
+        btnGuardar8 = new javax.swing.JButton();
+        btnCancelar8 = new javax.swing.JButton();
+        jLabel117 = new javax.swing.JLabel();
+        txtFiltroNombre_SubLateral = new org.jdesktop.swingx.JXSearchField();
+        jScrollPane27 = new javax.swing.JScrollPane();
+        jtSubLateral_Adm = new javax.swing.JTable();
+        jpmLateral = new javax.swing.JPopupMenu();
+        jimQuitarLateral = new javax.swing.JMenuItem();
+        jpmSubLateral = new javax.swing.JPopupMenu();
+        jmiSubLateral = new javax.swing.JMenuItem();
         jpInicio = new javax.swing.JPanel();
         jdeskpanInicio = new javax.swing.JDesktopPane();
         jmbPrincipal = new javax.swing.JMenuBar();
@@ -1127,6 +1174,7 @@ public class Inicio extends javax.swing.JFrame {
         jmiCargos = new javax.swing.JMenuItem();
         jmiComite = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         jifConstancia.setBackground(new java.awt.Color(225, 253, 203));
         jifConstancia.setClosable(true);
@@ -2101,7 +2149,7 @@ public class Inicio extends javax.swing.JFrame {
                         .addContainerGap(153, Short.MAX_VALUE))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 335, Short.MAX_VALUE)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE)
                         .addContainerGap())))
         );
 
@@ -3978,6 +4026,7 @@ public class Inicio extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jtModalComite_Constancia.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jtModalComite_Constancia.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jtModalComite_ConstanciaMouseClicked(evt);
@@ -4306,6 +4355,7 @@ public class Inicio extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jtModalAgricultorNuevo_Traspaso.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jtModalAgricultorNuevo_Traspaso.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jtModalAgricultorNuevo_TraspasoMouseClicked(evt);
@@ -4387,6 +4437,7 @@ public class Inicio extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jtModalAgricultor_Alquiler.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jtModalAgricultor_Alquiler.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jtModalAgricultor_AlquilerMouseClicked(evt);
@@ -4628,6 +4679,7 @@ public class Inicio extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jtModalLateral_Traspaso.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jtModalLateral_Traspaso.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jtModalLateral_TraspasoMouseClicked(evt);
@@ -4736,6 +4788,7 @@ public class Inicio extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jtCuentas.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane23.setViewportView(jtCuentas);
 
         jLabel99.setBackground(new java.awt.Color(225, 253, 203));
@@ -5089,6 +5142,7 @@ public class Inicio extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jtLista_Usuario.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane22.setViewportView(jtLista_Usuario);
 
         txtFiltro_Usuario.setToolTipText("");
@@ -5472,6 +5526,7 @@ public class Inicio extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jtComite_Administracion.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane25.setViewportView(jtComite_Administracion);
 
         jLabel111.setBackground(new java.awt.Color(0, 153, 153));
@@ -5846,6 +5901,372 @@ public class Inicio extends javax.swing.JFrame {
                 .addContainerGap(21, Short.MAX_VALUE))
         );
 
+        jifLateral_SubLateral_Adm.setClosable(true);
+        jifLateral_SubLateral_Adm.setIconifiable(true);
+        jifLateral_SubLateral_Adm.setResizable(true);
+        jifLateral_SubLateral_Adm.setVisible(true);
+
+        jPanel24.setBackground(new java.awt.Color(225, 253, 203));
+
+        jTabbedPane3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+
+        jPanel25.setBackground(new java.awt.Color(225, 253, 203));
+
+        txtFiltroNombre_Lateral.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtFiltroNombre_LateralKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtFiltroNombre_LateralKeyTyped(evt);
+            }
+        });
+
+        jLabel112.setBackground(new java.awt.Color(0, 153, 153));
+        jLabel112.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel112.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel112.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel112.setText("LISTA DE LATERALES");
+        jLabel112.setOpaque(true);
+
+        jtLateral_Adm.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "ID", "Lateral", "Estado"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jtLateral_Adm.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jtLateral_Adm.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtLateral_AdmMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jtLateral_AdmMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jtLateral_AdmMouseReleased(evt);
+            }
+        });
+        jScrollPane28.setViewportView(jtLateral_Adm);
+
+        jPanel33.setBackground(new java.awt.Color(195, 233, 164));
+
+        jLabel114.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel114.setText("Lateral:");
+
+        txtNombre_Lateral.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtNombre_Lateral.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtNombre_Lateral.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombre_LateralActionPerformed(evt);
+            }
+        });
+        txtNombre_Lateral.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombre_LateralKeyTyped(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel33Layout = new javax.swing.GroupLayout(jPanel33);
+        jPanel33.setLayout(jPanel33Layout);
+        jPanel33Layout.setHorizontalGroup(
+            jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 446, Short.MAX_VALUE)
+            .addGroup(jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel33Layout.createSequentialGroup()
+                    .addGap(19, 19, 19)
+                    .addComponent(jLabel114)
+                    .addGap(25, 25, 25)
+                    .addComponent(txtNombre_Lateral)
+                    .addGap(20, 20, 20)))
+        );
+        jPanel33Layout.setVerticalGroup(
+            jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 59, Short.MAX_VALUE)
+            .addGroup(jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel33Layout.createSequentialGroup()
+                    .addGap(18, 18, 18)
+                    .addGroup(jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel114)
+                        .addComponent(txtNombre_Lateral, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap(18, Short.MAX_VALUE)))
+        );
+
+        jLabel113.setBackground(new java.awt.Color(225, 253, 203));
+        jLabel113.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel113.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel113.setText("REGISTRO DE LATERALES");
+        jLabel113.setOpaque(true);
+
+        btnGuardar7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnGuardar7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/Save.png"))); // NOI18N
+        btnGuardar7.setText("GUARDAR");
+        btnGuardar7.setIconTextGap(8);
+        btnGuardar7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardar7ActionPerformed(evt);
+            }
+        });
+
+        btnCancelar7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnCancelar7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/cancelar.png"))); // NOI18N
+        btnCancelar7.setText("CANCELAR");
+        btnCancelar7.setIconTextGap(8);
+
+        javax.swing.GroupLayout jPanel25Layout = new javax.swing.GroupLayout(jPanel25);
+        jPanel25.setLayout(jPanel25Layout);
+        jPanel25Layout.setHorizontalGroup(
+            jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel25Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel112, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane28, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtFiltroNombre_Lateral, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel113, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel25Layout.createSequentialGroup()
+                        .addComponent(jPanel33, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                        .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnGuardar7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnCancelar7, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE))
+                        .addGap(35, 35, 35)))
+                .addContainerGap())
+        );
+        jPanel25Layout.setVerticalGroup(
+            jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel25Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel113, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15)
+                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel25Layout.createSequentialGroup()
+                        .addComponent(btnGuardar7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCancelar7, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel33, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel112, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(txtFiltroNombre_Lateral, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane28, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jTabbedPane3.addTab("LATERAL", jPanel25);
+
+        jPanel27.setBackground(new java.awt.Color(225, 253, 203));
+
+        jLabel115.setBackground(new java.awt.Color(225, 253, 203));
+        jLabel115.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel115.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel115.setText("REGISTRO DE SUB-LATERALES");
+        jLabel115.setOpaque(true);
+
+        jPanel34.setBackground(new java.awt.Color(195, 233, 164));
+
+        jLabel116.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel116.setText("Sub-Lateral:");
+
+        txtNombre_SubLateral.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtNombre_SubLateral.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtNombre_SubLateral.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombre_SubLateralActionPerformed(evt);
+            }
+        });
+        txtNombre_SubLateral.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombre_SubLateralKeyTyped(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel34Layout = new javax.swing.GroupLayout(jPanel34);
+        jPanel34.setLayout(jPanel34Layout);
+        jPanel34Layout.setHorizontalGroup(
+            jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 446, Short.MAX_VALUE)
+            .addGroup(jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel34Layout.createSequentialGroup()
+                    .addGap(19, 19, 19)
+                    .addComponent(jLabel116)
+                    .addGap(25, 25, 25)
+                    .addComponent(txtNombre_SubLateral)
+                    .addGap(20, 20, 20)))
+        );
+        jPanel34Layout.setVerticalGroup(
+            jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 59, Short.MAX_VALUE)
+            .addGroup(jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel34Layout.createSequentialGroup()
+                    .addGap(18, 18, 18)
+                    .addGroup(jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel116)
+                        .addComponent(txtNombre_SubLateral, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap(18, Short.MAX_VALUE)))
+        );
+
+        btnGuardar8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnGuardar8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/Save.png"))); // NOI18N
+        btnGuardar8.setText("GUARDAR");
+        btnGuardar8.setIconTextGap(8);
+        btnGuardar8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardar8ActionPerformed(evt);
+            }
+        });
+
+        btnCancelar8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnCancelar8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/cancelar.png"))); // NOI18N
+        btnCancelar8.setText("CANCELAR");
+        btnCancelar8.setIconTextGap(8);
+
+        jLabel117.setBackground(new java.awt.Color(0, 153, 153));
+        jLabel117.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel117.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel117.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel117.setText("LISTA DE SUB-LATERALES");
+        jLabel117.setOpaque(true);
+
+        txtFiltroNombre_SubLateral.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtFiltroNombre_SubLateralKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtFiltroNombre_SubLateralKeyTyped(evt);
+            }
+        });
+
+        jtSubLateral_Adm.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "ID", "Sub Lateral", "Estado"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jtSubLateral_Adm.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jtSubLateral_Adm.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jtSubLateral_AdmMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jtSubLateral_AdmMouseReleased(evt);
+            }
+        });
+        jScrollPane27.setViewportView(jtSubLateral_Adm);
+
+        javax.swing.GroupLayout jPanel27Layout = new javax.swing.GroupLayout(jPanel27);
+        jPanel27.setLayout(jPanel27Layout);
+        jPanel27Layout.setHorizontalGroup(
+            jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel27Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel117, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtFiltroNombre_SubLateral, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel115, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel27Layout.createSequentialGroup()
+                        .addComponent(jPanel34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                        .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnGuardar8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnCancelar8, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE))
+                        .addGap(35, 35, 35))
+                    .addComponent(jScrollPane27))
+                .addContainerGap())
+        );
+        jPanel27Layout.setVerticalGroup(
+            jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel27Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel115, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15)
+                .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel27Layout.createSequentialGroup()
+                        .addComponent(btnGuardar8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCancelar8, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel117, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(txtFiltroNombre_SubLateral, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane27, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(236, 236, 236))
+        );
+
+        jTabbedPane3.addTab("SUBLATERAL", jPanel27);
+
+        javax.swing.GroupLayout jPanel24Layout = new javax.swing.GroupLayout(jPanel24);
+        jPanel24.setLayout(jPanel24Layout);
+        jPanel24Layout.setHorizontalGroup(
+            jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel24Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTabbedPane3)
+                .addContainerGap())
+        );
+        jPanel24Layout.setVerticalGroup(
+            jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel24Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTabbedPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jifLateral_SubLateral_AdmLayout = new javax.swing.GroupLayout(jifLateral_SubLateral_Adm.getContentPane());
+        jifLateral_SubLateral_Adm.getContentPane().setLayout(jifLateral_SubLateral_AdmLayout);
+        jifLateral_SubLateral_AdmLayout.setHorizontalGroup(
+            jifLateral_SubLateral_AdmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel24, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jifLateral_SubLateral_AdmLayout.setVerticalGroup(
+            jifLateral_SubLateral_AdmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel24, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        jimQuitarLateral.setText("Quitar Lateral");
+        jimQuitarLateral.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jimQuitarLateralActionPerformed(evt);
+            }
+        });
+        jpmLateral.add(jimQuitarLateral);
+
+        jmiSubLateral.setText("Quitar Sub Lateral");
+        jmiSubLateral.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiSubLateralActionPerformed(evt);
+            }
+        });
+        jpmSubLateral.add(jmiSubLateral);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Sistema de Cobranza Comisión de Usuarios Perla del Huallaga");
         setIconImage(new ImageIcon(getClass().getResource("/recurso/comision_logo.jpg")).getImage());
@@ -6060,6 +6481,14 @@ public class Inicio extends javax.swing.JFrame {
         jMenuItem9.setText("DOCUMENTO");
         jmAdministracion.add(jMenuItem9);
 
+        jMenuItem1.setText("LALTERAL/SUBLATERAL");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jmAdministracion.add(jMenuItem1);
+
         jmbPrincipal.add(jmAdministracion);
 
         setJMenuBar(jmbPrincipal);
@@ -6109,7 +6538,7 @@ public class Inicio extends javax.swing.JFrame {
         getcombo_agricultor_antiguos();
         getcombo_agricultor_nuevos();
         get_lateral_all();
-        get_sublatreles_all();
+        get_sublatreles_all("");
         iniciarFomrulario_Traspaso(jifTraspaso);
     }//GEN-LAST:event_jmiTraspasoActionPerformed
 
@@ -6126,8 +6555,8 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_jmiUsuarioActionPerformed
 
     private void jmiAgricultorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAgricultorActionPerformed
-        get_latreles_all();
-        get_sublatreles_all();
+        get_lateral_all();
+        get_sublatreles_all("");
         gettabla_agricultor_all("", 1);
         iniciarFomrulario_Agricultor(jifAgricultores);
     }//GEN-LAST:event_jmiAgricultorActionPerformed
@@ -6371,9 +6800,9 @@ public class Inicio extends javax.swing.JFrame {
                     && txtNuevoAgricultor_Traspaso.getText().compareTo("") != 0) {
                 BLTraspaso t = new BLTraspaso();
                 int cant = Integer.parseInt(txtCantidadHectaria_Traspaso.getText());
-                boolean resultado = t.RegistrarTraspaso(idNuevoAgricultor_Traspaso, 1, cant, idAgri_Traspaso, idLat_Traspaso, 
-                            ((Lateral)cboLateral_Traspaso.getSelectedItem()).getInt_id(),
-                            ((SubLateral)cboSubLateral_Traspaso.getSelectedItem()).getInt_id(),
+                boolean resultado = t.RegistrarTraspaso(idNuevoAgricultor_Traspaso, 1, cant, idAgri_Traspaso, idLat_Traspaso,
+                        ((Lateral) cboLateral_Traspaso.getSelectedItem()).getInt_id(),
+                        ((SubLateral) cboSubLateral_Traspaso.getSelectedItem()).getInt_id(),
                         //txtNuevoSubLateral_Traspaso.getText(),
                         Double.parseDouble(txtNuevoConMedida_Traspaso.getText()), Double.parseDouble(txtNuevoSinMedida_Traspaso.getText()),
                         txtObservacion_Traspaso.getText(), txtNumDocumento_Traspaso.getText());
@@ -6696,7 +7125,7 @@ public class Inicio extends javax.swing.JFrame {
                     && (cboLateral_Agricultor.getSelectedItem().toString()).compareTo("") != 0 && (cboSubLateral_Agricultor.getSelectedItem().toString()).compareTo("") != 0) {
                 DefaultTableModel temporal = (DefaultTableModel) jtDetalleLaterales_Agricultor.getModel();
                 Object datos[] = {
-                    0,
+                    ((Lateral) cboLateral_Agricultor.getSelectedItem()).getInt_id(),
                     cboLateral_Agricultor.getSelectedItem().toString(),
                     cboSubLateral_Agricultor.getSelectedItem().toString(),
                     txtSinMedida_Agricultor.getText(),
@@ -6738,8 +7167,8 @@ public class Inicio extends javax.swing.JFrame {
                 int nroFilas = ((DefaultTableModel) jtDetalleLaterales_Agricultor.getModel()).getRowCount();
                 for (int f = 0; f < nroFilas; f++) {
                     ListaLateral l = new ListaLateral();
-                    l.setInt_id(Integer.parseInt(jtDetalleLaterales_Agricultor.getModel().getValueAt(f, 0).toString()));
-                    l.setIdlateral(1);
+                    //l.setInt_id(Integer.parseInt(jtDetalleLaterales_Agricultor.getModel().getValueAt(f, 0).toString()));
+                    l.setIdlateral(Integer.parseInt(jtDetalleLaterales_Agricultor.getModel().getValueAt(f, 0).toString()));
                     l.setIdsublateral(1);
                     l.setDec_sinmedida(Double.parseDouble(jtDetalleLaterales_Agricultor.getModel().getValueAt(f, 3).toString()));
                     l.setDec_conmedida(Double.parseDouble(jtDetalleLaterales_Agricultor.getModel().getValueAt(f, 4).toString()));
@@ -6970,7 +7399,7 @@ public class Inicio extends javax.swing.JFrame {
             txtNuevoConMedida_Traspaso.setEnabled(true);
             txtNuevoSinMedida_Traspaso.setEnabled(true);
             txtObservacion_Traspaso.setEnabled(true);
-            
+
         } catch (Exception e) {
             System.out.println("" + e.toString());
         } finally {
@@ -7000,7 +7429,7 @@ public class Inicio extends javax.swing.JFrame {
             c = new BLCuenta().get_cuentamonto_all(Double.parseDouble(hec));
             txtMontoComision_Constancia.setText(String.valueOf(c.getMontocomision()));
             txtMontoJunta_Constancia.setText(String.valueOf(c.getMontojunta()));
-            txtTotal_Constancia.setText(String.valueOf(c.getMontocomision()+c.getMontojunta()));
+            txtTotal_Constancia.setText(String.valueOf(c.getMontocomision() + c.getMontojunta()));
         } catch (Exception e) {
             System.out.println("" + e.getMessage());
         } finally {
@@ -7141,6 +7570,7 @@ public class Inicio extends javax.swing.JFrame {
             objcumon = c.get_cuentamonto_all(Double.parseDouble(txtHectareas_Constancia.getText()));
             txtMontoComision_Constancia.setText(String.valueOf(objcumon.getMontocomision()));
             txtMontoJunta_Constancia.setText(String.valueOf(objcumon.getMontojunta()));
+            txtTotal_Constancia.setText(String.valueOf(objcumon.getMontocomision() + objcumon.getMontojunta()));
         } catch (Exception e) {
             System.out.println("Error de Calculo" + e.getMessage());
             e.printStackTrace();
@@ -7182,10 +7612,10 @@ public class Inicio extends javax.swing.JFrame {
         if (txtNombres_Agricultor.getText().length() == 30) {
             evt.consume();
         }
-         String text = (txtNombres_Agricultor.getText()).toUpperCase();
+        String text = (txtNombres_Agricultor.getText()).toUpperCase();
         txtNombres_Agricultor.setText(text);
         repaint();
-        
+
     }//GEN-LAST:event_txtNombres_AgricultorKeyTyped
 
     private void txtApePaterno_AgricultorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApePaterno_AgricultorKeyTyped
@@ -7193,7 +7623,7 @@ public class Inicio extends javax.swing.JFrame {
         if (txtApePaterno_Agricultor.getText().length() == 30) {
             evt.consume();
         }
-         String text = (txtApePaterno_Agricultor.getText()).toUpperCase();
+        String text = (txtApePaterno_Agricultor.getText()).toUpperCase();
         txtApePaterno_Agricultor.setText(text);
         repaint();
     }//GEN-LAST:event_txtApePaterno_AgricultorKeyTyped
@@ -7203,7 +7633,7 @@ public class Inicio extends javax.swing.JFrame {
         if (txtApeMaterno_Agricultor.getText().length() == 30) {
             evt.consume();
         }
-         String text = (txtApeMaterno_Agricultor.getText()).toUpperCase();
+        String text = (txtApeMaterno_Agricultor.getText()).toUpperCase();
         txtApeMaterno_Agricultor.setText(text);
         repaint();
     }//GEN-LAST:event_txtApeMaterno_AgricultorKeyTyped
@@ -7586,13 +8016,13 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void txtObservacion_TraspasoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtObservacion_TraspasoKeyTyped
-       String text = (txtObservacion_Traspaso.getText()).toUpperCase();
+        String text = (txtObservacion_Traspaso.getText()).toUpperCase();
         txtObservacion_Traspaso.setText(text);
         repaint();
     }//GEN-LAST:event_txtObservacion_TraspasoKeyTyped
 
     private void txtNuevoAgricultor_TraspasoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNuevoAgricultor_TraspasoKeyTyped
-       
+
     }//GEN-LAST:event_txtNuevoAgricultor_TraspasoKeyTyped
 
     private void cboAntiguoAgricultor_TraspasoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cboAntiguoAgricultor_TraspasoKeyTyped
@@ -7658,7 +8088,7 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_txtModalLateral_ConstanciaKeyTyped
 
     private void txtModalAgricultor_TraspasoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtModalAgricultor_TraspasoKeyTyped
-       String text = (txtModalAgricultor_Traspaso.getText()).toUpperCase();
+        String text = (txtModalAgricultor_Traspaso.getText()).toUpperCase();
         txtModalAgricultor_Traspaso.setText(text);
         repaint();
     }//GEN-LAST:event_txtModalAgricultor_TraspasoKeyTyped
@@ -7709,6 +8139,171 @@ public class Inicio extends javax.swing.JFrame {
         repaint();
     }//GEN-LAST:event_txtFiltroComite_AdministracionKeyTyped
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        gettable_getlateral_all("");
+        get_sublatreles_all("");
+        iniciarFomrulario_lateralsublateral(jifLateral_SubLateral_Adm);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void btnGuardar7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardar7ActionPerformed
+        try {
+            if (txtNombre_Lateral.getText().compareTo("") != 0) {
+                boolean resultado = false;
+                BLLateral l = new BLLateral();
+                resultado = l.Registrar(txtNombre_Lateral.getText());
+                if (resultado == true) {
+                    txtNombre_Lateral.setText("");
+                    limpiarTabla(jtLateral_Adm);
+                    gettable_getlateral_all("");
+                    JOptionPane.showMessageDialog(null, "Se Registro Correctamente", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se Pudo Registrar", "Altera", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "No se Admiten Campos Vacios", "Altera", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error de Ingreso Vista" + e.getMessage());
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnGuardar7ActionPerformed
+
+    private void txtNombre_LateralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombre_LateralActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombre_LateralActionPerformed
+
+    private void txtNombre_LateralKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombre_LateralKeyTyped
+        String text = (txtNombre_Lateral.getText()).toUpperCase();
+        txtNombre_Lateral.setText(text);
+        repaint();
+    }//GEN-LAST:event_txtNombre_LateralKeyTyped
+
+    private void txtFiltroNombre_LateralKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroNombre_LateralKeyReleased
+        gettable_getlateral_all(txtFiltroNombre_Lateral.getText());
+    }//GEN-LAST:event_txtFiltroNombre_LateralKeyReleased
+
+    private void txtFiltroNombre_LateralKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroNombre_LateralKeyTyped
+        String text = (txtFiltroNombre_Lateral.getText()).toUpperCase();
+        txtFiltroNombre_Lateral.setText(text);
+        repaint();
+    }//GEN-LAST:event_txtFiltroNombre_LateralKeyTyped
+
+    private void jtLateral_AdmMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtLateral_AdmMouseClicked
+
+    }//GEN-LAST:event_jtLateral_AdmMouseClicked
+
+    private void jtLateral_AdmMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtLateral_AdmMousePressed
+        if (evt.isPopupTrigger() && jtLateral_Adm.getModel().getRowCount() != 0
+                && jtLateral_Adm.getSelectedRow() != -1) {
+            jpmLateral.show(jtLateral_Adm, evt.getX(), evt.getY());
+        }
+    }//GEN-LAST:event_jtLateral_AdmMousePressed
+
+    private void jtLateral_AdmMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtLateral_AdmMouseReleased
+        if (evt.isPopupTrigger() && jtLateral_Adm.getModel().getRowCount() != 0
+                && jtLateral_Adm.getSelectedRow() != -1) {
+            jpmLateral.show(jtLateral_Adm, evt.getX(), evt.getY());
+        }
+    }//GEN-LAST:event_jtLateral_AdmMouseReleased
+
+    private void jimQuitarLateralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jimQuitarLateralActionPerformed
+        try {
+            int fila = jtLateral_Adm.getSelectedRow();
+            if (fila != -1) {
+                BLLateral l = new BLLateral();
+                boolean resultado = false;
+                resultado = l.QuitarLateral(Integer.parseInt(jtLateral_Adm.getValueAt(fila, 0).toString()));
+                if (resultado == true) {
+                    limpiarTabla(jtLateral_Adm);
+                    gettable_getlateral_all("");
+                    JOptionPane.showMessageDialog(null, "Lateral Inactivo", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se Pudo Desactivar el Lateral", "Mensaje", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Debes Seleccionar Una Fila", "Mensaje", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
+            System.out.println("Error de Quitar Lateral " + e.getMessage());
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jimQuitarLateralActionPerformed
+
+    private void txtNombre_SubLateralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombre_SubLateralActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombre_SubLateralActionPerformed
+
+    private void txtNombre_SubLateralKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombre_SubLateralKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombre_SubLateralKeyTyped
+
+    private void btnGuardar8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardar8ActionPerformed
+        try {
+            if (txtNombre_SubLateral.getText().compareTo("")!=0) {
+                BLLateral l = new BLLateral();
+                boolean resultado = false;
+                resultado = l.Registrar_SubLateral(txtNombre_SubLateral.getText());
+                if (resultado == true) {
+                    txtNombre_SubLateral.setText("");
+                    limpiarTabla(jtSubLateral_Adm);
+                    get_sublatreles_all("");
+                    JOptionPane.showMessageDialog(null, "Se Registro Correctamente", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "No se Admiten Campos Vacios","Alerta",JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
+            System.out.println("Error de Ingreso SubLateral" + e.getMessage());
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnGuardar8ActionPerformed
+
+    private void txtFiltroNombre_SubLateralKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroNombre_SubLateralKeyReleased
+        get_sublatreles_all(txtFiltroNombre_SubLateral.getText());
+    }//GEN-LAST:event_txtFiltroNombre_SubLateralKeyReleased
+
+    private void txtFiltroNombre_SubLateralKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroNombre_SubLateralKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFiltroNombre_SubLateralKeyTyped
+
+    private void jtSubLateral_AdmMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtSubLateral_AdmMousePressed
+         if (evt.isPopupTrigger() && jtSubLateral_Adm.getModel().getRowCount() != 0
+                && jtSubLateral_Adm.getSelectedRow() != -1) {
+            jpmSubLateral.show(jtSubLateral_Adm, evt.getX(), evt.getY());
+        }
+    }//GEN-LAST:event_jtSubLateral_AdmMousePressed
+
+    private void jtSubLateral_AdmMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtSubLateral_AdmMouseReleased
+         if (evt.isPopupTrigger() && jtSubLateral_Adm.getModel().getRowCount() != 0
+                && jtSubLateral_Adm.getSelectedRow() != -1) {
+            jpmSubLateral.show(jtSubLateral_Adm, evt.getX(), evt.getY());
+        }
+    }//GEN-LAST:event_jtSubLateral_AdmMouseReleased
+
+    private void jmiSubLateralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiSubLateralActionPerformed
+        try {
+            int fila = jtSubLateral_Adm.getSelectedRow();
+            if (fila != -1) {
+                BLLateral l = new BLLateral();
+                boolean resultado = false;
+                resultado = l.QuitarSubLateral(Integer.parseInt(jtSubLateral_Adm.getValueAt(fila, 0).toString()));
+                if (resultado == true) {
+                    limpiarTabla(jtSubLateral_Adm);
+                    get_sublatreles_all("");
+                    JOptionPane.showMessageDialog(null, "Sub Lateral Inactivo", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se Pudo Desactivar el Sub-Lateral", "Mensaje", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Debes Seleccionar Una Fila", "Mensaje", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
+            System.out.println("Error de Quitar Sub-Lateral " + e.getMessage());
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jmiSubLateralActionPerformed
+
     /*METODOS PARA MOSTRAR EL FORMULARIO*/
     public void modalvalidacion_constancia() {
         jdValidacion_Constancia.pack();
@@ -7758,6 +8353,21 @@ public class Inicio extends javax.swing.JFrame {
     public void iniciarFomrulario(JInternalFrame jif) {
         try {
             jif.setSize(1014, 650);
+            jdeskpanInicio.add(jif);
+            //jif.setMaximum(true);
+            jif.setVisible(true);
+            int x = (jdeskpanInicio.getWidth() / 2) - (jif.getWidth() / 2);
+            int y = (jdeskpanInicio.getHeight() / 2) - (jif.getHeight() / 2);
+            jif.setLocation(x, y);
+        } catch (Exception e) {
+            System.out.println("" + e.toString());
+            System.out.println("" + e.getMessage());
+        }
+    }
+
+    public void iniciarFomrulario_lateralsublateral(JInternalFrame jif) {
+        try {
+            jif.setSize(700, 500);
             jdeskpanInicio.add(jif);
             //jif.setMaximum(true);
             jif.setVisible(true);
@@ -8002,11 +8612,15 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnCancelar5;
     private javax.swing.JButton btnCancelar6;
+    private javax.swing.JButton btnCancelar7;
+    private javax.swing.JButton btnCancelar8;
     private javax.swing.JButton btnEliminarDet_Alquiler;
     private javax.swing.JButton btnEliminar_DetLateales;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnGuardar5;
     private javax.swing.JButton btnGuardar6;
+    private javax.swing.JButton btnGuardar7;
+    private javax.swing.JButton btnGuardar8;
     private javax.swing.JButton btnGuardar_Comite;
     private javax.swing.ButtonGroup btnTipodeSembrio;
     private javax.swing.JButton btn_Buscar_Traspaso;
@@ -8090,6 +8704,12 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel110;
     private javax.swing.JLabel jLabel111;
+    private javax.swing.JLabel jLabel112;
+    private javax.swing.JLabel jLabel113;
+    private javax.swing.JLabel jLabel114;
+    private javax.swing.JLabel jLabel115;
+    private javax.swing.JLabel jLabel116;
+    private javax.swing.JLabel jLabel117;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -8187,6 +8807,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel98;
     private javax.swing.JLabel jLabel99;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
@@ -8204,11 +8825,16 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel21;
     private javax.swing.JPanel jPanel22;
     private javax.swing.JPanel jPanel23;
+    private javax.swing.JPanel jPanel24;
+    private javax.swing.JPanel jPanel25;
     private javax.swing.JPanel jPanel26;
+    private javax.swing.JPanel jPanel27;
     private javax.swing.JPanel jPanel28;
     private javax.swing.JPanel jPanel29;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel31;
+    private javax.swing.JPanel jPanel33;
+    private javax.swing.JPanel jPanel34;
     private javax.swing.JPanel jPanel39;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel41;
@@ -8241,6 +8867,8 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane24;
     private javax.swing.JScrollPane jScrollPane25;
     private javax.swing.JScrollPane jScrollPane26;
+    private javax.swing.JScrollPane jScrollPane27;
+    private javax.swing.JScrollPane jScrollPane28;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
@@ -8252,6 +8880,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTabbedPane jTabbedPane10;
     private javax.swing.JTabbedPane jTabbedPane2;
+    private javax.swing.JTabbedPane jTabbedPane3;
     private javax.swing.JTabbedPane jTabbedPane4;
     private javax.swing.JTabbedPane jTabbedPane7;
     private org.jdesktop.swingx.JXComboBox jXComboBox1;
@@ -8277,6 +8906,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JInternalFrame jifDocumento;
     private javax.swing.JInternalFrame jifIngresarAlquiler;
     private javax.swing.JInternalFrame jifInicioCierreCaja;
+    private javax.swing.JInternalFrame jifLateral_SubLateral_Adm;
     private javax.swing.JInternalFrame jifMovimientos;
     private javax.swing.JInternalFrame jifMultaAsamblea;
     private javax.swing.JInternalFrame jifMultaSufragio;
@@ -8285,6 +8915,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JInternalFrame jifTraspaso;
     private javax.swing.JInternalFrame jifUsuario;
     private javax.swing.JInternalFrame jifVerPagos;
+    private javax.swing.JMenuItem jimQuitarLateral;
     private javax.swing.JMenu jmAdministracion;
     private javax.swing.JMenu jmCaja;
     private javax.swing.JMenu jmConstancia;
@@ -8307,6 +8938,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmiPeriodo;
     private javax.swing.JMenuItem jmiRegistro;
     private javax.swing.JMenuItem jmiSalir;
+    private javax.swing.JMenuItem jmiSubLateral;
     private javax.swing.JMenuItem jmiTraspaso;
     private javax.swing.JMenuItem jmiUsuario;
     private javax.swing.JMenuItem jmiVerPagos;
@@ -8329,6 +8961,8 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JPanel jpUsurio;
     private javax.swing.JPanel jpVerPagos;
     private javax.swing.JPopupMenu jpmAgricultor;
+    private javax.swing.JPopupMenu jpmLateral;
+    private javax.swing.JPopupMenu jpmSubLateral;
     private javax.swing.JPopupMenu jpmVerPagos;
     private javax.swing.JRadioButton jrbAgricultor_VerPagos;
     private javax.swing.JRadioButton jrbDni_VerPagos;
@@ -8339,6 +8973,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JTable jtComite_Administracion;
     private javax.swing.JTable jtCuentas;
     private javax.swing.JTable jtDetalleLaterales_Agricultor;
+    private javax.swing.JTable jtLateral_Adm;
     private javax.swing.JTable jtLista_Alquileres;
     private javax.swing.JTable jtLista_Usuario;
     private javax.swing.JTable jtModalAgricultorNuevo_Traspaso;
@@ -8349,6 +8984,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JTable jtModalLateral_Constancia;
     private javax.swing.JTable jtModalLateral_Traspaso;
     private javax.swing.JTable jtPeriodo_All;
+    private javax.swing.JTable jtSubLateral_Adm;
     private javax.swing.JTable jtTraspaso;
     private javax.swing.JTable jtVerPagos;
     private javax.swing.JTabbedPane jtbAlquiler;
@@ -8396,6 +9032,8 @@ public class Inicio extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser txtFiltroFin_Constancia;
     private com.toedter.calendar.JDateChooser txtFiltroInicio_Constancia;
     private org.jdesktop.swingx.JXSearchField txtFiltroNombre_Cuenta2;
+    private org.jdesktop.swingx.JXSearchField txtFiltroNombre_Lateral;
+    private org.jdesktop.swingx.JXSearchField txtFiltroNombre_SubLateral;
     private org.jdesktop.swingx.JXSearchField txtFiltro_Periodo;
     private org.jdesktop.swingx.JXSearchField txtFiltro_Usuario;
     private javax.swing.JTextField txtHectareas_Constancia;
@@ -8420,7 +9058,9 @@ public class Inicio extends javax.swing.JFrame {
     private org.jdesktop.swingx.JXTextField txtMonto_Movimiento;
     private javax.swing.JTextField txtMonto_Pago;
     private javax.swing.JTextField txtNombre_Cuentas;
+    private javax.swing.JTextField txtNombre_Lateral;
     private javax.swing.JTextField txtNombre_Periodo;
+    private javax.swing.JTextField txtNombre_SubLateral;
     private javax.swing.JTextField txtNombres_Agricultor;
     private javax.swing.JTextField txtNroComprobante_Movimiento;
     private javax.swing.JTextField txtNroHectares_Traspaso;

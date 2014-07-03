@@ -32,22 +32,83 @@ public class BLLateral {
         ArrayList<Lateral> listLateral = new ArrayList<Lateral>();
         try {
             BDLateral lateral = new BDLateral();
-            listLateral = lateral.get_lateral_all();
+            listLateral = lateral.get_lateral_all(" var_estado='1' ");
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Error de Listar LateraL_ByActivoCliente" + e.getMessage());
         }
         return listLateral;
     }
-    public ArrayList<SubLateral> get_sublateral_all() {
-        ArrayList<SubLateral> listLateral = new ArrayList<SubLateral>();
+    public ArrayList<Lateral> gettabla_lateral_all(String palabra) {
+        ArrayList<Lateral> listLateral = new ArrayList<Lateral>();
         try {
             BDLateral lateral = new BDLateral();
-            listLateral = lateral.get_sublateral_all();
+            listLateral = lateral.gettabla_lateral_all(" var_estado='1' and var_descripcion like '%" + palabra + "%'");
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Error de Listar LateraL_ByActivoCliente" + e.getMessage());
         }
         return listLateral;
+    }
+    public ArrayList<SubLateral> get_sublateral_all(String condicion) {
+        ArrayList<SubLateral> listLateral = new ArrayList<SubLateral>();
+        try {
+            BDLateral lateral = new BDLateral();
+            listLateral = lateral.get_sublateral_all(" var_estado='1' and var_descripcion like '%" + condicion + "%' ");
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error de Listar LateraL_ByActivoCliente" + e.getMessage());
+        }
+        return listLateral;
+    }
+    public boolean Registrar(String descripcion)throws Exception{
+        boolean resultado=false;
+        try {
+            BDLateral la=new BDLateral();
+            Lateral lateral=new Lateral();
+            lateral.setVar_descripcion(descripcion);
+            resultado=la.Registrar(lateral);
+        } 
+        catch (Exception e) {
+            System.out.println("Error de Ingreso"+e.getMessage());
+            e.printStackTrace();
+        }
+        return resultado;
+    }
+    public boolean QuitarLateral(int id)throws Exception{
+        boolean resultado=false;
+        try {
+            BDLateral l=new BDLateral();
+            resultado=l.QuitarLateral(id);
+        } 
+        catch (Exception e) {
+            System.out.println("Error de Edicion");
+            e.printStackTrace();
+        }
+        return resultado;
+    }
+    public boolean Registrar_SubLateral(String descripcion)throws Exception{
+        boolean resultado=false;
+        try {
+            BDLateral l=new BDLateral();
+            resultado=l.Registrar_SubLateral(descripcion);
+        } 
+        catch (Exception e) {
+            System.out.println("Error de Ingreso SubLateral "+e.getMessage());
+            e.printStackTrace();
+        }
+        return resultado;
+    }
+    public boolean QuitarSubLateral(int id)throws Exception{
+        boolean resultado=false;
+        try {
+            BDLateral l=new BDLateral();
+            resultado=l.QuitarSubLateral(id);
+        } 
+        catch (Exception e) {
+            System.out.println("Error de Edicion");
+            e.printStackTrace();
+        }
+        return resultado;
     }
 }
