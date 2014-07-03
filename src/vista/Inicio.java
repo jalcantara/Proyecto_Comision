@@ -1145,6 +1145,13 @@ public class Inicio extends javax.swing.JFrame {
         jimQuitarLateral = new javax.swing.JMenuItem();
         jpmSubLateral = new javax.swing.JPopupMenu();
         jmiSubLateral = new javax.swing.JMenuItem();
+        jifMateriales = new javax.swing.JInternalFrame();
+        jPanel30 = new javax.swing.JPanel();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel32 = new javax.swing.JPanel();
+        jScrollPane30 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
+        jPanel35 = new javax.swing.JPanel();
         jpInicio = new javax.swing.JPanel();
         jdeskpanInicio = new javax.swing.JDesktopPane();
         jmbPrincipal = new javax.swing.JMenuBar();
@@ -1175,6 +1182,7 @@ public class Inicio extends javax.swing.JFrame {
         jmiComite = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         jifConstancia.setBackground(new java.awt.Color(225, 253, 203));
         jifConstancia.setClosable(true);
@@ -6267,6 +6275,100 @@ public class Inicio extends javax.swing.JFrame {
         });
         jpmSubLateral.add(jmiSubLateral);
 
+        jifMateriales.setClosable(true);
+        jifMateriales.setIconifiable(true);
+        jifMateriales.setResizable(true);
+        jifMateriales.setVisible(true);
+
+        jPanel30.setBackground(new java.awt.Color(225, 253, 203));
+
+        jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+
+        jPanel32.setBackground(new java.awt.Color(225, 253, 203));
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "ID", "Material", "Title 3", "Title 4"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane30.setViewportView(jTable2);
+
+        javax.swing.GroupLayout jPanel32Layout = new javax.swing.GroupLayout(jPanel32);
+        jPanel32.setLayout(jPanel32Layout);
+        jPanel32Layout.setHorizontalGroup(
+            jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel32Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane30, javax.swing.GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel32Layout.setVerticalGroup(
+            jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel32Layout.createSequentialGroup()
+                .addContainerGap(118, Short.MAX_VALUE)
+                .addComponent(jScrollPane30, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jTabbedPane1.addTab("CONSULTAR", jPanel32);
+
+        jPanel35.setBackground(new java.awt.Color(225, 253, 203));
+
+        javax.swing.GroupLayout jPanel35Layout = new javax.swing.GroupLayout(jPanel35);
+        jPanel35.setLayout(jPanel35Layout);
+        jPanel35Layout.setHorizontalGroup(
+            jPanel35Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 557, Short.MAX_VALUE)
+        );
+        jPanel35Layout.setVerticalGroup(
+            jPanel35Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 335, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("REGISTRAR", jPanel35);
+
+        javax.swing.GroupLayout jPanel30Layout = new javax.swing.GroupLayout(jPanel30);
+        jPanel30.setLayout(jPanel30Layout);
+        jPanel30Layout.setHorizontalGroup(
+            jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel30Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTabbedPane1)
+                .addContainerGap())
+        );
+        jPanel30Layout.setVerticalGroup(
+            jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel30Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTabbedPane1)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout jifMaterialesLayout = new javax.swing.GroupLayout(jifMateriales.getContentPane());
+        jifMateriales.getContentPane().setLayout(jifMaterialesLayout);
+        jifMaterialesLayout.setHorizontalGroup(
+            jifMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel30, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jifMaterialesLayout.setVerticalGroup(
+            jifMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel30, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Sistema de Cobranza Comisión de Usuarios Perla del Huallaga");
         setIconImage(new ImageIcon(getClass().getResource("/recurso/comision_logo.jpg")).getImage());
@@ -6488,6 +6590,14 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
         jmAdministracion.add(jMenuItem1);
+
+        jMenuItem2.setText("MATERIALES");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jmAdministracion.add(jMenuItem2);
 
         jmbPrincipal.add(jmAdministracion);
 
@@ -8304,6 +8414,10 @@ public class Inicio extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jmiSubLateralActionPerformed
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        iniciarFomrulario_materiales_Adm(jifMateriales);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
     /*METODOS PARA MOSTRAR EL FORMULARIO*/
     public void modalvalidacion_constancia() {
         jdValidacion_Constancia.pack();
@@ -8353,6 +8467,20 @@ public class Inicio extends javax.swing.JFrame {
     public void iniciarFomrulario(JInternalFrame jif) {
         try {
             jif.setSize(1014, 650);
+            jdeskpanInicio.add(jif);
+            //jif.setMaximum(true);
+            jif.setVisible(true);
+            int x = (jdeskpanInicio.getWidth() / 2) - (jif.getWidth() / 2);
+            int y = (jdeskpanInicio.getHeight() / 2) - (jif.getHeight() / 2);
+            jif.setLocation(x, y);
+        } catch (Exception e) {
+            System.out.println("" + e.toString());
+            System.out.println("" + e.getMessage());
+        }
+    }
+    public void iniciarFomrulario_materiales_Adm(JInternalFrame jif) {
+        try {
+            jif.setSize(700, 500);
             jdeskpanInicio.add(jif);
             //jif.setMaximum(true);
             jif.setVisible(true);
@@ -8808,6 +8936,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel99;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
@@ -8832,9 +8961,12 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel28;
     private javax.swing.JPanel jPanel29;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel30;
     private javax.swing.JPanel jPanel31;
+    private javax.swing.JPanel jPanel32;
     private javax.swing.JPanel jPanel33;
     private javax.swing.JPanel jPanel34;
+    private javax.swing.JPanel jPanel35;
     private javax.swing.JPanel jPanel39;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel41;
@@ -8870,6 +9002,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane27;
     private javax.swing.JScrollPane jScrollPane28;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane30;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
@@ -8878,11 +9011,13 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane10;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTabbedPane jTabbedPane3;
     private javax.swing.JTabbedPane jTabbedPane4;
     private javax.swing.JTabbedPane jTabbedPane7;
+    private javax.swing.JTable jTable2;
     private org.jdesktop.swingx.JXComboBox jXComboBox1;
     private javax.swing.JDialog jdAlquilerAgricultor;
     private javax.swing.JDialog jdConstanciaAgricultor;
@@ -8907,6 +9042,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JInternalFrame jifIngresarAlquiler;
     private javax.swing.JInternalFrame jifInicioCierreCaja;
     private javax.swing.JInternalFrame jifLateral_SubLateral_Adm;
+    private javax.swing.JInternalFrame jifMateriales;
     private javax.swing.JInternalFrame jifMovimientos;
     private javax.swing.JInternalFrame jifMultaAsamblea;
     private javax.swing.JInternalFrame jifMultaSufragio;
