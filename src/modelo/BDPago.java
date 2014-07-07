@@ -84,17 +84,25 @@ public class BDPago {
         }
         return resultado;
     }
-    public boolean AnularPago(int id) {
+    public boolean AnularPago(int id,String observacion,int idempleado) {
         boolean resultado = false;
         Connection cnn = null;
-        CallableStatement cstmt = null;       
+        CallableStatement cstmt = null;  
+        CallableStatement cstmt1=null;
         try {
             cnn = BD.getConnection();
             cnn.setAutoCommit(false);
             String sql = "call spU_AnularPago(?);";
             cstmt = cnn.prepareCall(sql);
             cstmt.setInt(1, id);                      
-            cstmt.execute(); 
+            cstmt.execute();
+            
+            String sql1="call spI_Anulacion(?,?,?);";
+            cstmt1=cnn.prepareCall(sql1);
+            cstmt1.setInt(1, id);
+            cstmt1.setString(2, observacion);
+            cstmt1.setInt(3, idempleado);
+            cstmt1.execute();
             resultado=true;
             cnn.commit();
         } catch (SQLException a) {
@@ -109,6 +117,7 @@ public class BDPago {
         } finally {
             try {
                 cstmt.close();
+                cstmt1.close();
                 cnn.close();
             } catch (SQLException ex) {
                 System.out.println("" + ex.getMessage());

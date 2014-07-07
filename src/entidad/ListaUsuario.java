@@ -83,6 +83,9 @@ public class ListaUsuario {
     public void setVar_telefono(String var_telefono) {
         this.var_telefono = var_telefono;
     }
+    public String toString(){
+        return this.var_nombres+" "+var_apellidos;
+    } 
     
     
     

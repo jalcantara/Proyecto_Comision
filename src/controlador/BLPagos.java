@@ -39,11 +39,11 @@ public class BLPagos {
         return resultado;
     }
 
-    public boolean AnularPago(int id) {
+    public boolean AnularPago(int id,String observacion,int idempleado) {
         boolean resultado = false;
         try {
             BDPago p = new BDPago();
-            resultado = p.AnularPago(id);
+            resultado = p.AnularPago(id,observacion,idempleado);
         } catch (Exception e) {
             System.out.println("Error de Anular Pago - Controlador" + e.getMessage());
         }

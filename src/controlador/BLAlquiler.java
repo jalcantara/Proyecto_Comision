@@ -18,11 +18,11 @@ import modelo.BDAlquiler;
  * @author joseph
  */
 public class BLAlquiler {
-    public boolean insertarAlquiler(int idCliente,ArrayList<Detalle_Alquiler> lista_detalle){
+    public boolean insertarAlquiler(int idtrabajador,int idCliente,ArrayList<Detalle_Alquiler> lista_detalle){
         boolean resultado=false;
         try {
             BDAlquiler a=new BDAlquiler();
-            resultado=a.insertarAlquiler(idCliente,lista_detalle);                    
+            resultado=a.insertarAlquiler(idtrabajador,idCliente,lista_detalle);                    
         } 
         catch (Exception e) {
             System.out.println("Error de Ingreso"+e.getMessage());

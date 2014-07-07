@@ -19,6 +19,8 @@ public class Alquiler {
     private int cuenta_id;
     private int cliente_id;
     private int int_estado;   
+    private String var_numero;
+    
     
     
     public int getInt_id() {
@@ -53,6 +55,14 @@ public class Alquiler {
 
     public void setInt_estado(int int_estado) {
         this.int_estado = int_estado;
+    }
+
+    public String getVar_numero() {
+        return var_numero;
+    }
+
+    public void setVar_numero(String var_numero) {
+        this.var_numero = var_numero;
     }
 
     

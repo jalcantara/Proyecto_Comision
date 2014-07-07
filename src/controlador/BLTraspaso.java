@@ -60,4 +60,17 @@ public class BLTraspaso {
         }
         return list;
     }
+    public String get_numdocumento(){
+        String numdoc="";
+        try {
+            BDTraspaso t=new BDTraspaso();
+            numdoc=t.get_numdocumento();
+        } 
+        catch (Exception e) {
+            System.out.println("Error de Listado"+e.getMessage());
+            e.printStackTrace();
+        }
+        return numdoc;
+    }
+            
 }

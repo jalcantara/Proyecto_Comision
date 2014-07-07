@@ -118,4 +118,23 @@ public class BDTraspaso {
         }
         return listTraspasos;
     }
+    public String get_numdocumento() {
+        Connection cnn = null;
+        CallableStatement cstmt = null;
+        String numdoc="";
+        try {
+            cnn = BD.getConnection();
+            String sql = "select fun_generar_numero_traspaso();";
+            cstmt = cnn.prepareCall(sql);
+            ResultSet rs = cstmt.executeQuery();
+            if (rs.next()) {
+                numdoc=rs.getString(1);
+            }
+            cstmt.close();
+            cnn.close();
+        } catch (SQLException a) {
+            System.out.println("" + a);
+        }
+        return numdoc;
+    }
 }

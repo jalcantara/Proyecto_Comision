@@ -23,6 +23,9 @@ public class ListaAlquiler {
     private double dec_monto;
     private Timestamp dat_fechaRegistro;
     private int idCliente;
+    private String var_numero;
+    
+    
     
     
     
@@ -104,6 +107,14 @@ public class ListaAlquiler {
 
     public void setIdCliente(int idCliente) {
         this.idCliente = idCliente;
+    }
+
+    public String getVar_numero() {
+        return var_numero;
+    }
+
+    public void setVar_numero(String var_numero) {
+        this.var_numero = var_numero;
     }
     
     
