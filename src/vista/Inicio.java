@@ -86,6 +86,7 @@ public class Inicio extends javax.swing.JFrame {
     double vintangible = 0;
     double vseguro = 0;
     double vtarifa = 0;
+    int identificador = 0;
 
     public Inicio() {
         initComponents();
@@ -399,7 +400,7 @@ public class Inicio extends javax.swing.JFrame {
             lista_detalle.add(l);
         }
 
-        resultado = a.insertarAlquiler(((ListaUsuario) cboTrabajador_Alquiler.getSelectedItem()).getInt_id(), idAgricultor_Alquiler, lista_detalle);
+        resultado = a.insertarAlquiler(((ListaUsuario) cboTrabajador_Alquiler.getSelectedItem()).getInt_id(), idAgricultor_Alquiler, lista_detalle,identificador);
         if (resultado == true) {
             JOptionPane.showMessageDialog(null, "Se registro Correctamente");
             limpiarFomulario_Alquiler();
@@ -493,12 +494,12 @@ public class Inicio extends javax.swing.JFrame {
         AutoCompleteDecorator.decorate(cboFiltroAgricultor_VerPagos);
         AutoCompleteDecorator.decorate(cboAgricultor_Alquiler);
 
-        DefaultTableModel temp = (DefaultTableModel) jtModalAgricultor_Alquiler.getModel();
-        temp.setRowCount(0);
-        for (Agricultor a : new BLAgricultor().get_agricultores_byActivos("")) {
-            Object[] datos = {a.getInt_id(), a.getVar_nombre() + ' ' + a.getVar_apepaterno() + ' ' + a.getVar_apematerno()};
-            temp.addRow(datos);
-        }
+        /*DefaultTableModel temp = (DefaultTableModel) jtModalAgricultor_Alquiler.getModel();
+         temp.setRowCount(0);
+         for (Agricultor a : new BLAgricultor().get_agricultores_byActivos("")) {
+         Object[] datos = {a.getInt_id(), a.getVar_nombre() + ' ' + a.getVar_apepaterno() + ' ' + a.getVar_apematerno()};
+         temp.addRow(datos);
+         }*/
     }
 
     private void gettabla_agricultor_all(String condicion, int indicecombo) {
@@ -704,14 +705,25 @@ public class Inicio extends javax.swing.JFrame {
         AutoCompleteDecorator.decorate(cboTrabajador_Alquiler);
     }
     /*NO CLIENTE*/
+
+    private void gettable_nocliente_alquiler_all(String palabra) {
+        DefaultTableModel temp1 = (DefaultTableModel) jtModalAgricultor_Alquiler.getModel();
+        temp1.setRowCount(0);
+        for (NoCliente c : new BLNoCliente().get_nocliente_all(palabra)) {
+            Object[] datos = {c.getInt_id(), c.getVar_nombre() + ' ' + c.getVar_apepaterno() + ' ' + c.getVar_apematerno()};
+            temp1.addRow(datos);
+        }
+    }
+
     private void gettable_getnocliente_all(String palabra) {
         DefaultTableModel temp = (DefaultTableModel) jtNoCliente_Adm.getModel();
         temp.setRowCount(0);
         for (NoCliente c : new BLNoCliente().get_nocliente_all(palabra)) {
-            Object[] datos = {c.getInt_id(),c.getVar_nombre()+' '+c.getVar_apepaterno()+' '+c.getVar_apematerno(),c.getVar_direccion(),
-            c.getVar_dni(),c.getVar_ruc(),c.getVar_telefono()};
+            Object[] datos = {c.getInt_id(), c.getVar_nombre() + ' ' + c.getVar_apepaterno() + ' ' + c.getVar_apematerno(), c.getVar_direccion(),
+                c.getVar_dni(), c.getVar_ruc(), c.getVar_telefono()};
             temp.addRow(datos);
         }
+
     }
 
     /*FIN USUARIO*/
@@ -1010,6 +1022,10 @@ public class Inicio extends javax.swing.JFrame {
         txtModalAgricultor_Alquiler = new javax.swing.JTextField();
         jScrollPane18 = new javax.swing.JScrollPane();
         jtModalAgricultor_Alquiler = new javax.swing.JTable();
+        btn_buscar_pagos1 = new javax.swing.JButton();
+        jLabel130 = new javax.swing.JLabel();
+        rbtnUsuario_Alquiler = new javax.swing.JRadioButton();
+        rbtnNoUsuario_Alquiler = new javax.swing.JRadioButton();
         rb_group = new javax.swing.ButtonGroup();
         jpmAgricultor = new javax.swing.JPopupMenu();
         jmiEditar = new javax.swing.JMenuItem();
@@ -1223,11 +1239,12 @@ public class Inicio extends javax.swing.JFrame {
         rbtnPersonaNatural = new javax.swing.JRadioButton();
         rbtnPersonaJuridica = new javax.swing.JRadioButton();
         jLabel127 = new javax.swing.JLabel();
-        jLabel130 = new javax.swing.JLabel();
         txtRuc_NoUsuario = new javax.swing.JTextField();
+        chkRuc = new javax.swing.JCheckBox();
         btnGuardar1 = new javax.swing.JButton();
         btnCancelar1 = new javax.swing.JButton();
         btngroup_NoUsuario = new javax.swing.ButtonGroup();
+        btngroup_Tipo_Alquiler = new javax.swing.ButtonGroup();
         jpInicio = new javax.swing.JPanel();
         jdeskpanInicio = new javax.swing.JDesktopPane();
         jmbPrincipal = new javax.swing.JMenuBar();
@@ -4536,28 +4553,83 @@ public class Inicio extends javax.swing.JFrame {
             jtModalAgricultor_Alquiler.getColumnModel().getColumn(1).setPreferredWidth(230);
         }
 
+        btn_buscar_pagos1.setBackground(new java.awt.Color(204, 255, 204));
+        btn_buscar_pagos1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btn_buscar_pagos1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/Search-icon.png"))); // NOI18N
+        btn_buscar_pagos1.setText("BUSCAR");
+        btn_buscar_pagos1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_buscar_pagos1ActionPerformed(evt);
+            }
+        });
+
+        jLabel130.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel130.setText("Tipo:");
+
+        btngroup_Tipo_Alquiler.add(rbtnUsuario_Alquiler);
+        rbtnUsuario_Alquiler.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        rbtnUsuario_Alquiler.setSelected(true);
+        rbtnUsuario_Alquiler.setText("Usuario");
+        rbtnUsuario_Alquiler.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnUsuario_AlquilerActionPerformed(evt);
+            }
+        });
+
+        btngroup_Tipo_Alquiler.add(rbtnNoUsuario_Alquiler);
+        rbtnNoUsuario_Alquiler.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        rbtnNoUsuario_Alquiler.setText("No Usuario");
+        rbtnNoUsuario_Alquiler.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnNoUsuario_AlquilerActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jpBuscarAgricultor_Traspaso1Layout = new javax.swing.GroupLayout(jpBuscarAgricultor_Traspaso1);
         jpBuscarAgricultor_Traspaso1.setLayout(jpBuscarAgricultor_Traspaso1Layout);
         jpBuscarAgricultor_Traspaso1Layout.setHorizontalGroup(
             jpBuscarAgricultor_Traspaso1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpBuscarAgricultor_Traspaso1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jpBuscarAgricultor_Traspaso1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane18)
+                .addGroup(jpBuscarAgricultor_Traspaso1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane18, javax.swing.GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE)
                     .addGroup(jpBuscarAgricultor_Traspaso1Layout.createSequentialGroup()
-                        .addComponent(jLabel59)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtModalAgricultor_Alquiler, javax.swing.GroupLayout.PREFERRED_SIZE, 481, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jpBuscarAgricultor_Traspaso1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jpBuscarAgricultor_Traspaso1Layout.createSequentialGroup()
+                                .addGap(22, 22, 22)
+                                .addComponent(jLabel130)
+                                .addGap(25, 25, 25))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpBuscarAgricultor_Traspaso1Layout.createSequentialGroup()
+                                .addComponent(jLabel59)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addGap(23, 23, 23)
+                        .addGroup(jpBuscarAgricultor_Traspaso1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtModalAgricultor_Alquiler)
+                            .addGroup(jpBuscarAgricultor_Traspaso1Layout.createSequentialGroup()
+                                .addComponent(rbtnUsuario_Alquiler)
+                                .addGap(18, 18, 18)
+                                .addComponent(rbtnNoUsuario_Alquiler)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_buscar_pagos1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jpBuscarAgricultor_Traspaso1Layout.setVerticalGroup(
             jpBuscarAgricultor_Traspaso1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpBuscarAgricultor_Traspaso1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jpBuscarAgricultor_Traspaso1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel59)
-                    .addComponent(txtModalAgricultor_Alquiler, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jpBuscarAgricultor_Traspaso1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpBuscarAgricultor_Traspaso1Layout.createSequentialGroup()
+                        .addGroup(jpBuscarAgricultor_Traspaso1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel130)
+                            .addComponent(rbtnUsuario_Alquiler)
+                            .addComponent(rbtnNoUsuario_Alquiler))
+                        .addGap(13, 13, 13)
+                        .addGroup(jpBuscarAgricultor_Traspaso1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel59)
+                            .addComponent(txtModalAgricultor_Alquiler, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(btn_buscar_pagos1))
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane18, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -6657,7 +6729,7 @@ public class Inicio extends javax.swing.JFrame {
                 .addComponent(jLabel119, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(txtFiltroNombre_NoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(402, Short.MAX_VALUE))
+                .addContainerGap(414, Short.MAX_VALUE))
             .addGroup(jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel37Layout.createSequentialGroup()
                     .addGap(98, 98, 98)
@@ -6801,15 +6873,20 @@ public class Inicio extends javax.swing.JFrame {
         jLabel127.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel127.setText("TIPO:");
 
-        jLabel130.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel130.setText("RUC:");
-
         txtRuc_NoUsuario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtRuc_NoUsuario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtRuc_NoUsuario.setEnabled(false);
         txtRuc_NoUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtRuc_NoUsuarioKeyTyped(evt);
+            }
+        });
+
+        chkRuc.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        chkRuc.setText("RUC:");
+        chkRuc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkRucActionPerformed(evt);
             }
         });
 
@@ -6821,18 +6898,14 @@ public class Inicio extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addGroup(jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel38Layout.createSequentialGroup()
-                        .addComponent(jLabel130, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(495, 730, Short.MAX_VALUE))
-                    .addGroup(jPanel38Layout.createSequentialGroup()
                         .addGroup(jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel126)
                             .addComponent(jLabel121)
                             .addComponent(jLabel122)
                             .addComponent(jLabel128)
                             .addComponent(jLabel124)
-                            .addComponent(jLabel125)
                             .addComponent(jLabel127))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                         .addGroup(jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(jPanel38Layout.createSequentialGroup()
@@ -6851,14 +6924,24 @@ public class Inicio extends javax.swing.JFrame {
                                     .addComponent(txtDNI_NoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addComponent(txtNombres_NoUsuario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 624, Short.MAX_VALUE)
-                                        .addComponent(txtDireccion_NoUsuario, javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(txtRuc_NoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtRazonSocial_NoUsuario, javax.swing.GroupLayout.Alignment.TRAILING))))
+                                        .addComponent(txtDireccion_NoUsuario, javax.swing.GroupLayout.Alignment.TRAILING))))
                             .addGroup(jPanel38Layout.createSequentialGroup()
                                 .addComponent(rbtnPersonaNatural)
                                 .addGap(18, 18, 18)
                                 .addComponent(rbtnPersonaJuridica)))
-                        .addGap(24, 24, 24))))
+                        .addGap(24, 24, 24))
+                    .addGroup(jPanel38Layout.createSequentialGroup()
+                        .addGroup(jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(chkRuc)
+                            .addComponent(jLabel125))
+                        .addGap(44, 44, 44)
+                        .addGroup(jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel38Layout.createSequentialGroup()
+                                .addComponent(txtRazonSocial_NoUsuario)
+                                .addGap(297, 297, 297))
+                            .addGroup(jPanel38Layout.createSequentialGroup()
+                                .addComponent(txtRuc_NoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
         );
         jPanel38Layout.setVerticalGroup(
             jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -6894,13 +6977,13 @@ public class Inicio extends javax.swing.JFrame {
                     .addComponent(jLabel124, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtRazonSocial_NoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel125))
+                    .addComponent(txtRuc_NoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(chkRuc))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtRuc_NoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel130))
-                .addContainerGap(42, Short.MAX_VALUE))
+                    .addComponent(txtRazonSocial_NoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel125))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         btnGuardar1.setBackground(new java.awt.Color(255, 102, 0));
@@ -7620,13 +7703,27 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_txtMonto_AlquilerKeyTyped
 
     private void txtModalAgricultor_AlquilerKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtModalAgricultor_AlquilerKeyReleased
-        gettabla_agricultor_alquiler_byActivos(txtModalAgricultor_Alquiler.getText());
+        if (rbtnUsuario_Alquiler.isSelected()) {
+            gettabla_agricultor_alquiler_byActivos(txtModalAgricultor_Alquiler.getText());
+        }
+        if (rbtnNoUsuario_Alquiler.isSelected()) {
+            gettable_nocliente_alquiler_all(txtModalAgricultor_Alquiler.getText());
+        }
     }//GEN-LAST:event_txtModalAgricultor_AlquilerKeyReleased
 
     private void jtModalAgricultor_AlquilerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtModalAgricultor_AlquilerMouseClicked
         try {
+
             idAgricultor_Alquiler = Integer.parseInt(String.valueOf(jtModalAgricultor_Alquiler.getModel().getValueAt(jtModalAgricultor_Alquiler.getSelectedRow(), 0)));
             txtAgricultor_Alquiler.setText(String.valueOf(jtModalAgricultor_Alquiler.getModel().getValueAt(jtModalAgricultor_Alquiler.getSelectedRow(), 1)));
+            if (rbtnUsuario_Alquiler.isSelected()) {
+                identificador = 1;
+
+            }
+            if (rbtnNoUsuario_Alquiler.isSelected()) {
+                identificador = 0;
+
+            }
             cboTipoMaterial_Alquiler.setEnabled(true);
             txtMonto_Alquiler.setEnabled(true);
             txtCantidad_Alquiler.setEnabled(true);
@@ -9017,7 +9114,7 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_txtFiltroNombre_SubLateralKeyReleased
 
     private void txtFiltroNombre_SubLateralKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroNombre_SubLateralKeyTyped
-         if (txtFiltroNombre_SubLateral.getText().length() == 45) {
+        if (txtFiltroNombre_SubLateral.getText().length() == 45) {
             evt.consume();
         }
         String text = (txtFiltroNombre_SubLateral.getText()).toUpperCase();
@@ -9103,7 +9200,7 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNombre_Lateral7KeyTyped
 
     private void txtNombre_Lateral7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombre_Lateral7ActionPerformed
-       
+
     }//GEN-LAST:event_txtNombre_Lateral7ActionPerformed
 
     private void txtNombre_Lateral6KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombre_Lateral6KeyTyped
@@ -9122,7 +9219,7 @@ public class Inicio extends javax.swing.JFrame {
         if (txtFiltroNombre_Material.getText().length() == 45) {
             evt.consume();
         }
-         String text = (txtFiltroNombre_Material.getText()).toUpperCase();
+        String text = (txtFiltroNombre_Material.getText()).toUpperCase();
         txtFiltroNombre_Material.setText(text);
         repaint();
     }//GEN-LAST:event_txtFiltroNombre_MaterialKeyTyped
@@ -9140,10 +9237,10 @@ public class Inicio extends javax.swing.JFrame {
         if (txtNombre_Material.getText().length() == 45) {
             evt.consume();
         }
-         String text = (txtNombre_Material.getText()).toUpperCase();
+        String text = (txtNombre_Material.getText()).toUpperCase();
         txtNombre_Material.setText(text);
         repaint();
-         
+
     }//GEN-LAST:event_txtNombre_MaterialtxtNombre_Lateral6KeyTyped
 
     private void txtFiltroNombre_NoClienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroNombre_NoClienteKeyReleased
@@ -9151,11 +9248,11 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_txtFiltroNombre_NoClienteKeyReleased
 
     private void txtFiltroNombre_NoClienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroNombre_NoClienteKeyTyped
-         new Funciones().soloLetras(evt);
+        new Funciones().soloLetras(evt);
         if (txtFiltroNombre_NoCliente.getText().length() == 45) {
             evt.consume();
         }
-         String text = (txtFiltroNombre_NoCliente.getText()).toUpperCase();
+        String text = (txtFiltroNombre_NoCliente.getText()).toUpperCase();
         txtFiltroNombre_NoCliente.setText(text);
         repaint();
     }//GEN-LAST:event_txtFiltroNombre_NoClienteKeyTyped
@@ -9193,7 +9290,7 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_txtApePaterno_NoUsuarioKeyTyped
 
     private void txtApeMaterno_NoUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApeMaterno_NoUsuarioKeyTyped
-       new Funciones().soloLetras(evt);
+        new Funciones().soloLetras(evt);
         if (txtApeMaterno_NoUsuario.getText().length() == 45) {
             evt.consume();
         }
@@ -9250,7 +9347,8 @@ public class Inicio extends javax.swing.JFrame {
                     BLNoCliente blnc = new BLNoCliente();
                     resultado = blnc.Registrar(txtNombres_NoUsuario.getText(), txtApeMaterno_NoUsuario.getText(),
                             txtApePaterno_NoUsuario.getText(), txtDireccion_NoUsuario.getText(), txtDNI_NoUsuario.getText(),
-                            txtTelefono_NoUsuario.getText(), txtCelular_NoUsuario.getText(), null, null);
+                            txtTelefono_NoUsuario.getText(), txtCelular_NoUsuario.getText(), txtRuc_NoUsuario.getText(),
+                            txtRazonSocial_NoUsuario.getText());
 
                     if (resultado == true) {
                         txtNombres_NoUsuario.setText("");
@@ -9260,6 +9358,8 @@ public class Inicio extends javax.swing.JFrame {
                         txtDNI_NoUsuario.setText("");
                         txtTelefono_NoUsuario.setText("");
                         txtCelular_NoUsuario.setText("");
+                        txtRuc_NoUsuario.setText("");
+                        txtRazonSocial_NoUsuario.setText("");
                         limpiarTabla(jtNoCliente_Adm);
                         gettable_getnocliente_all("");
                         JOptionPane.showMessageDialog(null, "Se Guardo Correctamente", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
@@ -9270,20 +9370,23 @@ public class Inicio extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "No Se Admiten Campos Vacios", "Alerta", JOptionPane.ERROR_MESSAGE);
                 }
             }
-            
-            
-            
+
             if (rbtnPersonaJuridica.isSelected()) {
                 if (txtTelefono_NoUsuario.getText().compareTo("") != 0
                         && txtDireccion_NoUsuario.getText().compareTo("") != 0
                         && txtRazonSocial_NoUsuario.getText().compareTo("") != 0
                         && txtRuc_NoUsuario.getText().compareTo("") != 0) {
                     BLNoCliente blnc = new BLNoCliente();
-                    resultado = blnc.Registrar(null, null,null,txtDireccion_NoUsuario.getText(), null,txtTelefono_NoUsuario.getText(), null, txtRuc_NoUsuario.getText() ,txtRazonSocial_NoUsuario.getText());
+                    resultado = blnc.Registrar("", "", "", txtDireccion_NoUsuario.getText(), "", txtTelefono_NoUsuario.getText(), "", txtRuc_NoUsuario.getText(), txtRazonSocial_NoUsuario.getText());
 
                     if (resultado == true) {
+                        txtNombres_NoUsuario.setText("");
+                        txtApeMaterno_NoUsuario.setText("");
+                        txtApePaterno_NoUsuario.setText("");
                         txtDireccion_NoUsuario.setText("");
+                        txtDNI_NoUsuario.setText("");
                         txtTelefono_NoUsuario.setText("");
+                        txtCelular_NoUsuario.setText("");
                         txtRuc_NoUsuario.setText("");
                         txtRazonSocial_NoUsuario.setText("");
                         limpiarTabla(jtNoCliente_Adm);
@@ -9293,7 +9396,7 @@ public class Inicio extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(null, "No Se Pudo Registrar", "Alerta", JOptionPane.ERROR_MESSAGE);
                     }
 
-                }else{
+                } else {
                     JOptionPane.showMessageDialog(null, "No Se Admiten Campos Vacios", "Alerta", JOptionPane.ERROR_MESSAGE);
                 }
 
@@ -9308,7 +9411,7 @@ public class Inicio extends javax.swing.JFrame {
     private void txtRuc_NoUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRuc_NoUsuarioKeyTyped
         new Funciones().soloNumeros(evt);
 
-        if (txtRuc_NoUsuario.getText().length() ==11) {
+        if (txtRuc_NoUsuario.getText().length() == 11) {
             evt.consume();
         }
         String text = (txtRuc_NoUsuario.getText()).toUpperCase();
@@ -9327,6 +9430,8 @@ public class Inicio extends javax.swing.JFrame {
             txtDireccion_NoUsuario.setEnabled(true);
             txtRazonSocial_NoUsuario.setEnabled(true);
             txtRuc_NoUsuario.setEnabled(true);
+            chkRuc.setSelected(true);
+            chkRuc.setEnabled(false);
         }
     }//GEN-LAST:event_rbtnPersonaJuridicaActionPerformed
 
@@ -9346,8 +9451,47 @@ public class Inicio extends javax.swing.JFrame {
             txtDireccion_NoUsuario.setEnabled(true);
             txtRazonSocial_NoUsuario.setEnabled(false);
             txtRuc_NoUsuario.setEnabled(false);
+            chkRuc.setSelected(false);
+            chkRuc.setEnabled(true);
         }
     }//GEN-LAST:event_rbtnPersonaNaturalActionPerformed
+
+    private void chkRucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkRucActionPerformed
+        if (chkRuc.isSelected()) {
+            txtRuc_NoUsuario.setEnabled(true);
+            txtRazonSocial_NoUsuario.setEnabled(true);
+        } else {
+            txtRuc_NoUsuario.setEnabled(false);
+            txtRazonSocial_NoUsuario.setEnabled(false);
+        }
+    }//GEN-LAST:event_chkRucActionPerformed
+
+    private void btn_buscar_pagos1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscar_pagos1ActionPerformed
+        if (rbtnUsuario_Alquiler.isSelected()) {
+            DefaultTableModel temp = (DefaultTableModel) jtModalAgricultor_Alquiler.getModel();
+            temp.setRowCount(0);
+            for (Agricultor a : new BLAgricultor().get_agricultores_byActivos("")) {
+                Object[] datos = {a.getInt_id(), a.getVar_nombre() + ' ' + a.getVar_apepaterno() + ' ' + a.getVar_apematerno()};
+                temp.addRow(datos);
+            }
+        }
+        if (rbtnNoUsuario_Alquiler.isSelected()) {
+            DefaultTableModel temp = (DefaultTableModel) jtModalAgricultor_Alquiler.getModel();
+            temp.setRowCount(0);
+            for (NoCliente c : new BLNoCliente().get_nocliente_all("")) {
+                Object[] datos = {c.getInt_id(), c.getVar_nombre() + ' ' + c.getVar_apepaterno() + ' ' + c.getVar_apematerno()};
+                temp.addRow(datos);
+            }
+        }
+    }//GEN-LAST:event_btn_buscar_pagos1ActionPerformed
+
+    private void rbtnUsuario_AlquilerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnUsuario_AlquilerActionPerformed
+        txtModalAgricultor_Alquiler.setText("");
+    }//GEN-LAST:event_rbtnUsuario_AlquilerActionPerformed
+
+    private void rbtnNoUsuario_AlquilerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnNoUsuario_AlquilerActionPerformed
+        txtModalAgricultor_Alquiler.setText("");
+    }//GEN-LAST:event_rbtnNoUsuario_AlquilerActionPerformed
 
     /*METODOS PARA MOSTRAR EL FORMULARIO*/
     public void modalvalidacion_constancia() {
@@ -9724,9 +9868,11 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JButton btn_Traspaso_ModalNuevoAgricultor;
     private javax.swing.JButton btn_buscar_alquileres;
     private javax.swing.JButton btn_buscar_pagos;
+    private javax.swing.JButton btn_buscar_pagos1;
     private javax.swing.JButton btn_cargar_asistencia_asamblea;
     private javax.swing.JButton btn_cargar_asistencia_asamblea1;
     private javax.swing.ButtonGroup btngroup_NoUsuario;
+    private javax.swing.ButtonGroup btngroup_Tipo_Alquiler;
     private org.jdesktop.swingx.JXComboBox cboAgricultorFiltro_Constancia;
     private org.jdesktop.swingx.JXComboBox cboAgricultor_Alquiler;
     private org.jdesktop.swingx.JXComboBox cboAntiguoAgricultor_Traspaso;
@@ -9759,6 +9905,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JCheckBox chkFecha_Constancia;
     private javax.swing.JCheckBox chkFiltroAgricultor_Alquiler;
     private javax.swing.JCheckBox chkFiltroFecha_Alquiler;
+    private javax.swing.JCheckBox chkRuc;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton17;
     private javax.swing.JButton jButton19;
@@ -10108,8 +10255,10 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JRadioButton rbAlmacigo_Constancia;
     private javax.swing.JRadioButton rbBoleo_Constancia;
     private javax.swing.ButtonGroup rb_group;
+    private javax.swing.JRadioButton rbtnNoUsuario_Alquiler;
     private javax.swing.JRadioButton rbtnPersonaJuridica;
     private javax.swing.JRadioButton rbtnPersonaNatural;
+    private javax.swing.JRadioButton rbtnUsuario_Alquiler;
     private javax.swing.JTextField txtAgricultor_Alquiler;
     private javax.swing.JTextField txtAgricultor_Traspaso;
     private javax.swing.JTextField txtApeMaterno_Agricultor;

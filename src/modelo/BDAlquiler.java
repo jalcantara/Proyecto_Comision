@@ -22,7 +22,7 @@ import java.util.ArrayList;
  */
 public class BDAlquiler {
     
-    public boolean insertarAlquiler(int idtrabajador,int idCliente,ArrayList<Detalle_Alquiler> lista_detalle){
+    public boolean insertarAlquiler(int idtrabajador,int idCliente,ArrayList<Detalle_Alquiler> lista_detalle,int identificador){
         boolean resultado = false;
         Connection cnn = null;
         CallableStatement cstmt = null;
@@ -32,11 +32,12 @@ public class BDAlquiler {
         try {
             cnn = BD.getConnection();
             cnn.setAutoCommit(false);
-            String sql="call spI_Alquiler (?,?,?);";
+            String sql="call spI_Alquiler (?,?,?,?);";
             cstmt = cnn.prepareCall(sql);
             cstmt.setInt(1, 2);
             cstmt.setInt(2, idCliente);
             cstmt.setInt(3, idtrabajador);
+            cstmt.setInt(4, identificador);
             ResultSet rs=cstmt.executeQuery();
             if(rs.next()){
                 id_alquiler = rs.getInt("int_id");
