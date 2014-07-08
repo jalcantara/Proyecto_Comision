@@ -10,6 +10,7 @@ import controlador.BLCuenta;
 import controlador.BLLateral;
 import controlador.BLMaterial;
 import controlador.BLMovimiento;
+import controlador.BLNoCliente;
 import controlador.BLPagos;
 import controlador.BLPeriodo;
 import controlador.BLTraspaso;
@@ -398,7 +399,7 @@ public class Inicio extends javax.swing.JFrame {
             lista_detalle.add(l);
         }
 
-        resultado = a.insertarAlquiler(((ListaUsuario)cboTrabajador_Alquiler.getSelectedItem()).getInt_id(),idAgricultor_Alquiler, lista_detalle);
+        resultado = a.insertarAlquiler(((ListaUsuario) cboTrabajador_Alquiler.getSelectedItem()).getInt_id(), idAgricultor_Alquiler, lista_detalle);
         if (resultado == true) {
             JOptionPane.showMessageDialog(null, "Se registro Correctamente");
             limpiarFomulario_Alquiler();
@@ -693,13 +694,24 @@ public class Inicio extends javax.swing.JFrame {
             temp.addRow(datos);
         }
     }
-     private void getcombo_usuario() {
+
+    private void getcombo_usuario() {
         cboTrabajador_Alquiler.removeAllItems();
         for (ListaUsuario u : new BLUsuario().get_usuario_all("", 0)) {
             cboTrabajador_Alquiler.addItem(u);
 
         }
         AutoCompleteDecorator.decorate(cboTrabajador_Alquiler);
+    }
+    /*NO CLIENTE*/
+    private void gettable_getnocliente_all(String palabra) {
+        DefaultTableModel temp = (DefaultTableModel) jtNoCliente_Adm.getModel();
+        temp.setRowCount(0);
+        for (NoCliente c : new BLNoCliente().get_nocliente_all(palabra)) {
+            Object[] datos = {c.getInt_id(),c.getVar_nombre()+' '+c.getVar_apepaterno()+' '+c.getVar_apematerno(),c.getVar_direccion(),
+            c.getVar_dni(),c.getVar_ruc(),c.getVar_telefono()};
+            temp.addRow(datos);
+        }
     }
 
     /*FIN USUARIO*/
@@ -1187,9 +1199,9 @@ public class Inicio extends javax.swing.JFrame {
         jPanel35 = new javax.swing.JPanel();
         jPanel37 = new javax.swing.JPanel();
         jLabel119 = new javax.swing.JLabel();
-        txtFiltroNombre_Lateral1 = new org.jdesktop.swingx.JXSearchField();
+        txtFiltroNombre_NoCliente = new org.jdesktop.swingx.JXSearchField();
         jScrollPane31 = new javax.swing.JScrollPane();
-        jtLateral_Adm1 = new javax.swing.JTable();
+        jtNoCliente_Adm = new javax.swing.JTable();
         jPanel36 = new javax.swing.JPanel();
         jPanel38 = new javax.swing.JPanel();
         jLabel121 = new javax.swing.JLabel();
@@ -6581,46 +6593,46 @@ public class Inicio extends javax.swing.JFrame {
         jLabel119.setText("LISTA DE NO - USUARIOS");
         jLabel119.setOpaque(true);
 
-        txtFiltroNombre_Lateral1.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtFiltroNombre_NoCliente.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtFiltroNombre_Lateral1KeyReleased(evt);
+                txtFiltroNombre_NoClienteKeyReleased(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtFiltroNombre_Lateral1KeyTyped(evt);
+                txtFiltroNombre_NoClienteKeyTyped(evt);
             }
         });
 
-        jtLateral_Adm1.setModel(new javax.swing.table.DefaultTableModel(
+        jtNoCliente_Adm.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "No-Usuario", "Direccion", "DNI", "Razon Social", "RUC", "Telefono"
+                "ID", "No-Usuario", "Direccion", "DNI", "RUC", "Telefono"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jtLateral_Adm1.addMouseListener(new java.awt.event.MouseAdapter() {
+        jtNoCliente_Adm.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jtLateral_Adm1MouseReleased(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jtLateral_Adm1MousePressed(evt);
+                jtNoCliente_AdmMouseReleased(evt);
             }
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jtLateral_Adm1MouseClicked(evt);
+                jtNoCliente_AdmMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jtNoCliente_AdmMousePressed(evt);
             }
         });
-        jScrollPane31.setViewportView(jtLateral_Adm1);
+        jScrollPane31.setViewportView(jtNoCliente_Adm);
 
         javax.swing.GroupLayout jPanel37Layout = new javax.swing.GroupLayout(jPanel37);
         jPanel37.setLayout(jPanel37Layout);
@@ -6630,7 +6642,7 @@ public class Inicio extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel119, javax.swing.GroupLayout.DEFAULT_SIZE, 802, Short.MAX_VALUE)
-                    .addComponent(txtFiltroNombre_Lateral1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(txtFiltroNombre_NoCliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel37Layout.createSequentialGroup()
@@ -6644,8 +6656,8 @@ public class Inicio extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel119, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(txtFiltroNombre_Lateral1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(386, Short.MAX_VALUE))
+                .addComponent(txtFiltroNombre_NoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(402, Short.MAX_VALUE))
             .addGroup(jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel37Layout.createSequentialGroup()
                     .addGap(98, 98, 98)
@@ -6771,6 +6783,11 @@ public class Inicio extends javax.swing.JFrame {
         rbtnPersonaNatural.setBackground(new java.awt.Color(225, 253, 203));
         btngroup_NoUsuario.add(rbtnPersonaNatural);
         rbtnPersonaNatural.setText("Persona Natural");
+        rbtnPersonaNatural.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnPersonaNaturalActionPerformed(evt);
+            }
+        });
 
         rbtnPersonaJuridica.setBackground(new java.awt.Color(225, 253, 203));
         btngroup_NoUsuario.add(rbtnPersonaJuridica);
@@ -6805,9 +6822,7 @@ public class Inicio extends javax.swing.JFrame {
                 .addGroup(jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel38Layout.createSequentialGroup()
                         .addComponent(jLabel130, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
-                        .addComponent(txtRuc_NoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(495, 495, 495))
+                        .addGap(495, 730, Short.MAX_VALUE))
                     .addGroup(jPanel38Layout.createSequentialGroup()
                         .addGroup(jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel126)
@@ -6817,32 +6832,33 @@ public class Inicio extends javax.swing.JFrame {
                             .addComponent(jLabel124)
                             .addComponent(jLabel125)
                             .addComponent(jLabel127))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(jPanel38Layout.createSequentialGroup()
+                                    .addGroup(jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtTelefono_NoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtApePaterno_NoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                                    .addGroup(jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel123)
+                                        .addComponent(jLabel129))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addGroup(jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(txtCelular_NoUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
+                                        .addComponent(txtApeMaterno_NoUsuario)))
+                                .addGroup(jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtDNI_NoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(txtNombres_NoUsuario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 624, Short.MAX_VALUE)
+                                        .addComponent(txtDireccion_NoUsuario, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(txtRuc_NoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtRazonSocial_NoUsuario, javax.swing.GroupLayout.Alignment.TRAILING))))
                             .addGroup(jPanel38Layout.createSequentialGroup()
                                 .addComponent(rbtnPersonaNatural)
                                 .addGap(18, 18, 18)
-                                .addComponent(rbtnPersonaJuridica)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanel38Layout.createSequentialGroup()
-                                .addGroup(jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtRazonSocial_NoUsuario)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel38Layout.createSequentialGroup()
-                                        .addGroup(jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(txtApePaterno_NoUsuario)
-                                            .addComponent(txtTelefono_NoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txtDNI_NoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel123)
-                                            .addComponent(jLabel129))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtApeMaterno_NoUsuario)
-                                            .addComponent(txtCelular_NoUsuario)))
-                                    .addComponent(txtDireccion_NoUsuario, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtNombres_NoUsuario))
-                                .addGap(24, 24, 24))))))
+                                .addComponent(rbtnPersonaJuridica)))
+                        .addGap(24, 24, 24))))
         );
         jPanel38Layout.setVerticalGroup(
             jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -6864,14 +6880,14 @@ public class Inicio extends javax.swing.JFrame {
                 .addGroup(jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel122)
                     .addComponent(txtApePaterno_NoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel123)
-                    .addComponent(txtApeMaterno_NoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtApeMaterno_NoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel123))
                 .addGap(25, 25, 25)
                 .addGroup(jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel128)
                     .addComponent(txtTelefono_NoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel129)
-                    .addComponent(txtCelular_NoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCelular_NoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel129))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtDireccion_NoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -6884,7 +6900,7 @@ public class Inicio extends javax.swing.JFrame {
                 .addGroup(jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtRuc_NoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel130))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         btnGuardar1.setBackground(new java.awt.Color(255, 102, 0));
@@ -8900,6 +8916,9 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNombre_LateralActionPerformed
 
     private void txtNombre_LateralKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombre_LateralKeyTyped
+        if (txtNombre_Lateral.getText().length() == 45) {
+            evt.consume();
+        }
         String text = (txtNombre_Lateral.getText()).toUpperCase();
         txtNombre_Lateral.setText(text);
         repaint();
@@ -8910,6 +8929,9 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_txtFiltroNombre_LateralKeyReleased
 
     private void txtFiltroNombre_LateralKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroNombre_LateralKeyTyped
+        if (txtFiltroNombre_Lateral.getText().length() == 45) {
+            evt.consume();
+        }
         String text = (txtFiltroNombre_Lateral.getText()).toUpperCase();
         txtFiltroNombre_Lateral.setText(text);
         repaint();
@@ -8961,7 +8983,12 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNombre_SubLateralActionPerformed
 
     private void txtNombre_SubLateralKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombre_SubLateralKeyTyped
-        // TODO add your handling code here:
+        if (txtNombre_SubLateral.getText().length() == 45) {
+            evt.consume();
+        }
+        String text = (txtNombre_SubLateral.getText()).toUpperCase();
+        txtNombre_SubLateral.setText(text);
+        repaint();
     }//GEN-LAST:event_txtNombre_SubLateralKeyTyped
 
     private void btnGuardar8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardar8ActionPerformed
@@ -8990,7 +9017,12 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_txtFiltroNombre_SubLateralKeyReleased
 
     private void txtFiltroNombre_SubLateralKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroNombre_SubLateralKeyTyped
-        // TODO add your handling code here:
+         if (txtFiltroNombre_SubLateral.getText().length() == 45) {
+            evt.consume();
+        }
+        String text = (txtFiltroNombre_SubLateral.getText()).toUpperCase();
+        txtFiltroNombre_SubLateral.setText(text);
+        repaint();
     }//GEN-LAST:event_txtFiltroNombre_SubLateralKeyTyped
 
     private void jtSubLateral_AdmMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtSubLateral_AdmMousePressed
@@ -9061,16 +9093,22 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGuardar11ActionPerformed
 
     private void txtNombre_Lateral7KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombre_Lateral7KeyTyped
-        // TODO add your handling code here:
+        new Funciones().soloLetras(evt);
+        if (txtDescripcion_Material.getText().length() == 100) {
+            evt.consume();
+        }
+        String text = (txtDescripcion_Material.getText()).toUpperCase();
+        txtDescripcion_Material.setText(text);
+        repaint();
     }//GEN-LAST:event_txtNombre_Lateral7KeyTyped
 
     private void txtNombre_Lateral7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombre_Lateral7ActionPerformed
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_txtNombre_Lateral7ActionPerformed
 
     private void txtNombre_Lateral6KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombre_Lateral6KeyTyped
         new Funciones().soloDecimales(evt);
-        if (txtCantidad_Material.getText().length() == 16) {
+        if (txtCantidad_Material.getText().length() == 11) {
             evt.consume();
         }
     }//GEN-LAST:event_txtNombre_Lateral6KeyTyped
@@ -9080,7 +9118,13 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNombre_Lateral6ActionPerformed
 
     private void txtFiltroNombre_MaterialKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroNombre_MaterialKeyTyped
-        // TODO add your handling code here:
+        new Funciones().soloLetras(evt);
+        if (txtFiltroNombre_Material.getText().length() == 45) {
+            evt.consume();
+        }
+         String text = (txtFiltroNombre_Material.getText()).toUpperCase();
+        txtFiltroNombre_Material.setText(text);
+        repaint();
     }//GEN-LAST:event_txtFiltroNombre_MaterialKeyTyped
 
     private void txtFiltroNombre_MaterialKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroNombre_MaterialKeyReleased
@@ -9092,51 +9136,99 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNombre_MaterialtxtNombre_Lateral6ActionPerformed
 
     private void txtNombre_MaterialtxtNombre_Lateral6KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombre_MaterialtxtNombre_Lateral6KeyTyped
-        // TODO add your handling code here:
+        new Funciones().soloLetras(evt);
+        if (txtNombre_Material.getText().length() == 45) {
+            evt.consume();
+        }
+         String text = (txtNombre_Material.getText()).toUpperCase();
+        txtNombre_Material.setText(text);
+        repaint();
+         
     }//GEN-LAST:event_txtNombre_MaterialtxtNombre_Lateral6KeyTyped
 
-    private void txtFiltroNombre_Lateral1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroNombre_Lateral1KeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFiltroNombre_Lateral1KeyReleased
+    private void txtFiltroNombre_NoClienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroNombre_NoClienteKeyReleased
+        gettable_getnocliente_all(txtFiltroNombre_NoCliente.getText());
+    }//GEN-LAST:event_txtFiltroNombre_NoClienteKeyReleased
 
-    private void txtFiltroNombre_Lateral1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroNombre_Lateral1KeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFiltroNombre_Lateral1KeyTyped
+    private void txtFiltroNombre_NoClienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroNombre_NoClienteKeyTyped
+         new Funciones().soloLetras(evt);
+        if (txtFiltroNombre_NoCliente.getText().length() == 45) {
+            evt.consume();
+        }
+         String text = (txtFiltroNombre_NoCliente.getText()).toUpperCase();
+        txtFiltroNombre_NoCliente.setText(text);
+        repaint();
+    }//GEN-LAST:event_txtFiltroNombre_NoClienteKeyTyped
 
-    private void jtLateral_Adm1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtLateral_Adm1MouseReleased
+    private void jtNoCliente_AdmMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtNoCliente_AdmMouseReleased
         // TODO add your handling code here:
-    }//GEN-LAST:event_jtLateral_Adm1MouseReleased
+    }//GEN-LAST:event_jtNoCliente_AdmMouseReleased
 
-    private void jtLateral_Adm1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtLateral_Adm1MousePressed
+    private void jtNoCliente_AdmMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtNoCliente_AdmMousePressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jtLateral_Adm1MousePressed
+    }//GEN-LAST:event_jtNoCliente_AdmMousePressed
 
-    private void jtLateral_Adm1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtLateral_Adm1MouseClicked
+    private void jtNoCliente_AdmMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtNoCliente_AdmMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jtLateral_Adm1MouseClicked
+    }//GEN-LAST:event_jtNoCliente_AdmMouseClicked
 
     private void txtNombres_NoUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombres_NoUsuarioKeyTyped
-        // TODO add your handling code here:
+        new Funciones().soloLetras(evt);
+        if (txtNombres_NoUsuario.getText().length() == 45) {
+            evt.consume();
+        }
+        String text = (txtNombres_NoUsuario.getText()).toUpperCase();
+        txtNombres_NoUsuario.setText(text);
+        repaint();
     }//GEN-LAST:event_txtNombres_NoUsuarioKeyTyped
 
     private void txtApePaterno_NoUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApePaterno_NoUsuarioKeyTyped
-        // TODO add your handling code here:
+        new Funciones().soloLetras(evt);
+        if (txtApePaterno_NoUsuario.getText().length() == 45) {
+            evt.consume();
+        }
+        String text = (txtApePaterno_NoUsuario.getText()).toUpperCase();
+        txtApePaterno_NoUsuario.setText(text);
+        repaint();
     }//GEN-LAST:event_txtApePaterno_NoUsuarioKeyTyped
 
     private void txtApeMaterno_NoUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApeMaterno_NoUsuarioKeyTyped
-        // TODO add your handling code here:
+       new Funciones().soloLetras(evt);
+        if (txtApeMaterno_NoUsuario.getText().length() == 45) {
+            evt.consume();
+        }
+        String text = (txtApeMaterno_NoUsuario.getText()).toUpperCase();
+        txtApeMaterno_NoUsuario.setText(text);
+        repaint();
     }//GEN-LAST:event_txtApeMaterno_NoUsuarioKeyTyped
 
     private void txtRazonSocial_NoUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRazonSocial_NoUsuarioKeyTyped
-        // TODO add your handling code here:
+        if (txtRazonSocial_NoUsuario.getText().length() == 45) {
+            evt.consume();
+        }
+        String text = (txtRazonSocial_NoUsuario.getText()).toUpperCase();
+        txtRazonSocial_NoUsuario.setText(text);
+        repaint();
     }//GEN-LAST:event_txtRazonSocial_NoUsuarioKeyTyped
 
     private void txtDireccion_NoUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDireccion_NoUsuarioKeyTyped
-        // TODO add your handling code here:
+        if (txtDireccion_NoUsuario.getText().length() == 100) {
+            evt.consume();
+        }
+        String text = (txtDireccion_NoUsuario.getText()).toUpperCase();
+        txtDireccion_NoUsuario.setText(text);
+        repaint();
     }//GEN-LAST:event_txtDireccion_NoUsuarioKeyTyped
 
     private void txtDNI_NoUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDNI_NoUsuarioKeyTyped
-        // TODO add your handling code here:
+        new Funciones().soloNumeros(evt);
+
+        if (txtDNI_NoUsuario.getText().length() == 8) {
+            evt.consume();
+        }
+        String text = (txtDNI_NoUsuario.getText()).toUpperCase();
+        txtDNI_NoUsuario.setText(text);
+        repaint();
     }//GEN-LAST:event_txtDNI_NoUsuarioKeyTyped
 
     private void txtTelefono_NoUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefono_NoUsuarioKeyTyped
@@ -9148,15 +9240,84 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCelular_NoUsuarioKeyTyped
 
     private void btnGuardar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardar1ActionPerformed
-        // TODO add your handling code here:
+        try {
+            boolean resultado = false;
+            if (rbtnPersonaNatural.isSelected()) {
+                if (txtNombres_NoUsuario.getText().compareTo("") != 0 && txtApeMaterno_NoUsuario.getText().compareTo("") != 0
+                        && txtApePaterno_NoUsuario.getText().compareTo("") != 0 && txtDNI_NoUsuario.getText().compareTo("") != 0
+                        && txtDireccion_NoUsuario.getText().compareTo("") != 0 && txtTelefono_NoUsuario.getText().compareTo("") != 0) {
+
+                    BLNoCliente blnc = new BLNoCliente();
+                    resultado = blnc.Registrar(txtNombres_NoUsuario.getText(), txtApeMaterno_NoUsuario.getText(),
+                            txtApePaterno_NoUsuario.getText(), txtDireccion_NoUsuario.getText(), txtDNI_NoUsuario.getText(),
+                            txtTelefono_NoUsuario.getText(), txtCelular_NoUsuario.getText(), null, null);
+
+                    if (resultado == true) {
+                        txtNombres_NoUsuario.setText("");
+                        txtApeMaterno_NoUsuario.setText("");
+                        txtApePaterno_NoUsuario.setText("");
+                        txtDireccion_NoUsuario.setText("");
+                        txtDNI_NoUsuario.setText("");
+                        txtTelefono_NoUsuario.setText("");
+                        txtCelular_NoUsuario.setText("");
+                        limpiarTabla(jtNoCliente_Adm);
+                        gettable_getnocliente_all("");
+                        JOptionPane.showMessageDialog(null, "Se Guardo Correctamente", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No Se Pudo Registrar", "Alerta", JOptionPane.ERROR_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "No Se Admiten Campos Vacios", "Alerta", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+            
+            
+            
+            if (rbtnPersonaJuridica.isSelected()) {
+                if (txtTelefono_NoUsuario.getText().compareTo("") != 0
+                        && txtDireccion_NoUsuario.getText().compareTo("") != 0
+                        && txtRazonSocial_NoUsuario.getText().compareTo("") != 0
+                        && txtRuc_NoUsuario.getText().compareTo("") != 0) {
+                    BLNoCliente blnc = new BLNoCliente();
+                    resultado = blnc.Registrar(null, null,null,txtDireccion_NoUsuario.getText(), null,txtTelefono_NoUsuario.getText(), null, txtRuc_NoUsuario.getText() ,txtRazonSocial_NoUsuario.getText());
+
+                    if (resultado == true) {
+                        txtDireccion_NoUsuario.setText("");
+                        txtTelefono_NoUsuario.setText("");
+                        txtRuc_NoUsuario.setText("");
+                        txtRazonSocial_NoUsuario.setText("");
+                        limpiarTabla(jtNoCliente_Adm);
+                        gettable_getnocliente_all("");
+                        JOptionPane.showMessageDialog(null, "Se Guardo Correctamente", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No Se Pudo Registrar", "Alerta", JOptionPane.ERROR_MESSAGE);
+                    }
+
+                }else{
+                    JOptionPane.showMessageDialog(null, "No Se Admiten Campos Vacios", "Alerta", JOptionPane.ERROR_MESSAGE);
+                }
+
+            }
+
+        } catch (Exception e) {
+            System.out.println("Aqui esta el error" + e.getMessage());
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_btnGuardar1ActionPerformed
 
     private void txtRuc_NoUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRuc_NoUsuarioKeyTyped
-        // TODO add your handling code here:
+        new Funciones().soloNumeros(evt);
+
+        if (txtRuc_NoUsuario.getText().length() ==11) {
+            evt.consume();
+        }
+        String text = (txtRuc_NoUsuario.getText()).toUpperCase();
+        txtRuc_NoUsuario.setText(text);
+        repaint();
     }//GEN-LAST:event_txtRuc_NoUsuarioKeyTyped
 
     private void rbtnPersonaJuridicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnPersonaJuridicaActionPerformed
-        if(rbtnPersonaJuridica.isSelected()){
+        if (rbtnPersonaJuridica.isSelected()) {
             txtDNI_NoUsuario.setEnabled(false);
             txtNombres_NoUsuario.setEnabled(false);
             txtApePaterno_NoUsuario.setEnabled(false);
@@ -9170,8 +9331,23 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_rbtnPersonaJuridicaActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        gettable_getnocliente_all("");
         iniciarFomrulario_nousuario_Adm(jifNoUsuario);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void rbtnPersonaNaturalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnPersonaNaturalActionPerformed
+        if (rbtnPersonaNatural.isSelected()) {
+            txtDNI_NoUsuario.setEnabled(true);
+            txtNombres_NoUsuario.setEnabled(true);
+            txtApePaterno_NoUsuario.setEnabled(true);
+            txtApeMaterno_NoUsuario.setEnabled(true);
+            txtTelefono_NoUsuario.setEnabled(true);
+            txtCelular_NoUsuario.setEnabled(true);
+            txtDireccion_NoUsuario.setEnabled(true);
+            txtRazonSocial_NoUsuario.setEnabled(false);
+            txtRuc_NoUsuario.setEnabled(false);
+        }
+    }//GEN-LAST:event_rbtnPersonaNaturalActionPerformed
 
     /*METODOS PARA MOSTRAR EL FORMULARIO*/
     public void modalvalidacion_constancia() {
@@ -9236,7 +9412,7 @@ public class Inicio extends javax.swing.JFrame {
 
     public void iniciarFomrulario_nousuario_Adm(JInternalFrame jif) {
         try {
-            jif.setSize(700, 550);
+            jif.setSize(880, 550);
             jdeskpanInicio.add(jif);
             //jif.setMaximum(true);
             jif.setVisible(true);
@@ -9248,6 +9424,7 @@ public class Inicio extends javax.swing.JFrame {
             System.out.println("" + e.getMessage());
         }
     }
+
     public void iniciarFomrulario_materiales_Adm(JInternalFrame jif) {
         try {
             jif.setSize(700, 550);
@@ -9910,7 +10087,6 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JTable jtCuentas;
     private javax.swing.JTable jtDetalleLaterales_Agricultor;
     private javax.swing.JTable jtLateral_Adm;
-    private javax.swing.JTable jtLateral_Adm1;
     private javax.swing.JTable jtLista_Alquileres;
     private javax.swing.JTable jtLista_Usuario;
     private javax.swing.JTable jtMaterial;
@@ -9921,6 +10097,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JTable jtModalComite_Constancia;
     private javax.swing.JTable jtModalLateral_Constancia;
     private javax.swing.JTable jtModalLateral_Traspaso;
+    private javax.swing.JTable jtNoCliente_Adm;
     private javax.swing.JTable jtPeriodo_All;
     private javax.swing.JTable jtSubLateral_Adm;
     private javax.swing.JTable jtTraspaso;
@@ -9979,8 +10156,8 @@ public class Inicio extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser txtFiltroInicio_Constancia;
     private org.jdesktop.swingx.JXSearchField txtFiltroNombre_Cuenta2;
     private org.jdesktop.swingx.JXSearchField txtFiltroNombre_Lateral;
-    private org.jdesktop.swingx.JXSearchField txtFiltroNombre_Lateral1;
     private org.jdesktop.swingx.JXSearchField txtFiltroNombre_Material;
+    private org.jdesktop.swingx.JXSearchField txtFiltroNombre_NoCliente;
     private org.jdesktop.swingx.JXSearchField txtFiltroNombre_SubLateral;
     private org.jdesktop.swingx.JXSearchField txtFiltro_Periodo;
     private org.jdesktop.swingx.JXSearchField txtFiltro_Usuario;

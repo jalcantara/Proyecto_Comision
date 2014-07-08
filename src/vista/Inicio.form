@@ -9067,7 +9067,7 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jLabel119" alignment="0" pref="802" max="32767" attributes="0"/>
-                                      <Component id="txtFiltroNombre_Lateral1" alignment="1" max="32767" attributes="0"/>
+                                      <Component id="txtFiltroNombre_NoCliente" alignment="1" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
@@ -9086,8 +9086,8 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jLabel119" min="-2" pref="29" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="txtFiltroNombre_Lateral1" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="386" max="32767" attributes="0"/>
+                                  <Component id="txtFiltroNombre_NoCliente" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace pref="402" max="32767" attributes="0"/>
                               </Group>
                               <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
@@ -9116,10 +9116,10 @@
                             <Property name="opaque" type="boolean" value="true"/>
                           </Properties>
                         </Component>
-                        <Component class="org.jdesktop.swingx.JXSearchField" name="txtFiltroNombre_Lateral1">
+                        <Component class="org.jdesktop.swingx.JXSearchField" name="txtFiltroNombre_NoCliente">
                           <Events>
-                            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtFiltroNombre_Lateral1KeyReleased"/>
-                            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtFiltroNombre_Lateral1KeyTyped"/>
+                            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtFiltroNombre_NoClienteKeyReleased"/>
+                            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtFiltroNombre_NoClienteKeyTyped"/>
                           </Events>
                         </Component>
                         <Container class="javax.swing.JScrollPane" name="jScrollPane31">
@@ -9129,26 +9129,20 @@
 
                           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                           <SubComponents>
-                            <Component class="javax.swing.JTable" name="jtLateral_Adm1">
+                            <Component class="javax.swing.JTable" name="jtNoCliente_Adm">
                               <Properties>
                                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                                  <Table columnCount="7" rowCount="4">
+                                  <Table columnCount="6" rowCount="4">
                                     <Column editable="false" title="ID" type="java.lang.Object"/>
                                     <Column editable="false" title="No-Usuario" type="java.lang.Object"/>
                                     <Column editable="false" title="Direccion" type="java.lang.Object"/>
                                     <Column editable="false" title="DNI" type="java.lang.Object"/>
-                                    <Column editable="false" title="Razon Social" type="java.lang.Object"/>
                                     <Column editable="false" title="RUC" type="java.lang.Object"/>
                                     <Column editable="false" title="Telefono" type="java.lang.Object"/>
                                   </Table>
                                 </Property>
                                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                                   <TableColumnModel selectionModel="0">
-                                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                                      <Title/>
-                                      <Editor/>
-                                      <Renderer/>
-                                    </Column>
                                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                                       <Title/>
                                       <Editor/>
@@ -9186,9 +9180,9 @@
                                 </Property>
                               </Properties>
                               <Events>
-                                <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jtLateral_Adm1MouseReleased"/>
-                                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jtLateral_Adm1MousePressed"/>
-                                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jtLateral_Adm1MouseClicked"/>
+                                <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jtNoCliente_AdmMouseReleased"/>
+                                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jtNoCliente_AdmMouseClicked"/>
+                                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jtNoCliente_AdmMousePressed"/>
                               </Events>
                             </Component>
                           </SubComponents>
@@ -9265,9 +9259,7 @@
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" attributes="0">
                                           <Component id="jLabel130" min="-2" pref="40" max="-2" attributes="0"/>
-                                          <EmptySpace pref="60" max="32767" attributes="0"/>
-                                          <Component id="txtRuc_NoUsuario" min="-2" pref="175" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="495" max="-2" attributes="0"/>
+                                          <EmptySpace min="495" pref="730" max="32767" attributes="0"/>
                                       </Group>
                                       <Group type="102" attributes="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
@@ -9279,40 +9271,42 @@
                                               <Component id="jLabel125" alignment="0" min="-2" max="-2" attributes="0"/>
                                               <Component id="jLabel127" alignment="0" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                                  <Group type="102" attributes="0">
+                                                      <Group type="103" groupAlignment="0" attributes="0">
+                                                          <Component id="txtTelefono_NoUsuario" min="-2" pref="153" max="-2" attributes="0"/>
+                                                          <Component id="txtApePaterno_NoUsuario" alignment="0" min="-2" pref="153" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <EmptySpace pref="51" max="32767" attributes="0"/>
+                                                      <Group type="103" groupAlignment="0" attributes="0">
+                                                          <Component id="jLabel123" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="jLabel129" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                          <Component id="txtCelular_NoUsuario" pref="314" max="32767" attributes="0"/>
+                                                          <Component id="txtApeMaterno_NoUsuario" max="32767" attributes="0"/>
+                                                      </Group>
+                                                  </Group>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="txtDNI_NoUsuario" min="-2" pref="139" max="-2" attributes="0"/>
+                                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                          <Component id="txtNombres_NoUsuario" alignment="1" pref="624" max="32767" attributes="0"/>
+                                                          <Component id="txtDireccion_NoUsuario" alignment="1" max="32767" attributes="0"/>
+                                                          <Component id="txtRuc_NoUsuario" min="-2" pref="175" max="-2" attributes="0"/>
+                                                          <Component id="txtRazonSocial_NoUsuario" alignment="1" max="32767" attributes="0"/>
+                                                      </Group>
+                                                  </Group>
+                                              </Group>
                                               <Group type="102" attributes="0">
                                                   <Component id="rbtnPersonaNatural" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                                   <Component id="rbtnPersonaJuridica" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace max="32767" attributes="0"/>
-                                              </Group>
-                                              <Group type="102" attributes="0">
-                                                  <Group type="103" groupAlignment="1" attributes="0">
-                                                      <Component id="txtRazonSocial_NoUsuario" alignment="1" max="32767" attributes="0"/>
-                                                      <Group type="102" alignment="0" attributes="0">
-                                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                              <Component id="txtApePaterno_NoUsuario" alignment="0" max="32767" attributes="0"/>
-                                                              <Component id="txtTelefono_NoUsuario" alignment="0" min="-2" pref="181" max="-2" attributes="0"/>
-                                                              <Component id="txtDNI_NoUsuario" alignment="0" min="-2" pref="139" max="-2" attributes="0"/>
-                                                          </Group>
-                                                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                                                          <Group type="103" groupAlignment="0" attributes="0">
-                                                              <Component id="jLabel123" min="-2" max="-2" attributes="0"/>
-                                                              <Component id="jLabel129" min="-2" max="-2" attributes="0"/>
-                                                          </Group>
-                                                          <EmptySpace max="-2" attributes="0"/>
-                                                          <Group type="103" groupAlignment="0" attributes="0">
-                                                              <Component id="txtApeMaterno_NoUsuario" alignment="0" max="32767" attributes="0"/>
-                                                              <Component id="txtCelular_NoUsuario" alignment="0" max="32767" attributes="0"/>
-                                                          </Group>
-                                                      </Group>
-                                                      <Component id="txtDireccion_NoUsuario" alignment="0" max="32767" attributes="0"/>
-                                                      <Component id="txtNombres_NoUsuario" alignment="1" max="32767" attributes="0"/>
-                                                  </Group>
-                                                  <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
+                                          <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -9341,15 +9335,15 @@
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jLabel122" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="txtApePaterno_NoUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel123" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="txtApeMaterno_NoUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel123" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jLabel128" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="txtTelefono_NoUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel129" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="txtCelular_NoUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel129" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
@@ -9366,7 +9360,7 @@
                                       <Component id="txtRuc_NoUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel130" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace pref="30" max="32767" attributes="0"/>
+                                  <EmptySpace pref="42" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -9543,6 +9537,9 @@
                             </Property>
                             <Property name="text" type="java.lang.String" value="Persona Natural"/>
                           </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rbtnPersonaNaturalActionPerformed"/>
+                          </Events>
                         </Component>
                         <Component class="javax.swing.JRadioButton" name="rbtnPersonaJuridica">
                           <Properties>
