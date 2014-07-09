@@ -7239,6 +7239,7 @@ public class Inicio extends javax.swing.JFrame {
         jmCaja.setText("CAJA");
         jmCaja.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
+        jmiInicioCierre.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/inicio.png"))); // NOI18N
         jmiInicioCierre.setText("INICIAR / CIERRE");
         jmiInicioCierre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -7304,6 +7305,7 @@ public class Inicio extends javax.swing.JFrame {
         });
         jmPagos.add(jmiAlquiler);
 
+        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/caja_1.png"))); // NOI18N
         jMenu1.setText("PAGO MULTAS");
 
         jmiPagoMultaAsamblea.setText("ASAMBLEA");
