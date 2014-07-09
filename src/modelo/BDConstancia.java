@@ -25,10 +25,13 @@ public class BDConstancia {
 
         boolean resultado = true;
         int idConstancia = 0;
+        //int idpago=0;
         Connection cnn = null;
         CallableStatement cstmt = null;
         CallableStatement cstmt1 = null;
         CallableStatement cstmt2 = null;
+        CallableStatement cstm3=null;
+        //ResultSet rs=null;
         try {
             cnn = BD.getConnection();
             cnn.setAutoCommit(false);
@@ -64,6 +67,13 @@ public class BDConstancia {
             cstmt2.setInt(2, idConstancia);
             cstmt2.setDouble(3, c.getDec_nrohectaria());
             cstmt2.execute();
+            /*if(rs.next()){
+                idpago=rs.getInt("int_id");
+            }
+            String sql3"call spI_DetallePago();";*/
+            
+            
+            
             cnn.commit();
         } catch (SQLException a) {
             try {

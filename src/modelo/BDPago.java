@@ -40,6 +40,8 @@ public class BDPago {
                 p.setVar_observacion(rs.getString("var_observacion"));
                 p.setVar_boucherpago(rs.getString("var_boucherpago"));
                 p.setInt_estado(rs.getString("estado"));
+                p.setDec_amortizacion(rs.getDouble("dec_amortizacion"));
+                p.setDec_saldo(rs.getDouble("dec_saldo"));
                 lista.add(p);
             }
             cnn.close();
@@ -53,16 +55,27 @@ public class BDPago {
     public boolean RegistrarPagos(Pago p) {
         boolean resultado = false;
         Connection cnn = null;
-        CallableStatement cstmt = null;       
+        CallableStatement cstmt = null;  
+        CallableStatement cstm1=null;
         try {
             cnn = BD.getConnection();
             cnn.setAutoCommit(false);
-            String sql = "call spU_RegistrarPagos(?,?,?);";
+            String sql = "call spU_RegistrarPagos(?,?,?,?);";
             cstmt = cnn.prepareCall(sql);
             cstmt.setInt(1, p.getInt_id());
             cstmt.setString(2, p.getVar_boucherpago());
-            cstmt.setString(3, p.getVar_observacion());            
+            cstmt.setString(3, p.getVar_observacion());  
+            cstmt.setDouble(4, p.getDec_monto());
             cstmt.execute(); 
+            
+            String sql1="call spI_DetallePago(?,?,?,?)";
+            cstm1=cnn.prepareCall(sql1);
+            cstm1.setInt(1, p.getInt_id());
+            cstm1.setDouble(2, p.getDec_monto());
+            cstm1.setString(3, p.getVar_boucherpago());
+            cstm1.setString(4, p.getVar_observacion());
+            cstm1.execute();
+            
             resultado=true;
             cnn.commit();
         } catch (SQLException a) {

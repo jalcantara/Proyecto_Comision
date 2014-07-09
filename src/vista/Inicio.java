@@ -310,9 +310,15 @@ public class Inicio extends javax.swing.JFrame {
         temp.setRowCount(0);
         for (Pago p : new BLPagos().get_pagos_bycliente(dni, id, estado)) {
             Object[] datos = {p.getInt_id(), p.getVar_cuenta(), p.getVar_descripcion(), p.getDat_fechregistro(),
-                p.getDec_monto(), p.getVar_observacion(), p.getVar_boucherpago(), p.getInt_estado()};
+                p.getDec_monto(),p.getDec_amortizacion(),p.getDec_saldo(),  p.getVar_boucherpago(), p.getInt_estado()};
             temp.addRow(datos);
         }
+    }
+    private void  limpiarformularioPagar(){
+        txtMontoTotal_Pago.setText("");
+        txtVoucher_RegistrarPago.setText("");
+        txtMonto_Pago.setText("");
+        txtObservacion_RegistrarPagos.setText("");
     }
 
     private void Anular_Pagos(int idempleado) {
@@ -331,21 +337,31 @@ public class Inicio extends javax.swing.JFrame {
     }
 
     private void Pagar() {
-        Pago p = new Pago();
-        p.setInt_id(idPago);
-        p.setVar_boucherpago(txtVoucher_RegistrarPago.getText());
-        p.setVar_observacion(txtObservacion_RegistrarPagos.getText());
-        if (new BLPagos().RegistrarPagos(p)) {
-            JOptionPane.showMessageDialog(null, "Registro Exitoso", "MENSAJE", JOptionPane.INFORMATION_MESSAGE);
-            if (jrbDni_VerPagos.isSelected()) {
-                gettabla_verpagos_byAgricultor(txtFiltroDni_VerPagos.getText(), 0, 1);
+        double montototal=Double.parseDouble(txtMontoTotal_Pago.getText());
+        double monto=Double.parseDouble(txtMonto_Pago.getText());
+        if (monto<=montototal) {
+            Pago p = new Pago();
+            p.setInt_id(idPago);
+            p.setVar_boucherpago(txtVoucher_RegistrarPago.getText());
+            p.setVar_observacion(txtObservacion_RegistrarPagos.getText());
+            p.setDec_monto(Double.parseDouble(txtMonto_Pago.getText()));
+            if (new BLPagos().RegistrarPagos(p)) {
+                JOptionPane.showMessageDialog(null, "Registro Exitoso", "MENSAJE", JOptionPane.INFORMATION_MESSAGE);
+                limpiarformularioPagar();
+                if (jrbDni_VerPagos.isSelected()) {
+                    gettabla_verpagos_byAgricultor(txtFiltroDni_VerPagos.getText(), 0, 1);
+                }
+                if (jrbAgricultor_VerPagos.isSelected()) {
+                    int id = ((Agricultor) cboFiltroAgricultor_VerPagos.getSelectedItem()).getInt_id();
+                    gettabla_verpagos_byAgricultor("", id, 1);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al Registrar", "MENSAJE", JOptionPane.ERROR_MESSAGE);
+                limpiarformularioPagar();
             }
-            if (jrbAgricultor_VerPagos.isSelected()) {
-                int id = ((Agricultor) cboFiltroAgricultor_VerPagos.getSelectedItem()).getInt_id();
-                gettabla_verpagos_byAgricultor("", id, 1);
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Error al Registrar", "MENSAJE", JOptionPane.ERROR_MESSAGE);
+        }else{
+            JOptionPane.showMessageDialog(null, "El Monto Ingresado Debe Ser Menor que el Saldo", "MENSAJE", JOptionPane.ERROR_MESSAGE);
+            limpiarformularioPagar();
         }
     }
     /*FIN PAGOS*/
@@ -400,7 +416,7 @@ public class Inicio extends javax.swing.JFrame {
             lista_detalle.add(l);
         }
 
-        resultado = a.insertarAlquiler(((ListaUsuario) cboTrabajador_Alquiler.getSelectedItem()).getInt_id(), idAgricultor_Alquiler, lista_detalle,identificador);
+        resultado = a.insertarAlquiler(((ListaUsuario) cboTrabajador_Alquiler.getSelectedItem()).getInt_id(), idAgricultor_Alquiler, lista_detalle, identificador);
         if (resultado == true) {
             JOptionPane.showMessageDialog(null, "Se registro Correctamente");
             limpiarFomulario_Alquiler();
@@ -1046,7 +1062,9 @@ public class Inicio extends javax.swing.JFrame {
         btn_Guardar_pago = new javax.swing.JButton();
         jLabel88 = new javax.swing.JLabel();
         jLabel91 = new javax.swing.JLabel();
-        txtMonto_Pago = new javax.swing.JTextField();
+        txtMontoTotal_Pago = new javax.swing.JTextField();
+        jLabel131 = new javax.swing.JLabel();
+        txtMonto_Pago = new org.jdesktop.swingx.JXTextField();
         jdTraspasoLateral = new javax.swing.JDialog();
         jpTraspasoLateral = new javax.swing.JPanel();
         jLabel90 = new javax.swing.JLabel();
@@ -1245,6 +1263,7 @@ public class Inicio extends javax.swing.JFrame {
         btnCancelar1 = new javax.swing.JButton();
         btngroup_NoUsuario = new javax.swing.ButtonGroup();
         btngroup_Tipo_Alquiler = new javax.swing.ButtonGroup();
+        jTextField1 = new javax.swing.JTextField();
         jpInicio = new javax.swing.JPanel();
         jdeskpanInicio = new javax.swing.JDesktopPane();
         jmbPrincipal = new javax.swing.JMenuBar();
@@ -1705,6 +1724,7 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
         jtBusqueda_Constancia.setFocusable(false);
+        jtBusqueda_Constancia.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(jtBusqueda_Constancia);
         if (jtBusqueda_Constancia.getColumnModel().getColumnCount() > 0) {
             jtBusqueda_Constancia.getColumnModel().getColumn(1).setPreferredWidth(50);
@@ -1799,6 +1819,7 @@ public class Inicio extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jtTraspaso.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane2.setViewportView(jtTraspaso);
         if (jtTraspaso.getColumnModel().getColumnCount() > 0) {
             jtTraspaso.getColumnModel().getColumn(0).setPreferredWidth(20);
@@ -2299,23 +2320,24 @@ public class Inicio extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "N° Cuenta", "Descripción", "Fecha", "Monto", "Observación", "# Boucher", "Estado"
+                "ID", "N° Cuenta", "Descripción", "Fecha", "Monto", "Monto Amortizado", "Saldo", "# Boucher", "Estado"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
+        jtVerPagos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jtVerPagos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jtVerPagosMouseReleased(evt);
-            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jtVerPagosMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jtVerPagosMouseReleased(evt);
             }
         });
         jScrollPane4.setViewportView(jtVerPagos);
@@ -2324,9 +2346,8 @@ public class Inicio extends javax.swing.JFrame {
             jtVerPagos.getColumnModel().getColumn(2).setPreferredWidth(100);
             jtVerPagos.getColumnModel().getColumn(3).setPreferredWidth(30);
             jtVerPagos.getColumnModel().getColumn(4).setPreferredWidth(30);
-            jtVerPagos.getColumnModel().getColumn(5).setPreferredWidth(80);
-            jtVerPagos.getColumnModel().getColumn(6).setPreferredWidth(30);
             jtVerPagos.getColumnModel().getColumn(7).setPreferredWidth(30);
+            jtVerPagos.getColumnModel().getColumn(8).setPreferredWidth(30);
         }
 
         jLabel84.setBackground(new java.awt.Color(0, 153, 153));
@@ -2500,6 +2521,7 @@ public class Inicio extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jtLista_Alquileres.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane3.setViewportView(jtLista_Alquileres);
         if (jtLista_Alquileres.getColumnModel().getColumnCount() > 0) {
             jtLista_Alquileres.getColumnModel().getColumn(1).setPreferredWidth(150);
@@ -2798,6 +2820,7 @@ public class Inicio extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jtbDetalle_Alquiler.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane12.setViewportView(jtbDetalle_Alquiler);
         if (jtbDetalle_Alquiler.getColumnModel().getColumnCount() > 0) {
             jtbDetalle_Alquiler.getColumnModel().getColumn(1).setPreferredWidth(100);
@@ -3001,6 +3024,7 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
         jtAgricultor.setToolTipText("");
+        jtAgricultor.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jtAgricultor.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 jtAgricultorMouseReleased(evt);
@@ -3306,6 +3330,7 @@ public class Inicio extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jtDetalleLaterales_Agricultor.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane5.setViewportView(jtDetalleLaterales_Agricultor);
 
         jLabel37.setBackground(new java.awt.Color(0, 153, 153));
@@ -3519,6 +3544,7 @@ public class Inicio extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jtPeriodo_All.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane8.setViewportView(jtPeriodo_All);
 
         cboFiltro_Periodo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -3741,6 +3767,7 @@ public class Inicio extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jtCargos_Administracion.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane9.setViewportView(jtCargos_Administracion);
         if (jtCargos_Administracion.getColumnModel().getColumnCount() > 0) {
             jtCargos_Administracion.getColumnModel().getColumn(0).setPreferredWidth(150);
@@ -4599,9 +4626,7 @@ public class Inicio extends javax.swing.JFrame {
                                 .addGap(22, 22, 22)
                                 .addComponent(jLabel130)
                                 .addGap(25, 25, 25))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpBuscarAgricultor_Traspaso1Layout.createSequentialGroup()
-                                .addComponent(jLabel59)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                            .addComponent(jLabel59, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGap(23, 23, 23)
                         .addGroup(jpBuscarAgricultor_Traspaso1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtModalAgricultor_Alquiler)
@@ -4694,11 +4719,11 @@ public class Inicio extends javax.swing.JFrame {
         txtObservacion_RegistrarPagos.setColumns(20);
         txtObservacion_RegistrarPagos.setRows(5);
         txtObservacion_RegistrarPagos.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtObservacion_RegistrarPagosKeyPressed(evt);
-            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtObservacion_RegistrarPagosKeyTyped(evt);
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtObservacion_RegistrarPagosKeyPressed(evt);
             }
         });
         jScrollPane19.setViewportView(txtObservacion_RegistrarPagos);
@@ -4731,9 +4756,12 @@ public class Inicio extends javax.swing.JFrame {
         jLabel88.setOpaque(true);
 
         jLabel91.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel91.setText("Monto:");
+        jLabel91.setText("Saldo:");
 
-        txtMonto_Pago.setEnabled(false);
+        txtMontoTotal_Pago.setEnabled(false);
+
+        jLabel131.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel131.setText("Monto:");
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -4746,23 +4774,26 @@ public class Inicio extends javax.swing.JFrame {
                         .addGap(29, 29, 29)
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel45)
+                            .addComponent(jLabel91)
+                            .addComponent(jLabel131)
                             .addComponent(jLabel85)
-                            .addComponent(jLabel91))
-                        .addGap(42, 42, 42))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel87)
-                        .addGap(18, 18, 18)))
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel87))
+                        .addGap(42, 42, 42)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(txtFecha_RegistrarPagos, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
+                                        .addComponent(txtMontoTotal_Pago))
+                                    .addComponent(txtVoucher_RegistrarPago, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtMonto_Pago, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane19, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGap(99, 99, 99)
                         .addComponent(btn_Guardar_pago)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                        .addComponent(btn_Cancelar_Pago))
-                    .addComponent(jScrollPane19)
-                    .addComponent(txtVoucher_RegistrarPago)
-                    .addComponent(txtFecha_RegistrarPagos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtMonto_Pago))
-                .addContainerGap(52, Short.MAX_VALUE))
+                        .addGap(32, 32, 32)
+                        .addComponent(btn_Cancelar_Pago)))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -4775,20 +4806,24 @@ public class Inicio extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel91)
-                    .addComponent(txtMonto_Pago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtMontoTotal_Pago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel85)
                     .addComponent(txtVoucher_RegistrarPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel131)
+                    .addComponent(txtMonto_Pago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel87))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btn_Guardar_pago, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_Cancelar_Pago, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jdPagarLayout = new javax.swing.GroupLayout(jdPagar.getContentPane());
@@ -5174,6 +5209,7 @@ public class Inicio extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jtAsignarCosto_Cuentas.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane24.setViewportView(jtAsignarCosto_Cuentas);
 
         javax.swing.GroupLayout jPanel44Layout = new javax.swing.GroupLayout(jPanel44);
@@ -7060,6 +7096,8 @@ public class Inicio extends javax.swing.JFrame {
             .addComponent(jPanel32, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        jTextField1.setText("jTextField1");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Sistema de Cobranza Comisión de Usuarios Perla del Huallaga");
         setIconImage(new ImageIcon(getClass().getResource("/recurso/comision_logo.jpg")).getImage());
@@ -7858,7 +7896,7 @@ public class Inicio extends javax.swing.JFrame {
         try {
             if (cboEstado_VerPagos.getSelectedIndex() == 0) {
                 txtFecha_RegistrarPagos.setDate(new Date());
-                txtMonto_Pago.setText(jtVerPagos.getModel().getValueAt(jtVerPagos.getSelectedRow(), 4).toString());
+                txtMontoTotal_Pago.setText(jtVerPagos.getModel().getValueAt(jtVerPagos.getSelectedRow(), 6).toString());
                 idPago = Integer.parseInt(jtVerPagos.getValueAt(jtVerPagos.getSelectedRow(), 0).toString());
                 jdPagar.pack();
                 jdPagar.setLocationRelativeTo(null);
@@ -9953,6 +9991,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel129;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel130;
+    private javax.swing.JLabel jLabel131;
     private javax.swing.JLabel jLabel134;
     private javax.swing.JLabel jLabel135;
     private javax.swing.JLabel jLabel136;
@@ -10141,6 +10180,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane4;
     private javax.swing.JTabbedPane jTabbedPane5;
     private javax.swing.JTabbedPane jTabbedPane7;
+    private javax.swing.JTextField jTextField1;
     private org.jdesktop.swingx.JXComboBox jXComboBox1;
     private javax.swing.JDialog jdAlquilerAgricultor;
     private javax.swing.JDialog jdConstanciaAgricultor;
@@ -10327,10 +10367,11 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JTextField txtMontoComision_Constancia;
     private org.jdesktop.swingx.JXTextField txtMontoInicial_InicioCierreCaja;
     private javax.swing.JTextField txtMontoJunta_Constancia;
+    private javax.swing.JTextField txtMontoTotal_Pago;
     private org.jdesktop.swingx.JXTextField txtMonto_Alquiler;
     private org.jdesktop.swingx.JXTextField txtMonto_AsignarCuenta;
     private org.jdesktop.swingx.JXTextField txtMonto_Movimiento;
-    private javax.swing.JTextField txtMonto_Pago;
+    private org.jdesktop.swingx.JXTextField txtMonto_Pago;
     private javax.swing.JTextField txtNombre_Cuentas;
     private javax.swing.JTextField txtNombre_Lateral;
     private javax.swing.JTextField txtNombre_Material;

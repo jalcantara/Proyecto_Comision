@@ -24,6 +24,9 @@ public class Pago {
     private String var_boucherpago;
     private String var_observacion;
     private String var_descripcion;
+    private double dec_amortizacion;
+    private double dec_saldo;
+    
     
     public int getInt_id() {
         return int_id;
@@ -111,6 +114,22 @@ public class Pago {
 
     public void setVar_descripcion(String var_descripcion) {
         this.var_descripcion = var_descripcion;
+    }
+
+    public double getDec_amortizacion() {
+        return dec_amortizacion;
+    }
+
+    public void setDec_amortizacion(double dec_amortizacion) {
+        this.dec_amortizacion = dec_amortizacion;
+    }
+
+    public double getDec_saldo() {
+        return dec_saldo;
+    }
+
+    public void setDec_saldo(double dec_saldo) {
+        this.dec_saldo = dec_saldo;
     }
     
     
