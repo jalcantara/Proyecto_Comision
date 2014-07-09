@@ -574,6 +574,9 @@
             <Property name="text" type="java.lang.String" value="CANCELAR"/>
             <Property name="iconTextGap" type="int" value="8"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_Cancelar_ConstanciaActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btn_Guardar_Constancia">
           <Properties>
@@ -3920,6 +3923,9 @@
                     <Property name="text" type="java.lang.String" value="CANCELAR"/>
                     <Property name="iconTextGap" type="int" value="8"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelarActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -4044,6 +4050,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="CANCELAR"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+              </Events>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane8">
               <AuxValues>
@@ -6370,6 +6379,9 @@
                         <Property name="text" type="java.lang.String" value="CANCELAR"/>
                         <Property name="iconTextGap" type="int" value="8"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelar5ActionPerformed"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel98">
                       <Properties>
@@ -6803,6 +6815,9 @@
                         <Property name="text" type="java.lang.String" value="CANCELAR"/>
                         <Property name="iconTextGap" type="int" value="8"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelar6ActionPerformed"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel105">
                       <Properties>
@@ -8503,6 +8518,9 @@
                         <Property name="text" type="java.lang.String" value="CANCELAR"/>
                         <Property name="iconTextGap" type="int" value="8"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelar7ActionPerformed"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -8670,6 +8688,9 @@
                         <Property name="text" type="java.lang.String" value="CANCELAR"/>
                         <Property name="iconTextGap" type="int" value="8"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelar8ActionPerformed"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel117">
                       <Properties>
@@ -9027,6 +9048,9 @@
                 <Property name="text" type="java.lang.String" value="CANCELAR"/>
                 <Property name="iconTextGap" type="int" value="8"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelar11ActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel120">
               <Properties>
@@ -9768,6 +9792,9 @@
                         <Property name="text" type="java.lang.String" value="CANCELAR"/>
                         <Property name="iconTextGap" type="int" value="8"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelar1ActionPerformed"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>

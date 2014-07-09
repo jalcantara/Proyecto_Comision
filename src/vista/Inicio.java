@@ -195,6 +195,8 @@ public class Inicio extends javax.swing.JFrame {
         txtMontoJunta_Constancia.setText("");
         txtHectareas_Constancia.setText("");
         txtPeriodoRango_Constancia.setText("");
+        //txtFechaAlmacigo_constancia.set
+
     }
 
     private void getcombo_tipocultivo_all() {
@@ -310,11 +312,12 @@ public class Inicio extends javax.swing.JFrame {
         temp.setRowCount(0);
         for (Pago p : new BLPagos().get_pagos_bycliente(dni, id, estado)) {
             Object[] datos = {p.getInt_id(), p.getVar_cuenta(), p.getVar_descripcion(), p.getDat_fechregistro(),
-                p.getDec_monto(),p.getDec_amortizacion(),p.getDec_saldo(),  p.getVar_boucherpago(), p.getInt_estado()};
+                p.getDec_monto(), p.getDec_amortizacion(), p.getDec_saldo(), p.getVar_boucherpago(), p.getInt_estado()};
             temp.addRow(datos);
         }
     }
-    private void  limpiarformularioPagar(){
+
+    private void limpiarformularioPagar() {
         txtMontoTotal_Pago.setText("");
         txtVoucher_RegistrarPago.setText("");
         txtMonto_Pago.setText("");
@@ -337,9 +340,9 @@ public class Inicio extends javax.swing.JFrame {
     }
 
     private void Pagar() {
-        double montototal=Double.parseDouble(txtMontoTotal_Pago.getText());
-        double monto=Double.parseDouble(txtMonto_Pago.getText());
-        if (monto<=montototal) {
+        double montototal = Double.parseDouble(txtMontoTotal_Pago.getText());
+        double monto = Double.parseDouble(txtMonto_Pago.getText());
+        if (monto <= montototal) {
             Pago p = new Pago();
             p.setInt_id(idPago);
             p.setVar_boucherpago(txtVoucher_RegistrarPago.getText());
@@ -359,7 +362,7 @@ public class Inicio extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Error al Registrar", "MENSAJE", JOptionPane.ERROR_MESSAGE);
                 limpiarformularioPagar();
             }
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "El Monto Ingresado Debe Ser Menor que el Saldo", "MENSAJE", JOptionPane.ERROR_MESSAGE);
             limpiarformularioPagar();
         }
@@ -497,6 +500,21 @@ public class Inicio extends javax.swing.JFrame {
         }
     }
 
+    private void limpiarformulario_agricultor() {
+        txtDNI_Agricultor.setText("");
+        txtNombres_Agricultor.setText("");
+        txtApePaterno_Agricultor.setText("");
+        txtApeMaterno_Agricultor.setText("");
+        txtTelefono_Agricultor.setText("");
+        txtCelular_Agricultor.setText("");
+        txtDireccion_Agricultor.setText("");
+        txtEmail_Agricultor.setText("");
+        txtSinMedida_Agricultor.setText("");
+        txtConMedida_Agricultor.setText("");
+        txtNumHectareas_Agricultor.setText("");
+        limpiarTabla(jtDetalleLaterales_Agricultor);
+    }
+
     private void getcombo_cliente_all() {
         cboAgricultorFiltro_Constancia.removeAllItems();
         cboFiltroAgricultor_VerPagos.removeAllItems();
@@ -571,6 +589,11 @@ public class Inicio extends javax.swing.JFrame {
             cboPeriodoFiltro_Constancia.addItem(pc);
         }
         AutoCompleteDecorator.decorate(cboPeriodoFiltro_Constancia);
+    }
+
+    private void limpiarformulario_periodo() {
+        txtNombre_Periodo.setText("");
+        txtFiltro_Periodo.setText("");
     }
 
     private void getcombo_periodo_mesiniciofin() {
@@ -662,6 +685,13 @@ public class Inicio extends javax.swing.JFrame {
 
     }
 
+    private void limpiarformulario_materiales() {
+        txtNombre_Material.setText("");
+        txtCantidad_Material.setText("");
+        txtDescripcion_Material.setText("");
+        txtFiltroNombre_Material.setText("");
+    }
+
     private void gettabla_material_all(String condicion) {
         DefaultTableModel temp = (DefaultTableModel) jtMaterial.getModel();
         temp.setRowCount(0);
@@ -740,6 +770,18 @@ public class Inicio extends javax.swing.JFrame {
             temp.addRow(datos);
         }
 
+    }
+
+    private void limpiarformulario_nocliente() {
+        txtDNI_NoUsuario.setText("");
+        txtNombres_NoUsuario.setText("");
+        txtApePaterno_NoUsuario.setText("");
+        txtApeMaterno_NoUsuario.setText("");
+        txtTelefono_NoUsuario.setText("");
+        txtCelular_NoUsuario.setText("");
+        txtDireccion_NoUsuario.setText("");
+        txtRuc_NoUsuario.setText("");
+        txtRazonSocial_NoUsuario.setText("");
     }
 
     /*FIN USUARIO*/
@@ -1600,6 +1642,11 @@ public class Inicio extends javax.swing.JFrame {
         btn_Cancelar_Constancia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/Cancel-icon.png"))); // NOI18N
         btn_Cancelar_Constancia.setText("CANCELAR");
         btn_Cancelar_Constancia.setIconTextGap(8);
+        btn_Cancelar_Constancia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_Cancelar_ConstanciaActionPerformed(evt);
+            }
+        });
 
         btn_Guardar_Constancia.setBackground(new java.awt.Color(255, 102, 0));
         btn_Guardar_Constancia.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -3468,6 +3515,11 @@ public class Inicio extends javax.swing.JFrame {
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/Cancel-icon.png"))); // NOI18N
         btnCancelar.setText("CANCELAR");
         btnCancelar.setIconTextGap(8);
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
         jPanel18.setLayout(jPanel18Layout);
@@ -3527,6 +3579,11 @@ public class Inicio extends javax.swing.JFrame {
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/cancelar.png"))); // NOI18N
         jButton1.setText("CANCELAR");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jtPeriodo_All.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -4939,6 +4996,11 @@ public class Inicio extends javax.swing.JFrame {
         btnCancelar5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/cancelar.png"))); // NOI18N
         btnCancelar5.setText("CANCELAR");
         btnCancelar5.setIconTextGap(8);
+        btnCancelar5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelar5ActionPerformed(evt);
+            }
+        });
 
         jLabel98.setBackground(new java.awt.Color(0, 153, 153));
         jLabel98.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -5178,6 +5240,11 @@ public class Inicio extends javax.swing.JFrame {
         btnCancelar6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/cancelar.png"))); // NOI18N
         btnCancelar6.setText("CANCELAR");
         btnCancelar6.setIconTextGap(8);
+        btnCancelar6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelar6ActionPerformed(evt);
+            }
+        });
 
         jLabel105.setBackground(new java.awt.Color(0, 153, 153));
         jLabel105.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -6228,6 +6295,11 @@ public class Inicio extends javax.swing.JFrame {
         btnCancelar7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/cancelar.png"))); // NOI18N
         btnCancelar7.setText("CANCELAR");
         btnCancelar7.setIconTextGap(8);
+        btnCancelar7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelar7ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel25Layout = new javax.swing.GroupLayout(jPanel25);
         jPanel25.setLayout(jPanel25Layout);
@@ -6337,6 +6409,11 @@ public class Inicio extends javax.swing.JFrame {
         btnCancelar8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/cancelar.png"))); // NOI18N
         btnCancelar8.setText("CANCELAR");
         btnCancelar8.setIconTextGap(8);
+        btnCancelar8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelar8ActionPerformed(evt);
+            }
+        });
 
         jLabel117.setBackground(new java.awt.Color(0, 153, 153));
         jLabel117.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -6587,6 +6664,11 @@ public class Inicio extends javax.swing.JFrame {
         btnCancelar11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/cancelar.png"))); // NOI18N
         btnCancelar11.setText("CANCELAR");
         btnCancelar11.setIconTextGap(8);
+        btnCancelar11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelar11ActionPerformed(evt);
+            }
+        });
 
         jLabel120.setBackground(new java.awt.Color(0, 153, 153));
         jLabel120.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -7038,6 +7120,11 @@ public class Inicio extends javax.swing.JFrame {
         btnCancelar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/Cancel-icon.png"))); // NOI18N
         btnCancelar1.setText("CANCELAR");
         btnCancelar1.setIconTextGap(8);
+        btnCancelar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelar1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel36Layout = new javax.swing.GroupLayout(jPanel36);
         jPanel36.setLayout(jPanel36Layout);
@@ -9530,6 +9617,42 @@ public class Inicio extends javax.swing.JFrame {
     private void rbtnNoUsuario_AlquilerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnNoUsuario_AlquilerActionPerformed
         txtModalAgricultor_Alquiler.setText("");
     }//GEN-LAST:event_rbtnNoUsuario_AlquilerActionPerformed
+
+    private void btn_Cancelar_ConstanciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Cancelar_ConstanciaActionPerformed
+        limpiarFomulario_Constancia();
+    }//GEN-LAST:event_btn_Cancelar_ConstanciaActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        limpiarformulario_agricultor();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        limpiarformulario_periodo();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnCancelar5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelar5ActionPerformed
+        limpiarFomulario_Cuenta();
+    }//GEN-LAST:event_btnCancelar5ActionPerformed
+
+    private void btnCancelar6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelar6ActionPerformed
+        limpiarFomulario_AsignacionCosto_Cuenta();
+    }//GEN-LAST:event_btnCancelar6ActionPerformed
+
+    private void btnCancelar7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelar7ActionPerformed
+        txtNombre_Lateral.setText("");
+    }//GEN-LAST:event_btnCancelar7ActionPerformed
+
+    private void btnCancelar8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelar8ActionPerformed
+        txtNombre_SubLateral.setText("");
+    }//GEN-LAST:event_btnCancelar8ActionPerformed
+
+    private void btnCancelar11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelar11ActionPerformed
+        limpiarformulario_materiales();
+    }//GEN-LAST:event_btnCancelar11ActionPerformed
+
+    private void btnCancelar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelar1ActionPerformed
+        limpiarformulario_nocliente();
+    }//GEN-LAST:event_btnCancelar1ActionPerformed
 
     /*METODOS PARA MOSTRAR EL FORMULARIO*/
     public void modalvalidacion_constancia() {
