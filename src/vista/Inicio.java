@@ -2181,7 +2181,6 @@ public class Inicio extends javax.swing.JFrame {
 
         txtNumDocumento_Traspaso.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtNumDocumento_Traspaso.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtNumDocumento_Traspaso.setEnabled(false);
         txtNumDocumento_Traspaso.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtNumDocumento_TraspasoKeyTyped(evt);
@@ -2319,7 +2318,7 @@ public class Inicio extends javax.swing.JFrame {
                         .addContainerGap(153, Short.MAX_VALUE))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 335, Short.MAX_VALUE)
                         .addContainerGap())))
         );
 
@@ -7308,6 +7307,7 @@ public class Inicio extends javax.swing.JFrame {
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/caja_1.png"))); // NOI18N
         jMenu1.setText("PAGO MULTAS");
 
+        jmiPagoMultaAsamblea.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/asamblea.png"))); // NOI18N
         jmiPagoMultaAsamblea.setText("ASAMBLEA");
         jmiPagoMultaAsamblea.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -7316,6 +7316,7 @@ public class Inicio extends javax.swing.JFrame {
         });
         jMenu1.add(jmiPagoMultaAsamblea);
 
+        jmiPagoMultaSufragio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/votaciones.png"))); // NOI18N
         jmiPagoMultaSufragio.setText("SUFRAGIO");
         jmiPagoMultaSufragio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -7481,8 +7482,8 @@ public class Inicio extends javax.swing.JFrame {
             getcombo_agricultor_antiguos();
             getcombo_agricultor_nuevos();
             get_lateral_all();
-            BLTraspaso t = new BLTraspaso();
-            txtNumDocumento_Traspaso.setText(t.get_numdocumento());
+            //BLTraspaso t = new BLTraspaso();
+            //txtNumDocumento_Traspaso.setText(t.get_numdocumento());
             get_sublatreles_all("");
             iniciarFomrulario_Traspaso(jifTraspaso);
         } catch (Exception e) {

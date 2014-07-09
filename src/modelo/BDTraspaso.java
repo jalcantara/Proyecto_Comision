@@ -118,7 +118,7 @@ public class BDTraspaso {
         }
         return listTraspasos;
     }
-    public String get_numdocumento() {
+    /*public String get_numdocumento() {
         Connection cnn = null;
         CallableStatement cstmt = null;
         String numdoc="";
@@ -136,5 +136,5 @@ public class BDTraspaso {
             System.out.println("" + a);
         }
         return numdoc;
-    }
+    }*/
 }

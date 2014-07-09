@@ -1705,7 +1705,6 @@
                               <Font name="Tahoma" size="14" style="0"/>
                             </Property>
                             <Property name="horizontalAlignment" type="int" value="0"/>
-                            <Property name="enabled" type="boolean" value="false"/>
                           </Properties>
                           <Events>
                             <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtNumDocumento_TraspasoKeyTyped"/>
@@ -9964,6 +9963,9 @@
               <SubComponents>
                 <MenuItem class="javax.swing.JMenuItem" name="jmiPagoMultaAsamblea">
                   <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/recurso/asamblea.png"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="ASAMBLEA"/>
                   </Properties>
                   <Events>
@@ -9972,6 +9974,9 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="jmiPagoMultaSufragio">
                   <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/recurso/votaciones.png"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="SUFRAGIO"/>
                   </Properties>
                   <Events>

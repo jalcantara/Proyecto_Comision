@@ -60,7 +60,7 @@ public class BLTraspaso {
         }
         return list;
     }
-    public String get_numdocumento(){
+    /*public String get_numdocumento(){
         String numdoc="";
         try {
             BDTraspaso t=new BDTraspaso();
@@ -71,6 +71,6 @@ public class BLTraspaso {
             e.printStackTrace();
         }
         return numdoc;
-    }
+    }*/
             
 }
