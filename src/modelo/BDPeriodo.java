@@ -75,6 +75,7 @@ public class BDPeriodo {
         }
         return lista_periodo;
     }
+    
     public PeriodoCampania get_peridocampania_byagricultor(int idCliente, Date fechaRegistro) {
         Connection cnn = null;
         CallableStatement cstmt = null;

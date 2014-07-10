@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package entidad;
 
 import java.sql.Timestamp;
@@ -13,6 +12,8 @@ import java.sql.Timestamp;
  * @author joseph
  */
 public class ListaAlquiler {
+
+    private int alquiler_id;
     private String var_nombre_cliente;
     private String var_apepaterno;
     private String var_apematerno;
@@ -24,11 +25,7 @@ public class ListaAlquiler {
     private Timestamp dat_fechaRegistro;
     private int idCliente;
     private String var_numero;
-    
-    
-    
-    
-    
+
     public String getVar_nombre_cliente() {
         return var_nombre_cliente;
     }
@@ -116,6 +113,13 @@ public class ListaAlquiler {
     public void setVar_numero(String var_numero) {
         this.var_numero = var_numero;
     }
-    
-    
+
+    public int getAlquiler_id() {
+        return alquiler_id;
+    }
+
+    public void setAlquiler_id(int alquiler_id) {
+        this.alquiler_id = alquiler_id;
+    }
+
 }

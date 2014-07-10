@@ -57,7 +57,6 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 import utilitario.CloseDialogEscape;
 import utilitario.Funciones;
 import entidad.*;
-import static java.awt.SystemColor.control;
 
 /**
  *
@@ -97,8 +96,6 @@ public class Inicio extends javax.swing.JFrame {
         this.setSize(1280, 720);
         this.setLocationRelativeTo(null);
         formatear_estructura_todas_tablas();
-
-        //colocar icono a una ventana
     }
     /*METOO LIMPIAR TABLA*/
 
@@ -117,13 +114,42 @@ public class Inicio extends javax.swing.JFrame {
 
     /*FORMATEO DE STRUCTURA DE TABLAS DEL SISTEMA*/
     private void formatear_estructura_todas_tablas() {
-        //TABLA CONSTANCIA
+
+        ((DefaultTableCellRenderer) jtVerPagos.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);
+        jtVerPagos.setRowHeight(22);
+        jtVerPagos.getColumnModel().getColumn(0).setMaxWidth(0);
+        jtVerPagos.getColumnModel().getColumn(0).setMinWidth(0);
+        jtVerPagos.getColumnModel().getColumn(0).setPreferredWidth(0);
+        jtVerPagos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
         ((DefaultTableCellRenderer) jtBusqueda_Constancia.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);
         jtBusqueda_Constancia.setRowHeight(22);
         jtBusqueda_Constancia.getColumnModel().getColumn(0).setMaxWidth(0);
         jtBusqueda_Constancia.getColumnModel().getColumn(0).setMinWidth(0);
         jtBusqueda_Constancia.getColumnModel().getColumn(0).setPreferredWidth(0);
         jtBusqueda_Constancia.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        ((DefaultTableCellRenderer) jtLista_Alquileres.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);
+        jtLista_Alquileres.setRowHeight(22);
+        jtLista_Alquileres.getColumnModel().getColumn(0).setMaxWidth(0);
+        jtLista_Alquileres.getColumnModel().getColumn(0).setMinWidth(0);
+        jtLista_Alquileres.getColumnModel().getColumn(0).setPreferredWidth(0);
+        jtLista_Alquileres.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        ((DefaultTableCellRenderer) jtTraspaso.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);
+        jtTraspaso.setRowHeight(22);
+        jtTraspaso.getColumnModel().getColumn(0).setMaxWidth(0);
+        jtTraspaso.getColumnModel().getColumn(0).setMinWidth(0);
+        jtTraspaso.getColumnModel().getColumn(0).setPreferredWidth(0);
+        jtTraspaso.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        ((DefaultTableCellRenderer) jtAgricultor.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);
+        jtAgricultor.setRowHeight(22);
+        jtAgricultor.getColumnModel().getColumn(0).setMaxWidth(0);
+        jtAgricultor.getColumnModel().getColumn(0).setMinWidth(0);
+        jtAgricultor.getColumnModel().getColumn(0).setPreferredWidth(0);
+        jtAgricultor.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
     }
     /*FIN FORMATEO DE STRUCTURA DE TABLAS DEL SISTEMA*/
 
@@ -172,7 +198,6 @@ public class Inicio extends javax.swing.JFrame {
             };
             tempConstancia.addRow(datos);
         }
-
     }
 
     private void limpiarFomulario_Constancia() {
@@ -189,14 +214,11 @@ public class Inicio extends javax.swing.JFrame {
         txtFiltroFin_Constancia.setDate(new Date());
         txtFiltroInicio_Constancia.setDate(new Date());
         txtFiltroFin_Constancia.setDate(new Date());
-        //cboPeriodoFiltro_Constancia.setSelectedIndex(0);
         cboAgricultorFiltro_Constancia.setSelectedIndex(0);
         txtMontoComision_Constancia.setText("");
         txtMontoJunta_Constancia.setText("");
         txtHectareas_Constancia.setText("");
         txtPeriodoRango_Constancia.setText("");
-        //txtFechaAlmacigo_constancia.set
-
     }
 
     private void getcombo_tipocultivo_all() {
@@ -217,16 +239,14 @@ public class Inicio extends javax.swing.JFrame {
         c.setDec_nrohectaria(Double.parseDouble(txtHectareas_Constancia.getText()));
         if (rbAlmacigo_Constancia.isSelected()) {
             c.setVar_tipoconstancia("A"); // Almacigo
-            c.setDat_fechRealizacion(new java.sql.Timestamp(txtFechaAlmacigo_constancia.getDate().getTime()));
         } else {
             c.setVar_tipoconstancia("B"); // Boleo
-            c.setDat_fechRealizacion(new java.sql.Timestamp(txtFechaAlmacigo_constancia.getDate().getTime()));
         }
+        c.setDat_fechRealizacion(new java.sql.Timestamp(txtFechaAlmacigo_constancia.getDate().getTime()));
         c.setDat_fechRegistro(new java.sql.Timestamp(txtFecha_Constancia.getDate().getTime()));
         c.setInt_tipocultivo(((Constante) cboTipoCultivo_Constancia.getSelectedItem()).getInt_valor());
         c.setDec_montoComision(Double.parseDouble(txtMontoComision_Constancia.getText()));
         c.setDec_montoJunta(Double.parseDouble(txtMontoJunta_Constancia.getText()));
-        //modalvalidacion_constancia();
         BLConstancia co = new BLConstancia();
         if (co.insertarConstancia(c)) {
             limpiarFomulario_Constancia();
@@ -395,6 +415,8 @@ public class Inicio extends javax.swing.JFrame {
         idEmpleado_Alquiler = 0;
         idAgricultor_Alquiler = 0;
         txtAgricultor_Alquiler.setText("");
+        txtFechaInicio_Alquiler.setDate(new Date());
+        txtFechaFin_Alquiler.setDate(new Date());
         txtFechaDesde_Alquiler.setDate(new Date());
         txtFechaHasta_Alquiler.setDate(new Date());
         txtCantidad_Alquiler.setValue(1);
@@ -1991,7 +2013,7 @@ public class Inicio extends javax.swing.JFrame {
         txtAgricultor_Traspaso.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtAgricultor_Traspaso.setEnabled(false);
 
-        btn_Traspaso_ModalAgricultor.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btn_Traspaso_ModalAgricultor.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btn_Traspaso_ModalAgricultor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/Search.png"))); // NOI18N
         btn_Traspaso_ModalAgricultor.setText("Buscar Usuario");
         btn_Traspaso_ModalAgricultor.addActionListener(new java.awt.event.ActionListener() {
@@ -2021,7 +2043,7 @@ public class Inicio extends javax.swing.JFrame {
         txtNroHectares_Traspaso.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtNroHectares_Traspaso.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        btn_Traspaso_ModalLateral.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btn_Traspaso_ModalLateral.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btn_Traspaso_ModalLateral.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/Search.png"))); // NOI18N
         btn_Traspaso_ModalLateral.setText("Buscar Lateral");
         btn_Traspaso_ModalLateral.setEnabled(false);
@@ -2111,7 +2133,7 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
 
-        btn_Traspaso_ModalNuevoAgricultor.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btn_Traspaso_ModalNuevoAgricultor.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btn_Traspaso_ModalNuevoAgricultor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/Search.png"))); // NOI18N
         btn_Traspaso_ModalNuevoAgricultor.setText("Buscar Usuario");
         btn_Traspaso_ModalNuevoAgricultor.addActionListener(new java.awt.event.ActionListener() {
@@ -2180,6 +2202,10 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
 
+        cboLateral_Traspaso.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        cboSubLateral_Traspaso.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -2188,24 +2214,33 @@ public class Inicio extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(jPanel4Layout.createSequentialGroup()
-                                    .addComponent(jLabel14)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(txtCantidadHectaria_Traspaso, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE))
-                                .addGroup(jPanel4Layout.createSequentialGroup()
-                                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel17)
-                                        .addComponent(jLabel15))
-                                    .addGap(18, 18, 18)
-                                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txtNuevoConMedida_Traspaso)
-                                        .addComponent(cboLateral_Traspaso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jLabel13)
+                        .addComponent(jLabel54)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane10))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
+                                .addComponent(jLabel55)
                                 .addGap(18, 18, 18)
-                                .addComponent(txtNuevoAgricultor_Traspaso, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txtNumDocumento_Traspaso, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(jPanel4Layout.createSequentialGroup()
+                                        .addComponent(jLabel14)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtCantidadHectaria_Traspaso, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE))
+                                    .addGroup(jPanel4Layout.createSequentialGroup()
+                                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel17)
+                                            .addComponent(jLabel15))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtNuevoConMedida_Traspaso)
+                                            .addComponent(cboLateral_Traspaso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addGroup(jPanel4Layout.createSequentialGroup()
+                                    .addComponent(jLabel13)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(txtNuevoAgricultor_Traspaso, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
@@ -2216,15 +2251,7 @@ public class Inicio extends javax.swing.JFrame {
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtNuevoSinMedida_Traspaso, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
                                     .addComponent(cboSubLateral_Traspaso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addComponent(btn_Traspaso_ModalNuevoAgricultor, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel54)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane10))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel55)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtNumDocumento_Traspaso, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(btn_Traspaso_ModalNuevoAgricultor, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(55, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -2304,15 +2331,15 @@ public class Inicio extends javax.swing.JFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(41, 41, 41)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
                         .addComponent(btn_Cancelar_Traspaso, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn_Guardar_Traspaso, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(153, Short.MAX_VALUE))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE)
-                        .addContainerGap())))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         jtbTraspaso.addTab("REGISTRAR  ", new javax.swing.ImageIcon(getClass().getResource("/recurso/registro_2.png")), jPanel6); // NOI18N
@@ -2359,7 +2386,7 @@ public class Inicio extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "N° Cuenta", "Descripción", "Fecha", "Monto", "Monto Amortizado", "Saldo", "Estado"
+                "ID", "N° Cuenta", "Concepto", "Fecha Registro", "Monto S/.", "Monto Amortizado S/.", "Saldo S/.", "Estado"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -2372,16 +2399,16 @@ public class Inicio extends javax.swing.JFrame {
         });
         jtVerPagos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jtVerPagos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jtVerPagosMouseReleased(evt);
-            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jtVerPagosMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jtVerPagosMouseReleased(evt);
             }
         });
         jScrollPane4.setViewportView(jtVerPagos);
         if (jtVerPagos.getColumnModel().getColumnCount() > 0) {
-            jtVerPagos.getColumnModel().getColumn(1).setPreferredWidth(20);
+            jtVerPagos.getColumnModel().getColumn(1).setPreferredWidth(35);
             jtVerPagos.getColumnModel().getColumn(2).setPreferredWidth(100);
             jtVerPagos.getColumnModel().getColumn(3).setPreferredWidth(30);
             jtVerPagos.getColumnModel().getColumn(4).setPreferredWidth(30);
@@ -2427,7 +2454,6 @@ public class Inicio extends javax.swing.JFrame {
 
         rb_group.add(jrbDni_VerPagos);
         jrbDni_VerPagos.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jrbDni_VerPagos.setSelected(true);
         jrbDni_VerPagos.setLabel("DNI:");
         jrbDni_VerPagos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2447,6 +2473,7 @@ public class Inicio extends javax.swing.JFrame {
         jLabel86.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel86.setText("Estado:");
 
+        cboEstado_VerPagos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         cboEstado_VerPagos.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Programado", "Cancelado", "Anulado" }));
 
         javax.swing.GroupLayout jpVerPagosLayout = new javax.swing.GroupLayout(jpVerPagos);
@@ -2462,8 +2489,8 @@ public class Inicio extends javax.swing.JFrame {
                 .addGroup(jpVerPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtFiltroDni_VerPagos, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jpVerPagosLayout.createSequentialGroup()
-                        .addComponent(cboFiltroAgricultor_VerPagos, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cboFiltroAgricultor_VerPagos, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
                         .addComponent(jLabel86)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cboEstado_VerPagos, 0, 145, Short.MAX_VALUE)))
@@ -2539,6 +2566,7 @@ public class Inicio extends javax.swing.JFrame {
         jifRegistrarAlquiler.setBackground(new java.awt.Color(255, 255, 255));
 
         jtbAlquiler.setBackground(new java.awt.Color(195, 233, 164));
+        jtbAlquiler.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jtbAlquiler.setOpaque(true);
 
         jPanel12.setBackground(new java.awt.Color(195, 233, 164));
@@ -2549,11 +2577,11 @@ public class Inicio extends javax.swing.JFrame {
 
             },
             new String [] {
-                "N° Documento", "Usuario", "Tipo Material", "Fecha Inicio", "Fecha Fin", "Cantidad", "Monto"
+                "#", "N° Documento", "Usuario", "Fecha Registro", "Cantidad", "Monto S/."
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -2563,12 +2591,11 @@ public class Inicio extends javax.swing.JFrame {
         jtLista_Alquileres.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane3.setViewportView(jtLista_Alquileres);
         if (jtLista_Alquileres.getColumnModel().getColumnCount() > 0) {
-            jtLista_Alquileres.getColumnModel().getColumn(1).setPreferredWidth(150);
-            jtLista_Alquileres.getColumnModel().getColumn(2).setPreferredWidth(60);
+            jtLista_Alquileres.getColumnModel().getColumn(2).setPreferredWidth(150);
             jtLista_Alquileres.getColumnModel().getColumn(3).setPreferredWidth(40);
             jtLista_Alquileres.getColumnModel().getColumn(4).setPreferredWidth(40);
+            jtLista_Alquileres.getColumnModel().getColumn(5).setResizable(false);
             jtLista_Alquileres.getColumnModel().getColumn(5).setPreferredWidth(40);
-            jtLista_Alquileres.getColumnModel().getColumn(6).setPreferredWidth(40);
         }
 
         jLabel82.setBackground(new java.awt.Color(0, 153, 153));
@@ -2581,7 +2608,6 @@ public class Inicio extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         chkFiltroFecha_Alquiler.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        chkFiltroFecha_Alquiler.setSelected(true);
         chkFiltroFecha_Alquiler.setText("Fecha:");
         chkFiltroFecha_Alquiler.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2634,7 +2660,7 @@ public class Inicio extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(txtFechaInicio_Alquiler, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                        .addComponent(txtFechaInicio_Alquiler, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(27, 27, 27)
@@ -2741,7 +2767,7 @@ public class Inicio extends javax.swing.JFrame {
         txtFechaHasta_Alquiler.setEnabled(false);
         txtFechaHasta_Alquiler.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        btnAgregarDet_Alquiler.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnAgregarDet_Alquiler.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnAgregarDet_Alquiler.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/Create.png"))); // NOI18N
         btnAgregarDet_Alquiler.setText("Agregar");
         btnAgregarDet_Alquiler.setEnabled(false);
@@ -2752,7 +2778,7 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
 
-        btnEliminarDet_Alquiler.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnEliminarDet_Alquiler.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnEliminarDet_Alquiler.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/Remove.png"))); // NOI18N
         btnEliminarDet_Alquiler.setText("Eliminar");
         btnEliminarDet_Alquiler.setEnabled(false);
@@ -2892,7 +2918,7 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
 
-        btnBuscarAgricultor_Alquiler.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnBuscarAgricultor_Alquiler.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnBuscarAgricultor_Alquiler.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/Search.png"))); // NOI18N
         btnBuscarAgricultor_Alquiler.setText("Buscar Usuario");
         btnBuscarAgricultor_Alquiler.setIconTextGap(8);
@@ -2902,6 +2928,8 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
 
+        cboTrabajador_Alquiler.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
         jPanel13Layout.setHorizontalGroup(
@@ -2910,27 +2938,24 @@ public class Inicio extends javax.swing.JFrame {
                 .addGap(34, 34, 34)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel13Layout.createSequentialGroup()
-                        .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
-                                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel20)
-                                    .addComponent(jLabel21))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtAgricultor_Alquiler, javax.swing.GroupLayout.DEFAULT_SIZE, 401, Short.MAX_VALUE)
-                                    .addComponent(cboTrabajador_Alquiler, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnBuscarAgricultor_Alquiler)
-                                .addGap(73, 73, 73))
-                            .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane12))
-                        .addContainerGap(25, Short.MAX_VALUE))
-                    .addGroup(jPanel13Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btn_registrar_alquiler, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btn_Cancelar1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(42, 42, 42))))
+                        .addComponent(btn_Cancelar1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
+                            .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel20)
+                                .addComponent(jLabel21))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txtAgricultor_Alquiler, javax.swing.GroupLayout.DEFAULT_SIZE, 401, Short.MAX_VALUE)
+                                .addComponent(cboTrabajador_Alquiler, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(btnBuscarAgricultor_Alquiler)
+                            .addGap(73, 73, 73))
+                        .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane12)))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2952,10 +2977,10 @@ public class Inicio extends javax.swing.JFrame {
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_Cancelar1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_registrar_alquiler, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
-        jtbAlquiler.addTab("REGISTRAR", new javax.swing.ImageIcon(getClass().getResource("/recurso/registro_2.png")), jPanel13); // NOI18N
+        jtbAlquiler.addTab("REGISTRAR   ", new javax.swing.ImageIcon(getClass().getResource("/recurso/registro_2.png")), jPanel13); // NOI18N
 
         javax.swing.GroupLayout jifRegistrarAlquilerLayout = new javax.swing.GroupLayout(jifRegistrarAlquiler);
         jifRegistrarAlquiler.setLayout(jifRegistrarAlquilerLayout);
@@ -3068,11 +3093,11 @@ public class Inicio extends javax.swing.JFrame {
         jtAgricultor.setToolTipText("");
         jtAgricultor.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jtAgricultor.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jtAgricultorMouseReleased(evt);
-            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jtAgricultorMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jtAgricultorMouseReleased(evt);
             }
         });
         jScrollPane7.setViewportView(jtAgricultor);
@@ -3117,7 +3142,7 @@ public class Inicio extends javax.swing.JFrame {
                     .addComponent(jLabel70, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane7, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel17Layout.createSequentialGroup()
-                        .addComponent(txtFiltroAgricultor, javax.swing.GroupLayout.DEFAULT_SIZE, 739, Short.MAX_VALUE)
+                        .addComponent(txtFiltroAgricultor, javax.swing.GroupLayout.DEFAULT_SIZE, 610, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cboFiltroAgricultor, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -3142,7 +3167,7 @@ public class Inicio extends javax.swing.JFrame {
         jPanel18.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jTabbedPane7.setBackground(new java.awt.Color(195, 233, 164));
-        jTabbedPane7.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        jTabbedPane7.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jTabbedPane7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jTabbedPane7.setOpaque(true);
 
@@ -3153,7 +3178,6 @@ public class Inicio extends javax.swing.JFrame {
         jLabel30.setText("Nombres:");
 
         txtNombres_Agricultor.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtNombres_Agricultor.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtNombres_Agricultor.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtNombres_AgricultorKeyTyped(evt);
@@ -3167,7 +3191,6 @@ public class Inicio extends javax.swing.JFrame {
         jLabel32.setText("Ape. Materno:");
 
         txtApePaterno_Agricultor.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtApePaterno_Agricultor.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtApePaterno_Agricultor.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtApePaterno_AgricultorKeyTyped(evt);
@@ -3175,7 +3198,6 @@ public class Inicio extends javax.swing.JFrame {
         });
 
         txtApeMaterno_Agricultor.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtApeMaterno_Agricultor.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtApeMaterno_Agricultor.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtApeMaterno_AgricultorKeyTyped(evt);
@@ -3250,7 +3272,7 @@ public class Inicio extends javax.swing.JFrame {
         jPanel31Layout.setHorizontalGroup(
             jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel31Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addGap(21, 21, 21)
                 .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel31)
                     .addComponent(jLabel35)
@@ -3268,24 +3290,24 @@ public class Inicio extends javax.swing.JFrame {
                                 .addComponent(txtDNI_Agricultor, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(75, 75, 75))
                             .addComponent(txtApePaterno_Agricultor)
-                            .addComponent(txtTelefono_Agricultor))
+                            .addComponent(txtTelefono_Agricultor, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel32)
                             .addComponent(jLabel69))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtApeMaterno_Agricultor, javax.swing.GroupLayout.DEFAULT_SIZE, 501, Short.MAX_VALUE)
+                            .addComponent(txtApeMaterno_Agricultor, javax.swing.GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE)
                             .addComponent(txtCelular_Agricultor)))
                     .addComponent(txtDireccion_Agricultor, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtNombres_Agricultor)
                     .addComponent(cboSexo_Agricultor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(33, 33, 33))
+                .addGap(31, 31, 31))
         );
         jPanel31Layout.setVerticalGroup(
             jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel31Layout.createSequentialGroup()
-                .addGap(35, 35, 35)
+                .addGap(22, 22, 22)
                 .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel35)
                     .addComponent(txtDNI_Agricultor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -3317,7 +3339,7 @@ public class Inicio extends javax.swing.JFrame {
                 .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtEmail_Agricultor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel34))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         jTabbedPane7.addTab("Datos Personales", jPanel31);
@@ -3332,10 +3354,10 @@ public class Inicio extends javax.swing.JFrame {
         jLabel39.setText("Sub Lateral:");
 
         jLabel38.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel38.setText("Con Medida:");
+        jLabel38.setText("Con Medida :");
 
         jLabel49.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel49.setText("Sin Medida:");
+        jLabel49.setText("Sin Medida :");
 
         btnEliminar_DetLateales.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnEliminar_DetLateales.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/Remove.png"))); // NOI18N
@@ -3402,7 +3424,7 @@ public class Inicio extends javax.swing.JFrame {
         });
 
         jLabel56.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel56.setText("N° Hectareas");
+        jLabel56.setText("N° Hectareas :");
 
         txtNumHectareas_Agricultor.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtNumHectareas_Agricultor.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -3413,79 +3435,71 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
 
+        cboSubLateral_Agricultor.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        cboLateral_Agricultor.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
         javax.swing.GroupLayout jpLateralesLayout = new javax.swing.GroupLayout(jpLaterales);
         jpLaterales.setLayout(jpLateralesLayout);
         jpLateralesLayout.setHorizontalGroup(
             jpLateralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpLateralesLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jpLateralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpLateralesLayout.createSequentialGroup()
-                        .addGap(24, 24, 24)
                         .addGroup(jpLateralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel39)
                             .addComponent(jLabel40))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jpLateralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(cboSubLateral_Agricultor, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
-                            .addComponent(cboLateral_Agricultor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(33, 33, 33)
+                            .addComponent(cboSubLateral_Agricultor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cboLateral_Agricultor, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(34, 34, 34)
                         .addGroup(jpLateralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel38)
-                            .addGroup(jpLateralesLayout.createSequentialGroup()
-                                .addComponent(jLabel49)
-                                .addGap(34, 34, 34)
-                                .addGroup(jpLateralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtConMedida_Agricultor)
-                                    .addComponent(txtSinMedida_Agricultor, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE))))
-                        .addGap(42, 42, 42)
+                            .addComponent(jLabel49))
+                        .addGap(18, 18, 18)
                         .addGroup(jpLateralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jpLateralesLayout.createSequentialGroup()
-                                .addComponent(jLabel56)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtNumHectareas_Agricultor))
-                            .addGroup(jpLateralesLayout.createSequentialGroup()
-                                .addComponent(jButton17, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnEliminar_DetLateales, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 76, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpLateralesLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel37, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jpLateralesLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane5)))
-                .addContainerGap())
+                            .addComponent(txtConMedida_Agricultor)
+                            .addComponent(txtSinMedida_Agricultor, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(24, 24, 24)
+                        .addGroup(jpLateralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel56, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton17, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jpLateralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtNumHectareas_Agricultor)
+                            .addComponent(btnEliminar_DetLateales, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jLabel37, javax.swing.GroupLayout.PREFERRED_SIZE, 794, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 794, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
         jpLateralesLayout.setVerticalGroup(
             jpLateralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpLateralesLayout.createSequentialGroup()
-                .addGroup(jpLateralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(27, 27, 27)
+                .addGroup(jpLateralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jpLateralesLayout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addGroup(jpLateralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jpLateralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel56)
-                                .addComponent(txtNumHectareas_Agricultor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jpLateralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel40)
-                                .addComponent(jLabel49)
-                                .addComponent(txtSinMedida_Agricultor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpLateralesLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(cboLateral_Agricultor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(jpLateralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpLateralesLayout.createSequentialGroup()
+                        .addGroup(jpLateralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cboLateral_Agricultor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel49)
+                            .addComponent(jLabel40))
                         .addGap(12, 12, 12)
                         .addGroup(jpLateralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel39)
-                            .addComponent(jLabel38)
-                            .addComponent(btnEliminar_DetLateales)
-                            .addComponent(txtConMedida_Agricultor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton17)))
+                            .addComponent(cboSubLateral_Agricultor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel38)
+                    .addComponent(txtConMedida_Agricultor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jpLateralesLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(cboSubLateral_Agricultor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jpLateralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel56)
+                            .addComponent(txtNumHectareas_Agricultor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtSinMedida_Agricultor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(39, 39, 39))
+                    .addGroup(jpLateralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton17)
+                        .addComponent(btnEliminar_DetLateales)))
+                .addGap(15, 15, 15)
                 .addComponent(jLabel37, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -3520,13 +3534,15 @@ public class Inicio extends javax.swing.JFrame {
         jPanel18.setLayout(jPanel18Layout);
         jPanel18Layout.setHorizontalGroup(
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane7)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel18Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18))
+            .addGroup(jPanel18Layout.createSequentialGroup()
+                .addComponent(jTabbedPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 829, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel18Layout.setVerticalGroup(
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3545,7 +3561,7 @@ public class Inicio extends javax.swing.JFrame {
         jifAgricultores.getContentPane().setLayout(jifAgricultoresLayout);
         jifAgricultoresLayout.setHorizontalGroup(
             jifAgricultoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane4)
+            .addComponent(jTabbedPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 838, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jifAgricultoresLayout.setVerticalGroup(
             jifAgricultoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3902,6 +3918,7 @@ public class Inicio extends javax.swing.JFrame {
         jifInicioCierreCaja.setVisible(true);
 
         jpInicioCierre.setBackground(new java.awt.Color(225, 253, 203));
+        jpInicioCierre.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel43.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel43.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -3939,7 +3956,7 @@ public class Inicio extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(txtMontoInicial_InicioCierreCaja, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jButton5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(87, Short.MAX_VALUE))
+                .addContainerGap(83, Short.MAX_VALUE))
         );
         jpInicioCierreLayout.setVerticalGroup(
             jpInicioCierreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -4254,7 +4271,7 @@ public class Inicio extends javax.swing.JFrame {
             .addComponent(jpBuscarComite, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        jdConstanciaAgricultor.setTitle("BUSCAR AGRICULTOR");
+        jdConstanciaAgricultor.setTitle("BUSCAR USUARIO");
 
         jPanel10.setBackground(new java.awt.Color(225, 253, 203));
 
@@ -5506,7 +5523,6 @@ public class Inicio extends javax.swing.JFrame {
         });
 
         txtEmail_Usuario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtEmail_Usuario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtEmail_Usuario.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtEmail_UsuarioKeyTyped(evt);
@@ -6778,6 +6794,7 @@ public class Inicio extends javax.swing.JFrame {
         jTabbedPane5.setOpaque(true);
 
         jPanel37.setBackground(new java.awt.Color(195, 233, 164));
+        jPanel37.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
 
         jLabel119.setBackground(new java.awt.Color(0, 153, 153));
         jLabel119.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -6838,7 +6855,7 @@ public class Inicio extends javax.swing.JFrame {
                     .addComponent(txtFiltroNombre_NoCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel119, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane31, javax.swing.GroupLayout.DEFAULT_SIZE, 754, Short.MAX_VALUE))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel37Layout.setVerticalGroup(
             jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -6868,6 +6885,7 @@ public class Inicio extends javax.swing.JFrame {
         jTabbedPane5.addTab("CONSULTAR", new javax.swing.ImageIcon(getClass().getResource("/recurso/Consultar.png")), jPanel35); // NOI18N
 
         jPanel36.setBackground(new java.awt.Color(195, 233, 164));
+        jPanel36.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
 
         btn_guardar_nousuario.setBackground(new java.awt.Color(255, 102, 0));
         btn_guardar_nousuario.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -7083,7 +7101,7 @@ public class Inicio extends javax.swing.JFrame {
                             .addComponent(jLabel125)
                             .addGap(18, 18, 18)
                             .addComponent(txtRazonSocial_NoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 586, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         jPanel36Layout.setVerticalGroup(
             jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -7129,7 +7147,7 @@ public class Inicio extends javax.swing.JFrame {
                 .addGroup(jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_guardar_nousuario, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_cancelar_nousuario, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         jTabbedPane5.addTab("REGISTRAR", new javax.swing.ImageIcon(getClass().getResource("/recurso/agricultor.png")), jPanel36); // NOI18N
@@ -7139,7 +7157,7 @@ public class Inicio extends javax.swing.JFrame {
         jPanel32Layout.setHorizontalGroup(
             jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel32Layout.createSequentialGroup()
-                .addComponent(jTabbedPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 781, Short.MAX_VALUE)
+                .addComponent(jTabbedPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 783, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
         jPanel32Layout.setVerticalGroup(
@@ -7342,6 +7360,7 @@ public class Inicio extends javax.swing.JFrame {
         });
         jmAdministracion.add(jmiAgricultor);
 
+        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/no_usuario.png"))); // NOI18N
         jMenuItem3.setText("NO USUARIO");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -7784,15 +7803,12 @@ public class Inicio extends javax.swing.JFrame {
             estado = 3;
         }
         if (jrbDni_VerPagos.isSelected()) {
-            limpiarTabla(jtVerPagos);
             gettabla_verpagos_byAgricultor(txtFiltroDni_VerPagos.getText(), 0, estado);
         }
         if (jrbAgricultor_VerPagos.isSelected()) {
-            limpiarTabla(jtVerPagos);
             int id = ((Agricultor) cboFiltroAgricultor_VerPagos.getSelectedItem()).getInt_id();
             gettabla_verpagos_byAgricultor("", id, estado);
         }
-
     }//GEN-LAST:event_btn_buscar_pagosActionPerformed
 
     private void txtMonto_AlquilerKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMonto_AlquilerKeyTyped
@@ -7889,19 +7905,15 @@ public class Inicio extends javax.swing.JFrame {
                 case 2:
                     condicionFinal = lista.get(0) + " and " + lista.get(1);
                     break;
-                /*case 3:
-                 condicionFinal = lista.get(0) + " and " + lista.get(1) + " and " + lista.get(2);
-                 break;
-                 case 4:
-                 condicionFinal = lista.get(0) + " and " + lista.get(1) + " and " + lista.get(2) + " and " + lista.get(3);
-                 break;*/
             }
-            DefaultTableModel tempConstancia = (DefaultTableModel) jtLista_Alquileres.getModel();
-            tempConstancia.setRowCount(0);
-            for (ListaAlquiler l : new BLAlquiler().get_alquiler_byclientefecha(condicionFinal)) {
-                Object datos[] = {l.getVar_numero(), l.getVar_nombre_cliente() + ' ' + l.getVar_apepaterno() + ' ' + l.getVar_apematerno(),
-                    l.getVar_nombre_material(), l.getDat_fechinicio(), l.getDat_fechfin(), l.getInt_cantidad(), l.getDec_monto()};
-                tempConstancia.addRow(datos);
+            if (condicionFinal.compareTo("") != 0) {
+                DefaultTableModel tempConstancia = (DefaultTableModel) jtLista_Alquileres.getModel();
+                tempConstancia.setRowCount(0);
+                for (ListaAlquiler l : new BLAlquiler().get_alquiler_byclientefecha(condicionFinal)) {
+                    Object datos[] = {l.getAlquiler_id(), l.getVar_numero(), l.getVar_nombre_cliente() + ' ' + l.getVar_apepaterno() + ' ' + l.getVar_apematerno(),
+                        l.getDat_fechaRegistro(), l.getInt_cantidad(), l.getDec_monto()};
+                    tempConstancia.addRow(datos);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -8553,10 +8565,11 @@ public class Inicio extends javax.swing.JFrame {
         if (txtNombres_Agricultor.getText().length() == 30) {
             evt.consume();
         }
-        String text = (txtNombres_Agricultor.getText()).toUpperCase();
-        txtNombres_Agricultor.setText(text);
+        Character c = evt.getKeyChar();
+        if (Character.isLetter(c)) {
+            evt.setKeyChar(Character.toUpperCase(c));
+        }
         repaint();
-
     }//GEN-LAST:event_txtNombres_AgricultorKeyTyped
 
     private void txtApePaterno_AgricultorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApePaterno_AgricultorKeyTyped
@@ -8564,8 +8577,10 @@ public class Inicio extends javax.swing.JFrame {
         if (txtApePaterno_Agricultor.getText().length() == 30) {
             evt.consume();
         }
-        String text = (txtApePaterno_Agricultor.getText()).toUpperCase();
-        txtApePaterno_Agricultor.setText(text);
+        Character c = evt.getKeyChar();
+        if (Character.isLetter(c)) {
+            evt.setKeyChar(Character.toUpperCase(c));
+        }
         repaint();
     }//GEN-LAST:event_txtApePaterno_AgricultorKeyTyped
 
@@ -8574,8 +8589,10 @@ public class Inicio extends javax.swing.JFrame {
         if (txtApeMaterno_Agricultor.getText().length() == 30) {
             evt.consume();
         }
-        String text = (txtApeMaterno_Agricultor.getText()).toUpperCase();
-        txtApeMaterno_Agricultor.setText(text);
+        Character c = evt.getKeyChar();
+        if (Character.isLetter(c)) {
+            evt.setKeyChar(Character.toUpperCase(c));
+        }
         repaint();
     }//GEN-LAST:event_txtApeMaterno_AgricultorKeyTyped
 
@@ -8636,8 +8653,10 @@ public class Inicio extends javax.swing.JFrame {
         if (txtnombres_usuario.getText().length() == 80) {
             evt.consume();
         }
-        String text = (txtnombres_usuario.getText()).toUpperCase();
-        txtnombres_usuario.setText(text);
+        Character c = evt.getKeyChar();
+        if (Character.isLetter(c)) {
+            evt.setKeyChar(Character.toUpperCase(c));
+        }
         repaint();
     }//GEN-LAST:event_txtnombres_usuarioKeyTyped
 
@@ -8646,13 +8665,14 @@ public class Inicio extends javax.swing.JFrame {
         if (txtapellidos_usuario.getText().length() == 80) {
             evt.consume();
         }
-        String text = (txtapellidos_usuario.getText()).toUpperCase();
-        txtapellidos_usuario.setText(text);
+        Character c = evt.getKeyChar();
+        if (Character.isLetter(c)) {
+            evt.setKeyChar(Character.toUpperCase(c));
+        }
         repaint();
     }//GEN-LAST:event_txtapellidos_usuarioKeyTyped
 
     private void txtID_UsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtID_UsuarioKeyTyped
-
         if (txtID_Usuario.getText().length() == 20) {
             evt.consume();
         }
@@ -8674,8 +8694,10 @@ public class Inicio extends javax.swing.JFrame {
         if (txtDireccion_Usuario.getText().length() == 250) {
             evt.consume();
         }
-        String text = (txtDireccion_Usuario.getText()).toUpperCase();
-        txtDireccion_Usuario.setText(text);
+        Character c = evt.getKeyChar();
+        if (Character.isLetter(c)) {
+            evt.setKeyChar(Character.toUpperCase(c));
+        }
         repaint();
     }//GEN-LAST:event_txtDireccion_UsuarioKeyTyped
 
@@ -8689,8 +8711,10 @@ public class Inicio extends javax.swing.JFrame {
         if (txtNumDocumento_Traspaso.getText().length() == 10) {
             evt.consume();
         }
-        String text = (txtNumDocumento_Traspaso.getText()).toUpperCase();
-        txtNumDocumento_Traspaso.setText(text);
+        Character c = evt.getKeyChar();
+        if (Character.isLetter(c)) {
+            evt.setKeyChar(Character.toUpperCase(c));
+        }
         repaint();
     }//GEN-LAST:event_txtNumDocumento_TraspasoKeyTyped
 
@@ -9375,8 +9399,10 @@ public class Inicio extends javax.swing.JFrame {
         if (txtNombres_NoUsuario.getText().length() == 45) {
             evt.consume();
         }
-        String text = (txtNombres_NoUsuario.getText()).toUpperCase();
-        txtNombres_NoUsuario.setText(text);
+        Character c = evt.getKeyChar();
+        if (Character.isLetter(c)) {
+            evt.setKeyChar(Character.toUpperCase(c));
+        }
         repaint();
     }//GEN-LAST:event_txtNombres_NoUsuarioKeyTyped
 
@@ -9385,8 +9411,10 @@ public class Inicio extends javax.swing.JFrame {
         if (txtApePaterno_NoUsuario.getText().length() == 45) {
             evt.consume();
         }
-        String text = (txtApePaterno_NoUsuario.getText()).toUpperCase();
-        txtApePaterno_NoUsuario.setText(text);
+        Character c = evt.getKeyChar();
+        if (Character.isLetter(c)) {
+            evt.setKeyChar(Character.toUpperCase(c));
+        }
         repaint();
     }//GEN-LAST:event_txtApePaterno_NoUsuarioKeyTyped
 
@@ -9395,8 +9423,10 @@ public class Inicio extends javax.swing.JFrame {
         if (txtApeMaterno_NoUsuario.getText().length() == 45) {
             evt.consume();
         }
-        String text = (txtApeMaterno_NoUsuario.getText()).toUpperCase();
-        txtApeMaterno_NoUsuario.setText(text);
+        Character c = evt.getKeyChar();
+        if (Character.isLetter(c)) {
+            evt.setKeyChar(Character.toUpperCase(c));
+        }
         repaint();
     }//GEN-LAST:event_txtApeMaterno_NoUsuarioKeyTyped
 
@@ -9687,12 +9717,16 @@ public class Inicio extends javax.swing.JFrame {
     public void iniciarFomrulario(JInternalFrame jif) {
         try {
             jif.setSize(1014, 650);
-            jdeskpanInicio.add(jif);
-            //jif.setMaximum(true);
-            jif.setVisible(true);
             int x = (jdeskpanInicio.getWidth() / 2) - (jif.getWidth() / 2);
             int y = (jdeskpanInicio.getHeight() / 2) - (jif.getHeight() / 2);
-            jif.setLocation(x, y);
+            if (jif.isShowing()) {
+                jif.setLocation(x, y);
+            } else {
+                jdeskpanInicio.add(jif);
+                jif.setLocation(x, y);
+                //jif.setVisible(true);
+                jif.show();
+            }
         } catch (Exception e) {
             System.out.println("" + e.toString());
             System.out.println("" + e.getMessage());
@@ -9702,12 +9736,16 @@ public class Inicio extends javax.swing.JFrame {
     public void iniciarFomrulario_nousuario_Adm(JInternalFrame jif) {
         try {
             jif.setSize(880, 550);
-            jdeskpanInicio.add(jif);
-            //jif.setMaximum(true);
-            jif.setVisible(true);
             int x = (jdeskpanInicio.getWidth() / 2) - (jif.getWidth() / 2);
             int y = (jdeskpanInicio.getHeight() / 2) - (jif.getHeight() / 2);
-            jif.setLocation(x, y);
+            if (jif.isShowing()) {
+                jif.setLocation(x, y);
+            } else {
+                jdeskpanInicio.add(jif);
+                jif.setLocation(x, y);
+                //jif.setVisible(true);
+                jif.show();
+            }
         } catch (Exception e) {
             System.out.println("" + e.toString());
             System.out.println("" + e.getMessage());
@@ -9717,27 +9755,34 @@ public class Inicio extends javax.swing.JFrame {
     public void iniciarFomrulario_materiales_Adm(JInternalFrame jif) {
         try {
             jif.setSize(700, 550);
-            jdeskpanInicio.add(jif);
-            //jif.setMaximum(true);
-            jif.setVisible(true);
             int x = (jdeskpanInicio.getWidth() / 2) - (jif.getWidth() / 2);
             int y = (jdeskpanInicio.getHeight() / 2) - (jif.getHeight() / 2);
-            jif.setLocation(x, y);
+            if (jif.isShowing()) {
+                jif.setLocation(x, y);
+            } else {
+                jdeskpanInicio.add(jif);
+                jif.setLocation(x, y);
+                //jif.setVisible(true);
+                jif.show();
+            }
         } catch (Exception e) {
             System.out.println("" + e.toString());
-            System.out.println("" + e.getMessage());
         }
     }
 
     public void iniciarFomrulario_lateralsublateral(JInternalFrame jif) {
         try {
             jif.setSize(700, 500);
-            jdeskpanInicio.add(jif);
-            //jif.setMaximum(true);
-            jif.setVisible(true);
             int x = (jdeskpanInicio.getWidth() / 2) - (jif.getWidth() / 2);
             int y = (jdeskpanInicio.getHeight() / 2) - (jif.getHeight() / 2);
-            jif.setLocation(x, y);
+            if (jif.isShowing()) {
+                jif.setLocation(x, y);
+            } else {
+                jdeskpanInicio.add(jif);
+                jif.setLocation(x, y);
+                //jif.setVisible(true);
+                jif.show();
+            }
         } catch (Exception e) {
             System.out.println("" + e.toString());
             System.out.println("" + e.getMessage());
@@ -9747,11 +9792,16 @@ public class Inicio extends javax.swing.JFrame {
     public void iniciarFomrulario_Constancia(JInternalFrame jif) {
         try {
             jif.setSize(1120, 650);
-            jdeskpanInicio.add(jif);
-            jif.setVisible(true);
             int x = (jdeskpanInicio.getWidth() / 2) - (jif.getWidth() / 2);
             int y = (jdeskpanInicio.getHeight() / 2) - (jif.getHeight() / 2);
-            jif.setLocation(x, y);
+            if (jif.isShowing()) {
+                jif.setLocation(x, y);
+            } else {
+                jdeskpanInicio.add(jif);
+                jif.setLocation(x, y);
+                //jif.setVisible(true);
+                jif.show();
+            }
         } catch (Exception e) {
             System.out.println("" + e.toString());
         }
@@ -9760,11 +9810,16 @@ public class Inicio extends javax.swing.JFrame {
     public void iniciarFomrulario_VerPagos(JInternalFrame jif) {
         try {
             jif.setSize(1013, 516);
-            jdeskpanInicio.add(jif);
-            jif.setVisible(true);
             int x = (jdeskpanInicio.getWidth() / 2) - (jif.getWidth() / 2);
             int y = (jdeskpanInicio.getHeight() / 2) - (jif.getHeight() / 2);
-            jif.setLocation(x, y);
+            if (jif.isShowing()) {
+                jif.setLocation(x, y);
+            } else {
+                jdeskpanInicio.add(jif);
+                jif.setLocation(x, y);
+                //jif.setVisible(true);
+                jif.show();
+            }
         } catch (Exception e) {
             System.out.println("" + e.toString());
         }
@@ -9773,11 +9828,16 @@ public class Inicio extends javax.swing.JFrame {
     public void iniciarFomrulario_Traspaso(JInternalFrame jif) {
         try {
             jif.setSize(915, 590);
-            jdeskpanInicio.add(jif);
-            jif.setVisible(true);
             int x = (jdeskpanInicio.getWidth() / 2) - (jif.getWidth() / 2);
             int y = (jdeskpanInicio.getHeight() / 2) - (jif.getHeight() / 2);
-            jif.setLocation(x, y);
+            if (jif.isShowing()) {
+                jif.setLocation(x, y);
+            } else {
+                jdeskpanInicio.add(jif);
+                jif.setLocation(x, y);
+                //jif.setVisible(true);
+                jif.show();
+            }
         } catch (Exception e) {
             System.out.println("" + e.toString());
         }
@@ -9785,12 +9845,17 @@ public class Inicio extends javax.swing.JFrame {
 
     public void iniciarFomrulario_Alquiler(JInternalFrame jif) {
         try {
-            jif.setSize(852, 535);
-            jdeskpanInicio.add(jif);
-            jif.setVisible(true);
+            jif.setSize(852, 520);
             int x = (jdeskpanInicio.getWidth() / 2) - (jif.getWidth() / 2);
             int y = (jdeskpanInicio.getHeight() / 2) - (jif.getHeight() / 2);
-            jif.setLocation(x, y);
+            if (jif.isShowing()) {
+                jif.setLocation(x, y);
+            } else {
+                jdeskpanInicio.add(jif);
+                jif.setLocation(x, y);
+                //jif.setVisible(true);
+                jif.show();
+            }
         } catch (Exception e) {
             System.out.println("" + e.toString());
         }
@@ -9799,11 +9864,16 @@ public class Inicio extends javax.swing.JFrame {
     public void iniciarFomrulario_PadronMultaAsamblea(JInternalFrame jif) {
         try {
             jif.setSize(833, 485);
-            jdeskpanInicio.add(jif);
-            jif.setVisible(true);
             int x = (jdeskpanInicio.getWidth() / 2) - (jif.getWidth() / 2);
             int y = (jdeskpanInicio.getHeight() / 2) - (jif.getHeight() / 2);
-            jif.setLocation(x, y);
+            if (jif.isShowing()) {
+                jif.setLocation(x, y);
+            } else {
+                jdeskpanInicio.add(jif);
+                jif.setLocation(x, y);
+                //jif.setVisible(true);
+                jif.show();
+            }
         } catch (Exception e) {
             System.out.println("" + e.toString());
         }
@@ -9812,11 +9882,16 @@ public class Inicio extends javax.swing.JFrame {
     public void iniciarFomrulario_PadronMultaSufragio(JInternalFrame jif) {
         try {
             jif.setSize(833, 485);
-            jdeskpanInicio.add(jif);
-            jif.setVisible(true);
             int x = (jdeskpanInicio.getWidth() / 2) - (jif.getWidth() / 2);
             int y = (jdeskpanInicio.getHeight() / 2) - (jif.getHeight() / 2);
-            jif.setLocation(x, y);
+            if (jif.isShowing()) {
+                jif.setLocation(x, y);
+            } else {
+                jdeskpanInicio.add(jif);
+                jif.setLocation(x, y);
+                //jif.setVisible(true);
+                jif.show();
+            }
         } catch (Exception e) {
             System.out.println("" + e.toString());
         }
@@ -9825,11 +9900,16 @@ public class Inicio extends javax.swing.JFrame {
     public void iniciarFomrulario_Movimiento(JInternalFrame jif) {
         try {
             jif.setSize(610, 461);
-            jdeskpanInicio.add(jif);
-            jif.setVisible(true);
             int x = (jdeskpanInicio.getWidth() / 2) - (jif.getWidth() / 2);
             int y = (jdeskpanInicio.getHeight() / 2) - (jif.getHeight() / 2);
-            jif.setLocation(x, y);
+            if (jif.isShowing()) {
+                jif.setLocation(x, y);
+            } else {
+                jdeskpanInicio.add(jif);
+                jif.setLocation(x, y);
+                //jif.setVisible(true);
+                jif.show();
+            }
         } catch (Exception e) {
             System.out.println("" + e.toString());
         }
@@ -9838,11 +9918,16 @@ public class Inicio extends javax.swing.JFrame {
     public void iniciarFomrulario_Cuentas(JInternalFrame jif) {
         try {
             jif.setSize(678, 531);
-            jdeskpanInicio.add(jif);
-            jif.setVisible(true);
             int x = (jdeskpanInicio.getWidth() / 2) - (jif.getWidth() / 2);
             int y = (jdeskpanInicio.getHeight() / 2) - (jif.getHeight() / 2);
-            jif.setLocation(x, y);
+            if (jif.isShowing()) {
+                jif.setLocation(x, y);
+            } else {
+                jdeskpanInicio.add(jif);
+                jif.setLocation(x, y);
+                //jif.setVisible(true);
+                jif.show();
+            }
         } catch (Exception e) {
             System.out.println("" + e.toString());
         }
@@ -9850,12 +9935,16 @@ public class Inicio extends javax.swing.JFrame {
 
     public void iniciarFomrulario_Agricultor(JInternalFrame jif) {
         try {
-            jif.setSize(920, 530);
-            jdeskpanInicio.add(jif);
-            jif.setVisible(true);
+            jif.setSize(885, 528);
             int x = (jdeskpanInicio.getWidth() / 2) - (jif.getWidth() / 2);
             int y = (jdeskpanInicio.getHeight() / 2) - (jif.getHeight() / 2);
-            jif.setLocation(x, y);
+            if (jif.isShowing()) {
+                jif.setLocation(x, y);
+            } else {
+                jdeskpanInicio.add(jif);
+                jif.setLocation(x, y);
+                jif.show();
+            }
         } catch (Exception e) {
             System.out.println("" + e.toString());
         }
@@ -9864,11 +9953,16 @@ public class Inicio extends javax.swing.JFrame {
     public void iniciarFomrulario_Cargo(JInternalFrame jif) {
         try {
             jif.setSize(532, 431);
-            jdeskpanInicio.add(jif);
-            jif.setVisible(true);
             int x = (jdeskpanInicio.getWidth() / 2) - (jif.getWidth() / 2);
             int y = (jdeskpanInicio.getHeight() / 2) - (jif.getHeight() / 2);
-            jif.setLocation(x, y);
+            if (jif.isShowing()) {
+                jif.setLocation(x, y);
+            } else {
+                jdeskpanInicio.add(jif);
+                jif.setLocation(x, y);
+                //jif.setVisible(true);
+                jif.show();
+            }
         } catch (Exception e) {
             System.out.println("" + e.toString());
         }
@@ -9876,12 +9970,16 @@ public class Inicio extends javax.swing.JFrame {
 
     public void iniciarFomrulario_Usuario(JInternalFrame jif) {
         try {
-            jif.setSize(689, 534);
-            jdeskpanInicio.add(jif);
-            jif.setVisible(true);
+            jif.setSize(659, 510);
             int x = (jdeskpanInicio.getWidth() / 2) - (jif.getWidth() / 2);
             int y = (jdeskpanInicio.getHeight() / 2) - (jif.getHeight() / 2);
-            jif.setLocation(x, y);
+            if (jif.isShowing()) {
+                jif.setLocation(x, y);
+            } else {
+                jdeskpanInicio.add(jif);
+                jif.setLocation(x, y);
+                jif.show();
+            }
         } catch (Exception e) {
             System.out.println("" + e.toString());
         }
@@ -9890,11 +9988,16 @@ public class Inicio extends javax.swing.JFrame {
     public void iniciarFomrulario_CierreInicioCaja(JInternalFrame jif) {
         try {
             jif.setSize(472, 239);
-            jdeskpanInicio.add(jif);
-            jif.setVisible(true);
             int x = (jdeskpanInicio.getWidth() / 2) - (jif.getWidth() / 2);
             int y = (jdeskpanInicio.getHeight() / 2) - (jif.getHeight() / 2);
-            jif.setLocation(x, y);
+            if (jif.isShowing()) {
+                jif.setLocation(x, y);
+            } else {
+                jdeskpanInicio.add(jif);
+                jif.setLocation(x, y);
+                //jif.setVisible(true);
+                jif.show();
+            }
         } catch (Exception e) {
             System.out.println("" + e.toString());
         }
@@ -9903,11 +10006,16 @@ public class Inicio extends javax.swing.JFrame {
     public void iniciarFomrulario_Periodo(JInternalFrame jif) {
         try {
             jif.setSize(711, 471);
-            jdeskpanInicio.add(jif);
-            jif.setVisible(true);
             int x = (jdeskpanInicio.getWidth() / 2) - (jif.getWidth() / 2);
             int y = (jdeskpanInicio.getHeight() / 2) - (jif.getHeight() / 2);
-            jif.setLocation(x, y);
+            if (jif.isShowing()) {
+                jif.setLocation(x, y);
+            } else {
+                jdeskpanInicio.add(jif);
+                jif.setLocation(x, y);
+                //jif.setVisible(true);
+                jif.show();
+            }
         } catch (Exception e) {
             System.out.println("" + e.toString());
         }
@@ -9916,11 +10024,16 @@ public class Inicio extends javax.swing.JFrame {
     public void iniciarFomrulario_Comite(JInternalFrame jif) {
         try {
             jif.setSize(709, 457);
-            jdeskpanInicio.add(jif);
-            jif.setVisible(true);
             int x = (jdeskpanInicio.getWidth() / 2) - (jif.getWidth() / 2);
             int y = (jdeskpanInicio.getHeight() / 2) - (jif.getHeight() / 2);
-            jif.setLocation(x, y);
+            if (jif.isShowing()) {
+                jif.setLocation(x, y);
+            } else {
+                jdeskpanInicio.add(jif);
+                jif.setLocation(x, y);
+                //jif.setVisible(true);
+                jif.show();
+            }
         } catch (Exception e) {
             System.out.println("" + e.toString());
         }
