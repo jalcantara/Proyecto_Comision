@@ -37,8 +37,8 @@ public class BDPago {
                 p.setVar_descripcion(rs.getString("var_descripcion"));
                 p.setDat_fechregistro(rs.getDate("dat_fechRegistro"));
                 p.setDec_monto(rs.getDouble("dec_monto"));
-                p.setVar_observacion(rs.getString("var_observacion"));
-                p.setVar_boucherpago(rs.getString("var_boucherpago"));
+                //p.setVar_observacion(rs.getString("var_observacion"));
+                //p.setVar_boucherpago(rs.getString("var_boucherpago"));
                 p.setInt_estado(rs.getString("estado"));
                 p.setDec_amortizacion(rs.getDouble("dec_amortizacion"));
                 p.setDec_saldo(rs.getDouble("dec_saldo"));

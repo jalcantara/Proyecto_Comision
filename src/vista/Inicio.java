@@ -166,7 +166,7 @@ public class Inicio extends javax.swing.JFrame {
         DefaultTableModel tempConstancia = (DefaultTableModel) jtBusqueda_Constancia.getModel();
         tempConstancia.setRowCount(0);
         for (ListaConstancia l : new BLConstancia().get_constancia_byfiltro(condicionFinal)) {
-            Object datos[] = {l.getConstancia_id(), l.getVar_serie() + " - " + l.getVar_numero(),
+            Object datos[] = {l.getConstancia_id(), l.getVar_numero(),
                 l.getVar_nombre() + " " + l.getVar_apepaterno() + " " + l.getVar_apematerno(),
                 l.getVar_periodo(), l.getNroCamapania(), l.getVar_lateral(), l.getNroHectarea(), l.getDat_fechRegistro(), l.getTipoSiembra(), l.getFechaSiembra()
             };
@@ -312,9 +312,12 @@ public class Inicio extends javax.swing.JFrame {
         temp.setRowCount(0);
         for (Pago p : new BLPagos().get_pagos_bycliente(dni, id, estado)) {
             Object[] datos = {p.getInt_id(), p.getVar_cuenta(), p.getVar_descripcion(), p.getDat_fechregistro(),
-                p.getDec_monto(), p.getDec_amortizacion(), p.getDec_saldo(), p.getVar_boucherpago(), p.getInt_estado()};
+                p.getDec_monto(), p.getDec_amortizacion(), p.getDec_saldo(), p.getInt_estado()};
             temp.addRow(datos);
         }
+        jtVerPagos.getColumnModel().getColumn(0).setMaxWidth(0);
+        jtVerPagos.getColumnModel().getColumn(0).setMinWidth(0);
+        jtVerPagos.getColumnModel().getColumn(0).setPreferredWidth(0);
     }
 
     private void limpiarformularioPagar() {
@@ -521,6 +524,11 @@ public class Inicio extends javax.swing.JFrame {
         AutoCompleteDecorator.decorate(cboAgricultorFiltro_Constancia);
         AutoCompleteDecorator.decorate(cboFiltroAgricultor_VerPagos);
         AutoCompleteDecorator.decorate(cboAgricultor_Alquiler);
+
+        jtVerPagos.getColumnModel().getColumn(0).setMaxWidth(0);
+        jtVerPagos.getColumnModel().getColumn(0).setMinWidth(0);
+        jtVerPagos.getColumnModel().getColumn(0).setPreferredWidth(0);
+
     }
 
     private void gettabla_agricultor_all(String condicion, int indicecombo) {
@@ -669,7 +677,9 @@ public class Inicio extends javax.swing.JFrame {
             cboTipoMaterial_Alquiler.addItem(m);
         }
         AutoCompleteDecorator.decorate(cboTipoMaterial_Alquiler);
-
+        jtbDetalle_Alquiler.getColumnModel().getColumn(0).setMaxWidth(0);
+        jtbDetalle_Alquiler.getColumnModel().getColumn(0).setMinWidth(0);
+        jtbDetalle_Alquiler.getColumnModel().getColumn(0).setPreferredWidth(0);
     }
 
     private void limpiarformulario_materiales() {
@@ -716,7 +726,7 @@ public class Inicio extends javax.swing.JFrame {
         //AutoCompleteDecorator.decorate(cboTipoOperacion_Movimiento);
     }
     /*FIN CARGO*/
-    
+
     /*Usuario*/
     private void gettabla_usuario_byfiltro(String filtro, int indice) {
         DefaultTableModel temp = (DefaultTableModel) jtLista_Usuario.getModel();
@@ -726,6 +736,9 @@ public class Inicio extends javax.swing.JFrame {
                 u.getVar_dni(), u.getVar_telefono(), u.getVar_descripcion()};
             temp.addRow(datos);
         }
+        jtLista_Usuario.getColumnModel().getColumn(0).setMaxWidth(0);
+        jtLista_Usuario.getColumnModel().getColumn(0).setMinWidth(0);
+        jtLista_Usuario.getColumnModel().getColumn(0).setPreferredWidth(0);
     }
 
     private void getcombo_usuario() {
@@ -2346,11 +2359,11 @@ public class Inicio extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "N° Cuenta", "Descripción", "Fecha", "Monto", "Monto Amortizado", "Saldo", "# Boucher", "Estado"
+                "ID", "N° Cuenta", "Descripción", "Fecha", "Monto", "Monto Amortizado", "Saldo", "Estado"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -2359,11 +2372,11 @@ public class Inicio extends javax.swing.JFrame {
         });
         jtVerPagos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jtVerPagos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jtVerPagosMousePressed(evt);
-            }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 jtVerPagosMouseReleased(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jtVerPagosMousePressed(evt);
             }
         });
         jScrollPane4.setViewportView(jtVerPagos);
@@ -2373,7 +2386,6 @@ public class Inicio extends javax.swing.JFrame {
             jtVerPagos.getColumnModel().getColumn(3).setPreferredWidth(30);
             jtVerPagos.getColumnModel().getColumn(4).setPreferredWidth(30);
             jtVerPagos.getColumnModel().getColumn(7).setPreferredWidth(30);
-            jtVerPagos.getColumnModel().getColumn(8).setPreferredWidth(30);
         }
 
         jLabel84.setBackground(new java.awt.Color(0, 153, 153));
@@ -5867,7 +5879,7 @@ public class Inicio extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane26, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE))
+                .addComponent(jScrollPane26, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jifMultaSufragioLayout = new javax.swing.GroupLayout(jifMultaSufragio.getContentPane());
@@ -6755,6 +6767,7 @@ public class Inicio extends javax.swing.JFrame {
         jifNoUsuario.setClosable(true);
         jifNoUsuario.setIconifiable(true);
         jifNoUsuario.setResizable(true);
+        jifNoUsuario.setTitle("NO - USUARIO");
         jifNoUsuario.setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/comision_logo.jpg"))); // NOI18N
         jifNoUsuario.setVisible(true);
 
@@ -8110,9 +8123,11 @@ public class Inicio extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Registro Exitoso", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
                     limpiarTabla(jtAgricultor);
                     limpiarTabla(jtDetalleLaterales_Agricultor);
+                    limpiarformulario_agricultor();
                     gettabla_agricultor_all("", 1);
                     idAgricultor_Edit = 0;
                 } else {
+                    limpiarformulario_agricultor();
                     JOptionPane.showMessageDialog(null, "Registro Fallido", "Mensaje", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
@@ -9463,7 +9478,8 @@ public class Inicio extends javax.swing.JFrame {
                         && txtRazonSocial_NoUsuario.getText().compareTo("") != 0
                         && txtRuc_NoUsuario.getText().compareTo("") != 0) {
                     BLNoCliente blnc = new BLNoCliente();
-                    resultado = blnc.Registrar("", "", "", txtDireccion_NoUsuario.getText(), "", txtTelefono_NoUsuario.getText(), "", txtRuc_NoUsuario.getText(), txtRazonSocial_NoUsuario.getText());
+                    resultado = blnc.Registrar("", "", "", txtDireccion_NoUsuario.getText(), "", txtTelefono_NoUsuario.getText(), txtCelular_NoUsuario.getText(),
+                            txtRuc_NoUsuario.getText(), txtRazonSocial_NoUsuario.getText());
 
                     if (resultado == true) {
                         txtNombres_NoUsuario.setText("");
@@ -9512,7 +9528,7 @@ public class Inicio extends javax.swing.JFrame {
             txtApePaterno_NoUsuario.setEnabled(false);
             txtApeMaterno_NoUsuario.setEnabled(false);
             txtTelefono_NoUsuario.setEnabled(true);
-            txtCelular_NoUsuario.setEnabled(false);
+            txtCelular_NoUsuario.setEnabled(true);
             txtDireccion_NoUsuario.setEnabled(true);
             txtRazonSocial_NoUsuario.setEnabled(true);
             txtRuc_NoUsuario.setEnabled(true);

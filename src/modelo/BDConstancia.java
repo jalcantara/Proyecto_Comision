@@ -107,7 +107,7 @@ public class BDConstancia {
             while (rs.next()) {
                 ListaConstancia l = new ListaConstancia();
                 l.setConstancia_id(rs.getInt("constancia_id"));
-                l.setVar_serie(rs.getString("var_serie"));
+                //l.setVar_serie(rs.getString("var_serie"));
                 l.setVar_numero(rs.getString("var_numero"));
                 l.setVar_nombre(rs.getString("var_nombre"));
                 l.setVar_apepaterno(rs.getString("var_apepaterno"));

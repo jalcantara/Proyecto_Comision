@@ -131,12 +131,8 @@ public class Excel_Reader {
                     String horario = row.getCell(3).getStringCellValue();
                     String estado = row.getCell(6).getStringCellValue();
                     String valor_estado = "";
-                    if (estado.equalsIgnoreCase("Registro normal")) {
+                    if (estado.equalsIgnoreCase("Registro normal") || estado.equalsIgnoreCase("Invalido")) {
                         valor_estado = "A";
-                        d.setVar_estado(valor_estado);
-                    }
-                    if (estado.equalsIgnoreCase("Invalido")) {
-                        valor_estado = "T";
                         d.setVar_estado(valor_estado);
                     }
                     String dni = "";
@@ -168,12 +164,8 @@ public class Excel_Reader {
                     String horario = row.getCell(3).getStringCellValue();
                     String estado = row.getCell(6).getStringCellValue();
                     String valor_estado = "";
-                    if (estado.equalsIgnoreCase("Registro normal")) {
+                    if (estado.equalsIgnoreCase("Registro normal") || estado.equalsIgnoreCase("Invalido")) {
                         valor_estado = "A";
-                        d.setVar_estado(valor_estado);
-                    }
-                    if (estado.equalsIgnoreCase("Invalido")) {
-                        valor_estado = "T";
                         d.setVar_estado(valor_estado);
                     }
                     String dni = "";
