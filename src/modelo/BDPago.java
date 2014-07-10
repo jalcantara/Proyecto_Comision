@@ -60,12 +60,12 @@ public class BDPago {
         try {
             cnn = BD.getConnection();
             cnn.setAutoCommit(false);
-            String sql = "call spU_RegistrarPagos(?,?,?,?);";
+            String sql = "call spU_RegistrarPagos(?,?);";
             cstmt = cnn.prepareCall(sql);
             cstmt.setInt(1, p.getInt_id());
-            cstmt.setString(2, p.getVar_boucherpago());
-            cstmt.setString(3, p.getVar_observacion());  
-            cstmt.setDouble(4, p.getDec_monto());
+            //cstmt.setString(2, p.getVar_boucherpago());
+            //cstmt.setString(2, p.getVar_observacion());  
+            cstmt.setDouble(2, p.getDec_monto());
             cstmt.execute(); 
             
             String sql1="call spI_DetallePago(?,?,?,?)";
